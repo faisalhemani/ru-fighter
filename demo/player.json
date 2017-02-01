@@ -1,4 +1,7 @@
-{ 
-	"name" : "alex", 
-	"level" : "1" 
+{
+	"name" : "alex"
+	"level" : 1,
+	"hp" : 10,
+	"maxhp" : 20,
+	"exp" : 18
 }
