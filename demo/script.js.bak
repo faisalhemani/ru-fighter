@@ -1,0 +1,39 @@
+function initializeGame()
+{
+	alert("hello");
+	var ourRequest = new XMLHttpRequest();
+    ourRequest.open('GET', 'player.json');
+    ourRequest.onload = function()
+    {
+        
+        var ourData = JSON.parse(ourRequest.responseText);
+        alert(ourData.name);
+	}
+	alert("goodbye")
+}
+
+
+/*
+var playertext;
+	var player;
+
+	
+	playerdata =  '{ "name":"Alex", "level":12, "city":"Toronto" }';
+	var request = new XMLHttpRequest();
+	
+	request.onload = function () {
+		player = JSON.parse(request.responseText);
+		alert("hi");	
+		alert(player.name);	
+	};
+
+	request.onerror = function() {
+
+	};
+
+	request.open('GET', 'player.json', true);
+	
+	request.send();
+	request.onload;
+	document.getElementById("name_field").innerHTML = player.name;
+*/
