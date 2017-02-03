@@ -28,7 +28,6 @@ function loadJSON()
 
 function parseJSON(text)
 {
-	alert(text);
 	player = JSON.parse(text);
 	displayPlayer(player);
 	storeJSON(player);
@@ -45,8 +44,7 @@ function displayPlayer(player)
 	var playerHTML;
 	for (var attribute in player)
 	{
-		alert(attribute);
-		if (attribute.stringify != "undefined")
+		if (typeof attribute != 'undefined')
 		{
 			playerHTML = playerHTML + "<p>"+attribute+":"+player[attribute]+"</p><br>";
 		} 
