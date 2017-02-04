@@ -1,7 +1,15 @@
 {
-	"name" : "alex",
+	"name" : "thomas",
 	"level" : 1,
-	"hp" : 10,
-	"maxhp" : 20,
-	"exp" : 18
+	"hp" : 1,
+	"maxhp" : 1,
+	"exp" : 1,
+	"ramz" : 0,
+	"hair" : "black",
+	"eyes" : "black",
+	"skin" : "black",
+	"facility" : "foo",
+	"wins" : 0,
+	"loss" : 10000000,
+	"inventory" : {"items":[ "potion", "large_potion" ]}
 }
