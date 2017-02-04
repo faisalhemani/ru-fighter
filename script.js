@@ -52,21 +52,21 @@ function loadJSON()
 function bridgeJongo()
 {
 	var request = new XMLHttpRequest();
-	request.open('GET', 'http://192.168.1.2:8081', true);
+	request.open('GET', 'http://cake-net.zapto.org:8081/response.json', true);
 	alert("request sent");
 	request.onload = function()
 	{
-		alert("onload");
-		if (request.status>=200 && request.status<400)
+		//if (request.status>=200 && request.status<400)
 		{
 			var ourData = JSON.parse(request.responseText);
-			alert(ourData.responseText);
+			alert(request.responseText);
 		}
-		else
+		//else
 		{
-			console.log("server error");
+			//console.log("server error");
 		}
 	}
+	request.send();
 }
 
 /*
