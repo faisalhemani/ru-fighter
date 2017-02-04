@@ -23,10 +23,11 @@ function storePlayerData()
 {	
 	var name_field = document.getElementById("name_field");
 	//var facility = document.getElementById("facility_field");
-
+	
 	player.name = name_field.value;
 	player.hp = 50;
 	alert("Player name stored: "+player.name);	
+	bridgeJongo();
 	//player.facility = facility.value;					
 }
 
@@ -36,11 +37,31 @@ function loadJSON()
 	request.open('GET', 'player.json', true);
 	request.onload = function()
 	{
-		if(ourRequest.status>=200 && ourRequest.status<400)
+		if(request.status>=200 && request.status<400)
 		{
-			var ourData = JSON.parse(ourRequest.responseText);
+			var ourData = JSON.parse(request.responseText);
 			parseJSON(request.responseText);
 		} 
+		else
+		{
+			console.log("server error");
+		}
+	}
+}
+
+function bridgeJongo()
+{
+	var request = new XMLHttpRequest();
+	request.open('GET', 'http://192.168.1.2:8081', true);
+	alert("request sent");
+	request.onload = function()
+	{
+		alert("onload");
+		if (request.status>=200 && request.status<400)
+		{
+			var ourData = JSON.parse(request.responseText);
+			alert(ourData.responseText);
+		}
 		else
 		{
 			console.log("server error");
