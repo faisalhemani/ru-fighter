@@ -1,0 +1,74 @@
+var Width = getWidth();
+var Height = getHeight();
+
+function getWidth() {
+	return window.innerWidth;
+}
+
+function getHeight() {
+	return window.innerHeight;
+}
+
+//var game = new Phaser.Game(Width,Height, Phaser.AUTO);
+var game = new Phaser.Game(Width, Height, Phaser.CANVAS, 'phaser-example', {
+	preload: preload,
+	create: create,
+	update: update,
+	render: render,
+});
+
+function preload() {
+	//game.scale.maxWidth = 1920;
+	//game.scale.maxHeight = 1080;
+
+	game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	game.scale.setScreenSize();
+}
+
+function create() {
+
+}
+
+function update() {
+
+}
+
+function render() {
+		//Code from https://phaser.io/examples/v2/display/viewport
+		var x = 32;
+		var y = 0;
+		var yi = 32;
+
+		game.debug.text('Viewport', x, y += yi);
+
+		game.debug.text('Viewport Width: ' + game.scale.viewportWidth, x, y += yi);;
+		game.debug.text('window.innerWidth: ' + window.innerWidth, x, y += yi);
+		game.debug.text('window.outerWidth: ' + window.outerWidth, x, y += yi);
+
+		game.debug.text('Viewport Height: ' + game.scale.viewportHeight, x, y += yi);
+		game.debug.text('window.innerHeight: ' + window.innerHeight, x, y += yi);
+		game.debug.text('window.outerHeight: ' + window.outerHeight, x, y += yi);
+
+		game.debug.text('Document', x, y += yi*2);
+
+		game.debug.text('Document Width: ' + game.scale.documentWidth, x, y += yi);
+		game.debug.text('Document Height: ' + game.scale.documentHeight, x, y += yi);
+
+		x = Width/2;
+		y = 0;
+
+		game.debug.text('Device', x, y += yi);
+
+		game.debug.text('window.screen.width: ' + window.screen.width, x, y += yi);
+		game.debug.text('window.screen. availWidth: ' + window.screen.availWidth, x, y += yi);
+		game.debug.text('window.screen.height: ' + window.screen.height, x, y += yi);
+		game.debug.text('window.screen.availHeight: ' + window.screen.availHeight, x, y += yi);
+}
+
+/*function resize() {
+	Width = getWidth();
+	Height = getHeight();
+}*/
+
+game.state.add("GameState", GameState);
+game.state.start("GameState");

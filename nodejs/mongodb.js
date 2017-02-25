@@ -35,7 +35,7 @@ MongoClient.connect(server, function (error, db)
 	{
     		//Connected 
     		console.log('Connection established to', server);
-		
+			
 		collection = db.collection('players');
 		collection.find().toArray(function (error, result)
 		{
@@ -82,6 +82,7 @@ service.all('/response.json', function(request, response, next)
 
 service.get('/response.json', function(request, response)
 {
+
 	//console.log(JSON.stringify(JSONquery[0]));
 	response.setHeader('Access-Control-Allow-Methods', 'GET, POST');
 	response.json(JSONquery);
