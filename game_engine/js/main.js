@@ -1,5 +1,8 @@
 var Width = getWidth();
 var Height = getHeight();
+var background;
+var opening_screen;
+var start_button;
 
 function getWidth() {
 	return window.innerWidth;
@@ -8,33 +11,7 @@ function getWidth() {
 function getHeight() {
 	return window.innerHeight;
 }
-//--------------------------------------------------------
 
-var boot = {
-      
-        preload: function() {
-            this.game.load.image("loadingPage", "assets/loading_screen.jpg");
-        },
-        
-        create: function() {
-            this.state.start("preloader");
-        }
-    };
-    
-    var preloader = {
-
-        preload: function() {
-            
-            this.add.image(0, 0, "loadingPage");
-        },
-        
-        create: function() {
-            this.game.load.image("RUFLogo","assets/RUFighter_logo.png");
-        }
-            
-    };
-
-//--------------------------------------------------------
 //var game = new Phaser.Game(Width,Height, Phaser.AUTO);
 var game = new Phaser.Game(Width, Height, Phaser.CANVAS, 'phaser-example', {
 	preload: preload,
@@ -51,10 +28,21 @@ function preload() {
 	//https://phaser.io/docs/2.6.2/Phaser.ScaleManager.html#pageAlignVertically
 	game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	game.scale.setScreenSize();
+	game.load.image('background', 'assets/AmberLabs_logo.png');
+	game.load.image('opening_screen', 'assets/RUFighter_logo.png');
+	game.load.spritesheet('start_button', 'assets/button.png',150,90);
 }
 
 function create() {
+	game.stage.backgroundColor = '#000000';
 
+	opening_screen = game.add.sprite(game.world.centerX/2, game.world.centerY/2, 'opening_screen');
+	background = game.add.sprite(game.world.centerX + game.world.centerX/6 ,game.world.centerY/2-30,'background');
+	background.scale.setTo(0.4,0.4);
+//game.add.sprite(0,0, 'background');
+
+	start_button = game.add.button(game.world.centerX, game.world.centerY, 'start_button', actionOnClick, this, 2, 1, 0);
+	start_button.scale.setTo(0.3,0.3);
 }
 
 function update() {
@@ -67,7 +55,9 @@ function render() {
 		var y = 0;
 		var yi = 32;
 
-		game.debug.text('Viewport', x, y += yi);
+		//resizeGame();
+
+/*		game.debug.text('Viewport', x, y += yi);
 
 		game.debug.text('Viewport Width: ' + game.scale.viewportWidth, x, y += yi);;
 		game.debug.text('window.innerWidth: ' + window.innerWidth, x, y += yi);
@@ -101,7 +91,26 @@ function render() {
 			console.log('Landscape');
 			Phaser.ScaleManager.forcePortrait = false;
 			Phaser.ScaleManager.forceLandscape = true;
-		}
+		}*/
+}
+
+function resizeGame() {
+	var height = $(window).height();
+	var width = $(window).width();
+
+	game.width = width;
+	game.height = height;
+
+	game.stage.bounds.width = width;
+	game.stage.bounds.height = height;
+
+	if(game.renderType = Phaser.WEBGL) {
+		game.renderer.resize(width, height);
+	}
+}
+
+function actionOnClick() {
+	console.log("Button was clicked");
 }
 
 /*function resize() {
@@ -109,5 +118,5 @@ function render() {
 	Height = getHeight();
 }*/
 
-game.state.add("GameState", GameState);
-game.state.start("GameState");
+//game.state.add("GameState", GameState);
+//game.state.start("GameState");
