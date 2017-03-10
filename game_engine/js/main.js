@@ -3,6 +3,8 @@ var Height = getHeight();
 var background;
 var opening_screen;
 var start_button;
+var game_started = 0;
+var game;
 
 function getWidth() {
 	return window.innerWidth;
@@ -33,7 +35,31 @@ function preload() {
 	game.load.spritesheet('start_button', 'assets/button.png',150,90);
 }
 
-function create() {
+function create() 
+{
+	if (!game_started)
+		startScreen();
+	else
+	{
+		console.log("game starting");
+		clearScreen();
+		display_game();
+	}
+
+}
+
+function display_game()
+{
+	graphics = game.add.graphics(0,0);
+	person2 = game.add.graphics(0,0);
+	graphics.beginFill(0xFF0000,1);
+	graphics.drawCircle(300,300,100);
+	person2.beginFill(0x00FF00, 1);
+	person2.drawCircle(600,300,100);	
+}
+
+function startScreen()
+{
 	game.stage.backgroundColor = '#000000';
 
 	opening_screen = game.add.sprite(game.world.centerX/2, game.world.centerY/2, 'opening_screen');
@@ -45,8 +71,24 @@ function create() {
 	start_button.scale.setTo(0.3,0.3);
 }
 
-function update() {
+function clearScreen()
+{
+	console.log("clearing screen");
+	//game.remove(opening_screen);
+	game.world.removeAll();
+}
 
+function update() 
+{
+	/*
+	if (game_started)
+        {
+                console.log("game starting");
+                clearScreen();
+                display_game();
+		game_started = 0;
+        }
+	*/
 }
 
 function render() {
@@ -109,8 +151,12 @@ function resizeGame() {
 	}
 }
 
-function actionOnClick() {
-	console.log("Button was clicked");
+function actionOnClick()
+{
+	clearScreen();
+	game_started = 1;
+	console.log(game_started);
+	display_game();
 }
 
 /*function resize() {
