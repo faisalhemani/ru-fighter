@@ -1,17 +1,1 @@
---2017-03-10 16:37:34--  https://drive.google.com/open?id=0B7RHbn-FiMrNd0E2T3A2QW5qSVE
-Resolving drive.google.com (drive.google.com)... 172.217.3.206, 2607:f8b0:4007:80c::200e
-Connecting to drive.google.com (drive.google.com)|172.217.3.206|:443... connected.
-HTTP request sent, awaiting response... 302 Moved Temporarily
-Location: https://drive.google.com/file/d/0B7RHbn-FiMrNd0E2T3A2QW5qSVE/view?usp=drive_web [following]
---2017-03-10 16:37:34--  https://drive.google.com/file/d/0B7RHbn-FiMrNd0E2T3A2QW5qSVE/view?usp=drive_web
-Reusing existing connection to drive.google.com:443.
-HTTP request sent, awaiting response... 200 OK
-Length: unspecified [text/html]
-Saving to: ‘open?id=0B7RHbn-FiMrNd0E2T3A2QW5qSVE’
-
-     0K .......... .......... .......... .......... .......... 6.42M
-    50K .......... .......... .......... .......... .......... 1.24M
-   100K .....                                                  17.5M=0.05s
-
-2017-03-10 16:37:34 (2.17 MB/s) - ‘open?id=0B7RHbn-FiMrNd0E2T3A2QW5qSVE’ saved [107796]
-
+hthttps://lh5.googleusercontent.com/Ypw9yYwIOwUJb77WAejkdi6d2rGNs8Mp--XdWG_n5wHWdpuRvVwTy-frsHEvPzbLOV1G8eZNGJkB2Fc=w1366-h673: Unsupported scheme ‘hthttps’.

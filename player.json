@@ -1,7 +1,7 @@
 {
 	"name" : "thomas",
 	"level" : 1,
-	"hp" : 1,
+	"hp" : 10,
 	"maxhp" : 1,
 	"exp" : 1,
 	"ramz" : 0,
