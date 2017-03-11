@@ -15,13 +15,27 @@ var MobileBtn;
 var Dlbl;
 var Mlbl;
 
+//sign up screen 
+var  signup_screen;
+var signupBtn;
+var Signlbl;
+
+//char select
+var charslect_screen;
+var charselectBtn;
+var charlbl;
+
+//map
+var map_screen;
+var redBtn;
+
 //--------------------------- Game ---------------------------------
 function getWidth() {
-        return window.innerWidth * window.devicePixelRatio;
+        return window.innerWidth;//window.devicePixelRatio;
 }
 
 function getHeight() {
-        return window.innerHeight * window.devicePixelRatio;
+        return window.innerHeight; // window.devicePixelRatio;
 }
 
 //var game = new Phaser.Game(Width,Height, Phaser.AUTO);
@@ -37,9 +51,26 @@ function preload() {
 	//Home Page images 
 	game.load.image('amber_logo', 'assets/AmberLabs_logo.png');
         game.load.image('RUFighter_logo', 'assets/RUFighter_logo.png');
+
+
         game.load.image('DesktopBtn', 'assets/button.png');
 	game.load.image('MobileBtn', 'assets/button.png');
-	
+
+	//Sign up screen
+	game.load.image('signup_screen', 'assets/signup_screen.jpg');
+	game.load.image('signupBtn', 'assets/button.png');
+
+	//char slection screen
+	game.load.image('charselect_screen', 'assets/charactercreation_screen.jpg');
+	game.load.image('charselectBtn', 'assets/button.png');
+
+
+	//map
+	game.load.image('map_screen', 'assets/map_screen.jpg');
+        game.load.image('redBtn', 'assets/button.png');
+
+
+
 }
 
 function create() 
@@ -82,8 +113,8 @@ function render()
 function homePage(){
 	game.stage.backgroundColor = '#000000';
 
-        DesktopBtn = game.add.sprite(250,190, 'DesktopBtn');
-        DesktopBtn.scale.setTo(scaleRatio/2,scaleRatio/2);
+        DesktopBtn = game.add.sprite(getWidth()/2 - 100, getHeight()/2 - 200, 'DesktopBtn');
+        DesktopBtn.scale.setTo(scaleRatio/2, scaleRatio/2);
 	DesktopBtn.inputEnabled = true;
 	DesktopBtn.events.onInputDown.add(desktop_action, this);
 
@@ -99,7 +130,7 @@ function homePage(){
 
 
 
-	MobileBtn = game.add.sprite(250,400, 'MobileBtn');
+	MobileBtn = game.add.sprite(getWidth()/2 - 100, getHeight()/2 + 100, 'MobileBtn');
         MobileBtn.scale.setTo(scaleRatio/2,scaleRatio/2);
         MobileBtn.inputEnabled = true;
         MobileBtn.events.onInputDown.add(mobile_action, this);
@@ -149,7 +180,6 @@ function desktop_action() {
 
 
 
-
 }
 
 function D_start_action(){
@@ -162,11 +192,11 @@ function D_start_action(){
 //Mobile Title Page
 function mobile_action(){
 	console.log("You are using mobile version");
-
-	amber_logo = game.add.sprite(245, 97, 'amber_logo');
-        amber_logo.scale.setTo(0.2, 0.2);
-        RUFighter_logo = game.add.sprite(20,87,'RUFighter_logo');
-        RUFighter_logo.scale.setTo(scaleRatio*2 ,scaleRatio*2);
+//--------------------- need a pic for amber labs ------------------------------------------------
+	amber_logo = game.add.sprite(getWidth()/2, getHeight()/2 - getHeight()/4, 'amber_logo');
+        amber_logo.scale.setTo(scaleRatio/4, scaleRatio/4);
+        RUFighter_logo = game.add.sprite(getWidth()/2 - getWidth()/3, getHeight()/4,'RUFighter_logo');
+//      RUFighter_logo.scale.setTo(scaleRatio/2 ,scaleRatio/2);
 
 
         //remove(amber_logo);
@@ -176,8 +206,8 @@ function mobile_action(){
         remove(Dlbl);
         remove(Mlbl);
 
-	startBtn = game.add.sprite(275,350, 'DesktopBtn');
-        startBtn.scale.setTo(scaleRatio/2,scaleRatio/2);
+	startBtn = game.add.sprite(getWidth()/2 - getWidth()/10 , getHeight()/2, 'DesktopBtn');
+        startBtn.scale.setTo(scaleRatio/5,scaleRatio/5);
         startBtn.inputEnabled = true;
         startBtn.events.onInputDown.add(M_start_action, this);
 
@@ -195,11 +225,97 @@ function mobile_action(){
 }
 
 function M_start_action() {
+
 	remove(amber_logo);
         remove(RUFighter_logo);
         remove(startBtn);
 
+	signupScreen();
 }
+
+//sign up screen
+function signupScreen()
+{
+        console.log("in sign up screen");
+        signup_screen = game.add.sprite(0,0,'signup_screen');
+	//signup_screen.scale.setTo(scaleRatio*2, scaleRatio*2);
+	signup_screen.width = getWidth();
+	signup_screen.height = getHeight();
+
+        signupBtn = game.add.button(358,getHeight()-300, 'signupBtn' , signup_action, this, 2,1,0);
+	signupBtn.width = 300;
+	signupBtn.height = 78;
+	signupBtn.inputEnabled = true;
+        signupBtn.events.onInputDown.add(signup_action, this);
+
+        var style = { 
+                        font: "38px Arial", 
+                        fill: "#000000",
+                        wordWrap: true, 
+                        wordWrapWidth: signupBtn.width,
+                        align: "center" };
+        Signlbl = game.add.text(0,0,"Sign Up",style);
+        Signlbl.x = Math.floor(signupBtn.x + 50);
+        Signlbl.y = Math.floor(signupBtn.y + 20);
+
+
+//      btn =
+}
+
+function signup_action(){
+
+        console.log('clearing sign up screen and goig to char slection');
+        //clearScreen();
+
+        remove(signup_screen);
+        remove(signupBtn);
+        charSelectScreen();
+}
+
+function charSelectScreen()
+{
+        console.log("in char select screen");
+        charselect_screen = game.add.sprite(0,0,'charselect_screen');
+	charselect_screen.width = getWidth();
+        charselect_screen.height = getHeight();
+
+	charselectBtn = game.add.button(690,1278, 'charselectBtn' , charselect_action, this, 2,1,0);
+        charselectBtn.width = 200;
+        charselectBtn.height = 78;
+        charselectBtn.inputEnabled = true;
+        charselectBtn.events.onInputDown.add(charselect_action, this);
+
+        var style = { 
+                        font: "38px Arial", 
+                        fill: "#000000",
+                        wordWrap: true, 
+                        wordWrapWidth: charselectBtn.width,
+                        align: "center" };
+        charlbl = game.add.text(0,0,"Submit",style);
+        charlbl.x = Math.floor(charselectBtn.x + 50);
+        charlbl.y = Math.floor(charselectBtn.y + 20);
+
+}
+
+function charselect_action(){
+
+        console.log("clearing char screen and going to the map");
+        remove(charselect_screenn);
+        remove(charselectBtn);
+	remove(charlbl);
+        map_screen = game.add.sprite(0,0,'map_screen');
+        redBtn = game.add.button(300,300,'redBtn',redBtn_action,this ,2, 1 ,0);
+}
+
+
+function redBtn_action()
+{
+        remove(map_screen);
+        remove(redBtn);
+        console.log("going to battle screen");
+//        display_game();
+}
+
 function remove(element)
 {
         element.visible = false;

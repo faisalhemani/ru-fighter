@@ -1,0 +1,24 @@
+//----------------------------- global variables ---------------------------
+
+//ratio
+var scaleRatio = window.devicePixelRatio/3;
+
+
+
+//------------------------------ Game Functions ------------------------------
+function getWidth() {
+        return window.innerWidth * window.devicePixelRatio;
+}
+
+function getHeight() {
+        return window.innerHeight * window.devicePixelRatio;
+}
+
+//game
+var game = new Phaser.Game(getWidth(), getHeight(), Phaser.CANVAS, 'phaser-example', {
+        preload: preload,
+        create: create,
+        update: update,
+        render: render,
+});
+

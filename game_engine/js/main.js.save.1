@@ -1,0 +1,265 @@
+var Width = getWidth();
+var Height = getHeight();
+var background;
+var opening_screen;
+var start_button;
+var game_started = 0;
+var game;
+
+var button1;
+var button2;
+var button3;
+var button4;
+
+var hpText;
+var mpText;
+var spdText;
+
+var player_one_info;
+
+function getWidth() {
+	return window.innerWidth;
+}
+
+function getHeight() {
+	return window.innerHeight;
+}
+
+//var game = new Phaser.Game(Width,Height, Phaser.AUTO);
+var game = new Phaser.Game(Width, Height, Phaser.CANVAS, 'phaser-example', {
+	preload: preload,
+	create: create,
+	update: update,
+	render: render,
+});
+
+function preload() {
+	//game.scale.maxWidth = 1920;
+	//game.scale.maxHeight = 1080;
+
+	//Take from
+	//https://phaser.io/docs/2.6.2/Phaser.ScaleManager.html#pageAlignVertically
+	game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	game.scale.setScreenSize();
+	game.load.image('background', 'assets/AmberLabs_logo.png');
+	game.load.image('opening_screen', 'assets/RUFighter_logo.png');
+	game.load.spritesheet('start_button', 'assets/button.png',150,90);
+
+	//buttons for the player 
+	game.load.spritesheet('button1', 'assets/button.png',200,100);
+	game.load.spritesheet('button2', 'assets/button.png',200,100);
+	game.load.spritesheet('button3', 'assets/button.png',200,100);
+	game.load.spritesheet('button4', 'assets/button.png',200,100);
+
+}
+
+function create() 
+{
+	if (!game_started)
+		startScreen();
+	else
+	{
+		console.log("game starting");
+		clearScreen();
+		display_game();
+	}
+
+}
+
+function display_game()
+{
+	graphics = game.add.graphics(0,0);
+	person2 = game.add.graphics(0,0);
+	graphics.beginFill(0xFF0000,1);
+	graphics.drawCircle(300,300,100);
+	person2.beginFill(0x00FF00, 1);
+	person2.drawCircle(600,300,100);
+
+	//display buttons 
+        button1 =  game.add.button(10,600, 'button1', button1_action, this, 2,1,0);
+	button2 =  game.add.button(220,600, 'button2', button2_action, this, 2,1,0);
+	button3 =  game.add.button(440,600, 'button3', button3_action, this, 2,1,0);
+	button4 =  game.add.button(660,600, 'button4', button4_action, this, 2,1,0);
+	
+	//display hp
+	hp();
+}
+
+function startScreen()
+{
+	game.stage.backgroundColor = '#000000';
+
+	opening_screen = game.add.sprite(game.world.centerX/2, game.world.centerY/2, 'opening_screen');
+	background = game.add.sprite(game.world.centerX + game.world.centerX/6 ,game.world.centerY/2-30,'background');
+	background.scale.setTo(0.4,0.4);
+//game.add.sprite(0,0, 'background');
+
+	start_button = game.add.button(game.world.centerX, game.world.centerY, 'start_button', actionOnClick, this, 2, 1, 0);
+	start_button.scale.setTo(0.3,0.3);
+}
+
+function clearScreen()
+{
+	console.log("clearing screen");
+	//game.remove(opening_screen);
+	//game.
+	remove(opening_screen);
+	remove(start_button);
+	remove(background);
+	game.world.remove(background);
+	//game.world.removeAll();
+	//console.log("Here");
+}
+
+function remove(element)
+{
+	element.visible = false;
+	//element.remove();
+}
+
+function update() 
+{
+	/*
+	if (game_started)
+        {
+                console.log("game starting");
+                clearScreen();
+                display_game();
+		game_started = 0;
+        }
+	*/
+}
+
+function render() {
+		//Code from https://phaser.io/examples/v2/display/viewport
+		var x = 32;
+		var y = 0;
+		var yi = 32;
+
+		//resizeGame();
+
+/*		game.debug.text('Viewport', x, y += yi);
+
+		game.debug.text('Viewport Width: ' + game.scale.viewportWidth, x, y += yi);;
+		game.debug.text('window.innerWidth: ' + window.innerWidth, x, y += yi);
+		game.debug.text('window.outerWidth: ' + window.outerWidth, x, y += yi);
+
+		game.debug.text('Viewport Height: ' + game.scale.viewportHeight, x, y += yi);
+		game.debug.text('window.innerHeight: ' + window.innerHeight, x, y += yi);
+		game.debug.text('window.outerHeight: ' + window.outerHeight, x, y += yi);
+
+		game.debug.text('Document', x, y += yi*2);
+
+		game.debug.text('Document Width: ' + game.scale.documentWidth, x, y += yi);
+		game.debug.text('Document Height: ' + game.scale.documentHeight, x, y += yi);
+
+		x = Width/2;
+		y = 0;
+
+		game.debug.text('Device', x, y += yi);
+
+		game.debug.text('window.screen.width: ' + window.screen.width, x, y += yi);
+		game.debug.text('window.screen. availWidth: ' + window.screen.availWidth, x, y += yi);
+		game.debug.text('window.screen.height: ' + window.screen.height, x, y += yi);
+		game.debug.text('window.screen.availHeight: ' + window.screen.availHeight, x, y += yi);
+
+		if(window.innerWidth < window.innerHeight) {
+			console.log('Portrait');
+			Phaser.ScaleManager.forcePortrait = true;
+			Phaser.ScaleManager.forceLandscape = false;
+		}
+		else {
+			console.log('Landscape');
+			Phaser.ScaleManager.forcePortrait = false;
+			Phaser.ScaleManager.forceLandscape = true;
+		}*/
+}
+
+function resizeGame() {
+	var height = $(window).height();
+	var width = $(window).width();
+
+	game.width = width;
+	game.height = height;
+
+	game.stage.bounds.width = width;
+	game.stage.bounds.height = height;
+
+	if(game.renderType = Phaser.WEBGL) {
+		game.renderer.resize(width, height);
+	}
+}
+
+function actionOnClick()
+{
+	clearScreen();
+	game_started = 1;
+	console.log(game_started);
+	display_game();
+}
+
+/*
+function healthAction(){
+	text = game.add.text(50,50, "Your Health is : 10", {font: "65px Arial", fill: '#ff0000'});
+	text.anchore.set(0.5,0.5);
+}
+*/
+
+function hp(){
+	
+	var request = new XMLHttpRequest();
+	var url = '52.38.67.158/player.json';
+	request.open('GET', url ,true);
+	request.onload = function ()
+	{
+		if (request.status >= 200 && request.status < 400)
+		{
+			//do something 
+			player_one_info = storeJSON(JSON.parse(JSON_object));
+			hpText = game.add.text(10,10, "HP: 50", {font: "65px Arial", fill: "#ff0000"});
+		}
+		else
+		{
+			console.log("URL could not be reached: "+url);
+			alert("game server could not be reached");
+		}
+	};
+	request.onerror = function()
+	{
+		alert("error");
+	}
+	request.send();
+}
+
+function storeJSON(JSON_object)
+{
+	console.log(JSON_object.hp);
+}
+
+//button functions
+
+function button1_action(){
+	console.log('button 1');
+}
+
+function button2_action(){
+	console.log("button 2");
+}
+
+function button3_action(){
+	console.log("button 3");
+}
+
+function button4_action(){
+	console.log("button 4");
+}
+
+
+
+/*function resize() {
+	Width = getWidth();
+	Height = getHeight();
+}*/
+
+//game.state.add("GameState", GameState);
+//game.state.start("GameState");
