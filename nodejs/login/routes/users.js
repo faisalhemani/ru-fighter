@@ -11,47 +11,50 @@ router.get('/register', function(req, res) {
   res.render('register');
 });
 
-//Login
+//Router display login view
 router.get('/login', function(req, res) {
   res.render('login');
 });
 
-//Register User
+//Router handle sign up/register of new users and log in existing users
 router.post('/register', function(req, res) {
-  var name = req.body.name;
-  var email = req.body.email;
-  var username = req.body.username;
-  var password = req.body.password;
-  var password2 = req.body.password2;
+	var name = req.body.name;
+	var email = req.body.email;
+	var username = req.body.username;
+	var password = req.body.password;
+	var password2 = req.body.password2;
 
-  //validation 
-  req.checkBody('name', 'Name is Required').notEmpty();
-  req.checkBody('email', 'Email is Required').notEmpty();
-  req.checkBody('email', 'Invalid Email').isEmail();
-  req.checkBody('username', 'Username is Required').notEmpty();
-  req.checkBody('password', 'Password is Required').notEmpty();
-  req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+	//validation 
+	req.checkBody('name', 'Name is Required').notEmpty();
+	req.checkBody('email', 'Email is Required').notEmpty();
+	req.checkBody('email', 'Invalid Email').isEmail();
+	req.checkBody('username', 'Username is Required').notEmpty();
+	req.checkBody('password', 'Password is Required').notEmpty();
+	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
-  var errors = req.validationErrors();
-  if(errors){
-  	res.render('register', {
-  		errors: errors
-  	});
-  } else {
-  	var newUser = new User({
-  		name: name,
-  		email: email,
-  		username: username,
-  		password: password
-  	});
-  	User.createUser(newUser, function(err, user){
-  		if(err){
-  			throw err;
-  			console.log(user);
-  		}
-  	});
-  	req.flash('success_msg', 'You Have Successfully Registered');
-  	res.redirect('/users/login');
+	//Determine if there are errors with request as specified above
+	var errors = req.validationErrors();
+	//if errors exist display them
+	if(errors){
+		res.render('register', {
+			errors: errors
+		});
+	} else { 
+	var newUser = new User({
+		name: name,
+		email: email,
+		username: username,
+		password: password
+	});
+	//var newPlayerData = Player({ 
+	User.createUser(newUser, function(err, user){
+		if(err){
+			throw err;
+			console.log(user);
+		}
+	});
+	req.flash('success_msg', 'You Have Successfully Registered');
+	res.redirect('/users/login');
   }
 });
 

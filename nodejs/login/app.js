@@ -12,7 +12,7 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/LoginApp');
+mongoose.connect('mongodb://localhost/rufighter');
 var db = mongoose.connection;
 
 
@@ -26,8 +26,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
 app.set('view engine', 'handlebars');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//Add's favicon icon to browser tabs
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -47,20 +47,18 @@ app.use(passport.session());
 
 //Express Validator 
 app.use(expressValidator({
-  errorFormatter: function(param, msg, value) {
-      var namespace = param.split('.')
-      , root    = namespace.shift()
-      , formParam = root;
+	errorFormatter: function(param, msg, value){
+		var namespace = param.split('.'), root = namespace.shift(),formParam = root;
 
-    while(namespace.length) {
-      formParam += '[' + namespace.shift() + ']';
-    }
-    return {
-      param : formParam,
-      msg   : msg,
-      value : value
-    };
-  }
+		while(namespace.length){
+			formParam += '[' + namespace.shift() + ']';
+    		}
+		return{
+			param : formParam,
+			msg : msg,
+			value : value
+		};
+	}
 }));
 
 //Connect Flash
@@ -79,10 +77,11 @@ app.use('/users', users);
 
 //Set Port
 app.set('port', (process.env.PORT || 3000));
-
-app.listen(app.get('port'), function(){
-	console.log('Server started on port '+ app.get('port'));
+app.listen(app.get('port'), function()
+{
+		console.log('Server started on port '+ app.get('port'));
 });
+
 /*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
