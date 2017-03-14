@@ -29,6 +29,23 @@ var charlbl;
 var map_screen;
 var redBtn;
 
+//--------mock battle setup
+//science skills
+var sRA, sSA, sUtility, sUltimate, RAbtn, SAbtn, Utilitybtn, Ultimatebtn, SALbl, RALbl, UtilityLbl, UltimateLbl; 
+
+//engineering skills
+var eRA, eSA, eUtility, eUltimate;
+
+//points 
+var Hptxt, hp = 50, mptxt, mp = 25, spdtxt, spd;
+var cHptxt, chp = 50, cmptxt, cmp = 25, cspdtxt, cspd;
+var hplbl, hplbl2, mplbl, mplbl2,spdlbl, splbl2;
+
+var sci, scilbl, eng, englbl;
+var counter = 0; 
+var complbl;
+
+
 //--------------------------- Game ---------------------------------
 function getWidth() {
         return window.innerWidth;//window.devicePixelRatio;
@@ -69,6 +86,13 @@ function preload() {
 	game.load.image('map_screen', 'assets/map_screen.jpg');
         game.load.image('redBtn', 'assets/button.png');
 
+	//mock battle screen buttons
+	game.load.image('RAbtn', 'assets/button.png');
+        game.load.image('SAbtn', 'assets/button.png');
+ 	game.load.image('Utilitybtn', 'assets/button.png');
+        game.load.image('Ultimatebtn', 'assets/button.png');
+ 	game.load.image('sci', 'assets/button.png');
+        game.load.image('eng', 'assets/button.png');
 
 
 }
@@ -177,9 +201,6 @@ function desktop_action() {
         Dlbl = game.add.text(0,0,"Start",style);
         Dlbl.x = Math.floor(startBtn.x + 50);
         Dlbl.y = Math.floor(startBtn.y + 20);
-
-
-
 }
 
 function D_start_action(){
@@ -187,6 +208,366 @@ function D_start_action(){
 	remove(amber_logo);
         remove(RUFighter_logo);
 	remove(startBtn);
+
+	//science
+ 	sci = game.add.sprite(getWidth()/2 -100,475, 'sci');
+        sci.scale.setTo(scaleRatio/2,scaleRatio/2);
+        sci.inputEnabled = true;
+        sci.events.onInputDown.add(sci_action, this);
+
+        var style = { 
+                        font: "32px Arial", 
+                        fill: "#000000",
+                        wordWrap: true, 
+                        wordWrapWidth: sci.width,
+                        align: "center" };
+        scilbl = game.add.text(0,0,"Science",style);
+        scilbl.x = Math.floor(sci.x);
+        scilbl.y = Math.floor(sci.y + 20);
+
+	//eng
+	eng = game.add.sprite(getWidth()/2 +100,575, 'eng');
+        eng.scale.setTo(scaleRatio/2,scaleRatio/2);
+        eng.inputEnabled = true;
+        eng.events.onInputDown.add(eng_action, this);
+
+        var style = { 
+                        font: "32px Arial", 
+                        fill: "#000000",
+                        wordWrap: true, 
+                        wordWrapWidth: eng.width,
+                        align: "center" };
+        englbl = game.add.text(0,0,"Engineering",style);
+        englbl.x = Math.floor(eng.x);
+        englbl.y = Math.floor(eng.y + 20);
+
+}
+
+function sci_action(){
+	remove(sci);
+	remove(scilbl);
+	remove(eng);
+	remove(englbl);
+
+	//ra
+        RAbtn = game.add.sprite(getWidth()/2 - getWidth()/4 * 2 ,getHeight() - 100, 'RAbtn');
+        RAbtn.scale.setTo(scaleRatio/2,scaleRatio/2);
+        RAbtn.inputEnabled = true;
+        RAbtn.events.onInputDown.add(RA_action, this);
+
+        var style = { 
+                        font: "32px Arial", 
+                        fill: "#000000",
+                        wordWrap: true, 
+                        wordWrapWidth: RAbtn.width,
+                        align: "center" };
+        RAlbl = game.add.text(0,0,"Reg. attack",style);
+        RAlbl.x = Math.floor(RAbtn.x);
+        RAlbl.y = Math.floor(RAbtn.y + 20);
+
+	//sa
+        SAbtn = game.add.sprite(getWidth()/2 - getWidth()/4,getHeight() - 100, 'SAbtn');
+        SAbtn.scale.setTo(scaleRatio/2,scaleRatio/2);
+        SAbtn.inputEnabled = true;
+        SAbtn.events.onInputDown.add(SA_action, this);
+
+        var style = { 
+                        font: "32px Arial", 
+                        fill: "#000000",
+                        wordWrap: true, 
+                        wordWrapWidth: SAbtn.width,
+                        align: "center" };
+        SAbtnlbl = game.add.text(0,0,"Special attack",style);
+        SAbtnlbl.x = Math.floor(SAbtn.x);
+        SAbtnlbl.y = Math.floor(SAbtn.y + 20);
+
+	//ultimate
+        Ultimatebtn = game.add.sprite(getWidth()/2 + 50,getHeight() -100, 'Ultimatebtn');
+        Ultimatebtn.scale.setTo(scaleRatio/2,scaleRatio/2);
+        Ultimatebtn.inputEnabled = true;
+        Ultimatebtn.events.onInputDown.add(ultimate_action, this);
+
+        var style = { 
+                        font: "32px Arial", 
+                        fill: "#000000",
+                        wordWrap: true, 
+                        wordWrapWidth: Ultimatebtn.width,
+                        align: "center" };
+        Ultimatelbl = game.add.text(0,0,"Ultimate",style);
+        Ultimatelbl.x = Math.floor(Ultimatebtn.x);
+        Ultimatelbl.y = Math.floor(Ultimatebtn.y + 20);
+
+ 	//utility
+        Utilitybtn = game.add.sprite(getWidth()/2 + getWidth()/4,getHeight()-100, 'Utilitybtn');
+        Utilitybtn.scale.setTo(scaleRatio/2,scaleRatio/2);
+        Utilitybtn.inputEnabled = true;
+        Utilitybtn.events.onInputDown.add(utility_action, this);
+
+        var style = { 
+                        font: "32px Arial", 
+                        fill: "#000000",
+                        wordWrap: true, 
+                        wordWrapWidth: Utilitybtn.width,
+                        align: "center" };
+        Utilitylbl = game.add.text(0,0,"Utility",style);
+        Utilitylbl.x = Math.floor(Utilitybtn.x);
+        Utilitylbl.y = Math.floor(Utilitybtn.y + 20);
+
+	Hptxt = "HP: " + hp;
+        mptxt = "MP: " + mp;
+        spd = 3;
+        spdtxt = "SPD: " + spd;
+
+        cHptxt = "HP: " + chp;
+        cmptxt = "MP: " + cmp;
+        cspd = 2;
+        cspdtxt = "SPD: " + cspd;
+
+        hplbl = game.add.text(10,10, Hptxt, {font: "15px Arial", fill: "#ff00ff"});
+        mplbl = game.add.text(110,10, mptxt, {font: "15px Arial", fill: "#ff00ff"});
+ 	spdlbl = game.add.text(210,10, spdtxt, {font: "15px Arial", fill: "#ff00ff"});
+
+  	hplbl2 = game.add.text(410,10, cHptxt, {font: "15px Arial", fill: "#ff3654"});
+	mplbl2 = game.add.text(510,10, cmptxt, {font: "15px Arial", fill: "#ff3654"});
+       	spdlbl2 = game.add.text(610,10,cspdtxt, {font: "15px Arial", fill: "#ff3654"});
+
+}
+
+function SA_action()
+{
+	if( mp >= 3){
+	hplbl.destroy();
+	mplbl.destroy();
+	hplbl2.destroy();
+	mplbl2.destroy();
+	if (counter > 0)
+	{
+		console.log(counter);
+		counter++;
+		mp++;
+		cmp++;
+        consoleDisplay();
+
+	}
+
+	chp = chp - 8;
+        mp = mp - 3;
+        consoleDisplay();
+	computerMove();
+	}
+	complbl.destroy();
+}
+
+function computerMove()
+{
+
+
+
+	if(counter == 0)
+	{
+		counter++;
+	}
+
+ 	if (cmp >= 14)
+        {
+                hp = hp - 18;
+                cmp = cmp - 14;
+
+		complblb =  game.add.text(20,20, "Comp. attack: Ultimate", {font: "35px Arial", fill: "#ff00ff"});
+
+        consoleDisplay();
+
+                updateText();
+        }
+        else if (cmp >= 6)
+        {
+                hp = hp - 10;
+                cmp = cmp - 6;
+
+ 		complblb =  game.add.text(20,20, "Comp. attack: Utility", {font: "35px Arial", fill: "#ff00ff"});
+
+        consoleDisplay();
+
+                updateText();
+        }
+        else if (cmp >= 3)
+        {
+                hp = hp - 8;
+                cmp = cmp -3;
+
+
+ 		complblb =  game.add.text(20,20, "Comp. attack: Special", {font: "35px Arial", fill: "#ff00ff"});
+
+        consoleDisplay();
+
+                updateText();
+
+        }
+        else if (cmp >= 0)
+        {
+                hp = hp -3;
+ 		complblb =  game.add.text(20,20, "Comp. attack: Regular", {font: "35px Arial", fill: "#ff00ff"});
+
+        consoleDisplay();
+                updateText();
+        }
+
+}
+
+function RA_action(){
+
+// complbl.destroy();
+
+
+	 hplbl.destroy();
+        mplbl.destroy();
+        hplbl2.destroy();
+        mplbl2.destroy();
+        if (counter > 0)
+        {
+                counter++;
+                mp++;
+                cmp++;
+        consoleDisplay();
+
+
+        }
+
+        chp = chp - 6;
+       // mp = mp - 3;
+
+        consoleDisplay();
+
+        computerMove();
+
+
+}
+
+function utility_action(){
+
+ //complbl.destroy();
+
+	if (mp >=6)
+	{
+
+	 hplbl.destroy();
+        mplbl.destroy();
+        hplbl2.destroy();
+        mplbl2.destroy();
+        if (counter > 0)
+        {
+                counter++;
+                mp++;
+                cmp++;
+        consoleDisplay();
+
+        }
+
+        chp = chp - 10;
+        mp = mp - 8;
+        consoleDisplay();
+
+        computerMove();
+	}
+
+}
+
+function ultimate_action(){
+
+ //complbl.destroy();
+
+
+	if( mp >=14)
+	{
+	 hplbl.destroy();
+        mplbl.destroy();
+        hplbl2.destroy();
+        mplbl2.destroy();
+        if (counter > 0)
+        {
+                counter++;
+                mp++;
+                cmp++;
+        	        consoleDisplay();
+
+	}
+
+        chp = chp - 18;
+        mp = mp - 14;
+	consoleDisplay();
+        computerMove();
+	}
+
+}
+function eng_action(){
+	remove(sci);
+        remove(scilbl);
+        remove(eng);
+        remove(englbl);
+
+
+}
+
+function updateText(){
+
+	Hptxt = "HP: " + hp;
+        mptxt = "MP: " + mp;
+        spd = 3;
+        spdtxt = "SPD: " + spd;
+
+        cHptxt = "HP: " + chp;
+        cmptxt = "MP: " + cmp;
+        cspd = 2;
+        cspdtxt = "SPD: " + cspd;
+
+        hplbl = game.add.text(10,10, Hptxt, {font: "15px Arial", fill: "#ff00ff"});
+        mplbl = game.add.text(110,10, mptxt, {font: "15px Arial", fill: "#ff00ff"});
+        spdlbl = game.add.text(210,10, spdtxt, {font: "15px Arial", fill: "#ff00ff"});
+
+        hplbl2 = game.add.text(410,10, cHptxt, {font: "15px Arial", fill: "#ff3654"});
+        mplbl2 = game.add.text(510,10, cmptxt, {font: "15px Arial", fill: "#ff3654"});
+        spdlbl2 = game.add.text(610,10,cspdtxt, {font: "15px Arial", fill: "#ff3654"});
+
+        checkVictory();
+
+
+}
+
+function checkVictory(){
+	
+	  if (hp <= 0)
+                {
+	   		hplbl.destroy();
+        	        hplbl = game.add.text(10,10, "You Lost :(", {font: "55px Arial", fill: "#ff00ff"});
+                	mplbl.destroy();
+                	hplbl2.destroy();
+                	mplbl2.destroy();
+                	spdlbl.destroy();
+                	spdlbl2.destroy();
+                	defeat();
+                }
+                else if (chp <=0)
+                {
+  			hplbl.destroy();
+                	hplbl = game.add.text(10,10, "You WON :)", {font: "55px Arial", fill: "#ff00ff"});
+                	mplbl.destroy();
+                	hplbl2.destroy();
+                	mplbl2.destroy();
+                	spdlbl.destroy();
+                	spdlbl2.destroy();
+                	victory();
+                }
+}
+
+function consoleDisplay()
+{
+	console.log("HP: " + hp + " MP: " + mp);
+        console.log("CHP: " + chp + " CMP: " + cmp);
+
+}
+function victory(){
+}
+function defeat(){
 }
 
 //Mobile Title Page
