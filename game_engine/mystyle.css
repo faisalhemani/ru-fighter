@@ -1,5 +1,23 @@
 body{
 	padding: 0px;
 	margin: 0px;
-	background-color: black;
+	margin-top: 2%;
+//	margin-left: 5%;
+//	margin-right: 5%;
+	background-color: grey;
 }
+
+/*
+.members{
+	position: relative;
+	bottom: 0px;
+	padding: 5%;
+	backgound-color: #f4c5c0;
+
+}
+
+.about{
+	padding: 5%;
+	background-color: #c1c2c3
+}
+*/

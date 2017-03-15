@@ -17,7 +17,7 @@ var fs = require('fs');
 var MongoClient = mongodb.MongoClient;
 
 //MongoDB server url
-var server = 'mongodb://localhost:27017/ru-fighter';
+var server = 'mongodb://localhost:27017/rufighter';
 
 var query="";
 
@@ -73,14 +73,14 @@ MongoClient.connect(server, function (error, db)
   	}
 });
 
-service.all('/response.json', function(request, response, next) 
+service.all('/', function(request, response, next) 
 {
 	response.header("Access-Control-Allow-Origin", "*");
 	response.header("Access-Control-Allow-Headers", "X-Requested-With");
 	next();
 });
 
-service.get('/response.json', function(request, response)
+service.get('/', function(request, response)
 {
 
 	//console.log(JSON.stringify(JSONquery[0]));
