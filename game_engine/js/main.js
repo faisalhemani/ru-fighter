@@ -95,13 +95,15 @@ function startScreen(){
 	console.log("in start screen " + window.innerHeight);
      	game.stage.backgroundColor = '#000';
 
-	start_bg = game.add.sprite(0,0,'start_bg');
-	start_bg.scale.setTo(0.3,0.3);
-	amber = game.add.sprite(20, 450,'amber');
-	amber.scale.setTo(0.5,0.5);
+//	start_bg = game.add.sprite(0,0,'start_bg');
+//	start_bg.scale.setTo(0.3,0.3);
 
-	game.time.events.add(Phaser.Timer.SECONDS * 4, fadePicture, this);
+	amber = game.add.sprite(100, 200,'amber');
+//	amber.scale.setTo(0.5,0.5);
+//	amber.anchor.setTo(0.5,0.5);
 
+	game.time.events.add(Phaser.Timer.SECOND * 2, fadePicture, this);
+/*
 	rufighter = game.add.sprite(150, 20,'rufighter');
 //	rufighter.scale.setTo(1,1)
 	startbtn = game.add.sprite(800, 525,'startbtn');
@@ -109,11 +111,24 @@ function startScreen(){
 	startbtn.anchor.set(0.5);
 	startbtn.inputEnabled = true;
 	startbtn.events.onInputDown.add(start_action, this);
+*/
 }
 
 function fadePicture(){
+
 	console.log("in fade");
 	game.add.tween(amber).to( {alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
+
+        start_bg = game.add.sprite(0,0,'start_bg');
+        start_bg.scale.setTo(0.3,0.3);
+
+        rufighter = game.add.sprite(150, 20,'rufighter');
+//      rufighter.scale.setTo(1,1)
+        startbtn = game.add.sprite(800, 525,'startbtn');
+//      startbtn.scale.setTo(0.8,0.8);
+        startbtn.anchor.set(0.5);
+        startbtn.inputEnabled = true;
+        startbtn.events.onInputDown.add(start_action, this);
 
 }
 function start_action(){

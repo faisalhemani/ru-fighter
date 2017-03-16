@@ -2,7 +2,7 @@ var game;
 var speedMult= 0.7;
 var friction  =  0.99;
 var chars = ["Faisal", "Xavier"];
-var gawd = ["Faisal","Xavier"];
+var gawd = ["Faisal", "Xavier"];
 window.onload = function () {
 	game =  new Phaser.Game (1366,673, Phaser.AUTO, "");
 	game.state.add("PlayGame", playGame);	
@@ -32,14 +32,15 @@ playGame.prototype = {
 		
 		for (var i = 0 ; i < chars.length; i++){
 			var character = game.add.sprite(game.width/2 +(i * 480), game.height/2, chars[i]);
-                        if (chars[i] === gawd[i]) {
-				gawd[i] = character;
-				gawd[i].anchor.set(0.5);
-				gawd[i].inputEnabled = true;
-				gawd[i].scale.setTo(-2, -2);
-				this.scrollingMap.addChild(gawd[i]);
-				gawd[i].events.onInputDown.add(listener, this);
-			}
+                       for (var j; j< gawd.length; j++){
+			 if (chars[i] === gawd[j]) {
+				gawd[j] = character;
+				gawd[j].anchor.set(0.5);
+				gawd[j].inputEnabled = true;
+				gawd[j].scale.setTo(-2, -2);
+				this.scrollingMap.addChild(gawd[j]);
+				gawd[j].events.onInputDown.add(listener, this);
+			} }
 		}
 		//text = game.add.text(250, 16, '', { fill: '#ffffff' });
 		//character.events.onInputDown.add(listener, this);
