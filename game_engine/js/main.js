@@ -1,8 +1,8 @@
 //----------------------------------- global variables ------------------------------
 
 var game_started = 0;
-
-var amber, rufighter, startbtn;
+var timer;
+var amber, rufighter, startbtn, start_bg;
 
 /*
 user details
@@ -34,11 +34,10 @@ function preload() {
 
 	//start screen 
 
-        game.load.image('amber', 'assets/AmberLabs_logo.png');
-        game.load.image('rufighter', 'assets/RUFighter_logo.png');
-        game.load.image('startbtn', 'assets/start.png');
-
-
+        game.load.image('amber', 'assets/title_screen/logo.png');
+        game.load.image('rufighter', 'assets/title_screen/RUFighter_logo.png');
+        game.load.image('startbtn', 'assets/title_screen/start.png');
+	game.load.image('start_bg', 'assets/title_screen/slc_tiles.jpg');
 
 	game.load.image('player1', 'assets/thomas.png');
 	game.load.image('player2', 'assets/HAMID.png');
@@ -85,27 +84,38 @@ function render() {
 
 function width(){
 	return window.innerWidth;
+	console.log('Width: ' + window.innerWidth);
 }
 function height(){
 	return window.innerHeight;
+	console.log('Height: ' + window.innerHeight);
 }
 function startScreen(){
 
-	console.log("in start screen");
+	console.log("in start screen " + window.innerHeight);
      	game.stage.backgroundColor = '#000';
 
-	amber = game.add.sprite(window.innerWidth/10, height()/2 ,'amber');
+	start_bg = game.add.sprite(0,0,'start_bg');
+	start_bg.scale.setTo(0.3,0.3);
+	amber = game.add.sprite(20, 450,'amber');
+	amber.scale.setTo(0.5,0.5);
 
-	rufighter = game.add.sprite(width()/5, height()/10,'rufighter');
+	game.time.events.add(Phaser.Timer.SECONDS * 4, fadePicture, this);
 
-	startbtn = game.add.sprite(width()/2 + width()/3 + width()/6, height() - height()/3,'startbtn');
-
+	rufighter = game.add.sprite(150, 20,'rufighter');
+//	rufighter.scale.setTo(1,1)
+	startbtn = game.add.sprite(800, 525,'startbtn');
+//	startbtn.scale.setTo(0.8,0.8);
 	startbtn.anchor.set(0.5);
 	startbtn.inputEnabled = true;
 	startbtn.events.onInputDown.add(start_action, this);
-
 }
 
+function fadePicture(){
+	console.log("in fade");
+	game.add.tween(amber).to( {alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
+
+}
 function start_action(){
 
 	console.log("clearing the start screen");

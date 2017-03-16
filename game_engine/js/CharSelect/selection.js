@@ -2,7 +2,7 @@ var game;
 var speedMult= 0.7;
 var friction  =  0.99;
 var chars = ["Faisal", "Xavier"];
-
+var gawd = ["Faisal","Xavier"];
 window.onload = function () {
 	game =  new Phaser.Game (1366,673, Phaser.AUTO, "");
 	game.state.add("PlayGame", playGame);	
@@ -15,12 +15,13 @@ playGame.prototype = {
 
 		game.load.image("Faisal", "http://52.38.67.158/game_engine/js/CharSelect/faisal.png");
 		game.load.image("Xavier", "http://52.38.67.158/game_engine/js/CharSelect/xavier.png");
-		//game.load.image("transp", "");
+		game.load.image("transp", "http://52.38.67.158/game_engine/js/CharSelect/transp.png");
+		game.load.image("bg", "http://52.38.67.158/game_engine/js/CharSelect/bg.jpg");
 	},
 	create: function () {
 		game.stage.backgroundColor = "#5f503b";
 		game.add.text(game.width/2, 50, "Select your Faculty!", {font:"18px Helvetica", fill: "#ffffff"}).anchor.set(0.5);
-		this.scrollingMap = game.add.tileSprite(0, 0, game.width + (chars.length* 90 +64)*2, game.height, "Faisal");
+		this.scrollingMap = game.add.tileSprite(0, 0, game.width + (chars.length* 90 +64)*2, game.height, "bg");
 		this.scrollingMap.inputEnabled = true;
 		this.scrollingMap.input.enableDrag(false);
 		this.scrollingMap.savedPosition = new Phaser.Point(this.scrollingMap.x, this.scrollingMap.y);
@@ -31,12 +32,17 @@ playGame.prototype = {
 		
 		for (var i = 0 ; i < chars.length; i++){
 			var character = game.add.sprite(game.width/2 +(i * 480), game.height/2, chars[i]);
-                        character.anchor.set(0.5);
-			character.scale.setTo(-2, -2);
-			this.scrollingMap.addChild(character);
-
+                        if (chars[i] === gawd[i]) {
+				gawd[i] = character;
+				gawd[i].anchor.set(0.5);
+				gawd[i].inputEnabled = true;
+				gawd[i].scale.setTo(-2, -2);
+				this.scrollingMap.addChild(gawd[i]);
+				gawd[i].events.onInputDown.add(listener, this);
+			}
 		}
-
+		//text = game.add.text(250, 16, '', { fill: '#ffffff' });
+		//character.events.onInputDown.add(listener, this);
 		/*var character = game.add.image(game.width/4 , game.height/2, "Xavier");
 		character.anchor.set(0.5);
 		character.scale.setTo(0.5, 0.5);
@@ -97,6 +103,10 @@ playGame.prototype = {
 			}
 
 		}
+	},
+	listener: function() {
+		counter++;
+   		text.text = "You clicked " + counter + " times!";
 	}
 
 }
