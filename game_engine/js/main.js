@@ -19,16 +19,23 @@ var bat;
 //battle bg
 var alex;
 var alex_bg;
+
 var faisal;
 var faisal_bg;
+var devo_loc = false;
+
 var jess;
 var jess_bg;
+
 var tom;
 var tom_bg;
+
 var xavier;
 var xavier_bg;
+
 var retinder;
 var retinder_bg;
+
 
 //----------------------------------- game frame ------------------------------------
 
@@ -275,8 +282,10 @@ function devo(){
         faisal_bg.scale.setTo(0.2,0.2);
 
 	//character
-	faisal = game.add.sprite(100/*350*/,/*150*/200,'faisal');
-        faisal.scale.setTo(0.1,0.1);
+	faisal = game.add.sprite(700/*350*/,/*150*/150,'faisal');
+        faisal.scale.setTo(0.15,0.15);
+
+
 
 }
 
@@ -287,10 +296,7 @@ var regTxt, specialTxt, UtilityTxt, UltimateTxt;
 function science(/*avatar*/){
 
 	console.log("in science");
-/*
- 	bat = game.add.sprite(30,0,'vic');
-        bat.scale.setTo(0.2,0.2);
-*/
+
  	regTxt = game.add.text(120, 550, "DMG: 5     MP Cost: 0",
                                 {font: "15px Arial", fill: "#ffffff"});
         specialTxt = game.add.text(340, 550, "DMG: 8     MP Cost: 3", 
@@ -305,21 +311,10 @@ function science(/*avatar*/){
 	console.log("text is up");
 
 	reg = game.add.button(100,450, 'sr');
-//	reg = game.add.button(100 ,450,'sr', sr_action, this, 2,1,0);
 	special = game.add.button(320 ,450,'ss');//, ss_action, this, 2,1,0);
 	utility = game.add.button(540 ,450,'sut');//, utility_action, this,2,1,0);
 	ultimate = game.add.button(760 ,450,'sul');//, ultimate_action, this, 2,1,0);
 	console.log("buttons are up");
-
-//	bat = game.add.sprite(0,0,'vic');
-//	bat.scale.setTo(0.3,0.3);
-	console.log("battle bg is up");
-	console.log(bat);
-/*
-  	//reg.anchor.set(0.5);
-        reg.inputEnabled = true;
-        reg.events.onInputDown.add(reg_action, this);
-*/
 }
 
 function sr_action(){
