@@ -131,8 +131,8 @@ var audio;
 
 function startScreen()
 {
-	console.log("in start screen " + window.innerHeight);
-     game.stage.backgroundColor = '#000';
+    log(['startScreen'],"in start screen " + window.innerHeight);
+    game.stage.backgroundColor = '#000';
 
 	//audio = game.add.audio('sfx');
 	//audio.play();
@@ -205,6 +205,7 @@ function callingServer()
                         storeJSON(object);
                         log(['callingServer','onload','avatar1'], avatar1);
                         game.load.image('player1', avatar1);
+                        game.add.sprite(770,100,'player1');
                 }
                 else
                 {
