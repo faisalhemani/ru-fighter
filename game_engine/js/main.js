@@ -13,8 +13,24 @@ var name2, avatar2, stats2, facility2;
 
 var reg, special, utility, ultimate, reg2, special2, utility2, ultimate2;
 
-//----------------------------------- game frame ------------------------------------
+//battles
+var bat;
 
+//battle bg
+var alex;
+var alex_bg;
+var faisal;
+var faisal_bg;
+var jess;
+var jess_bg;
+var tom;
+var tom_bg;
+var xavier;
+var xavier_bg;
+var retinder;
+var retinder_bg;
+
+//----------------------------------- game frame ------------------------------------
 
 /*
 initializing the game
@@ -32,6 +48,9 @@ function preload() {
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.setScreenSize();
 
+	//start music
+	//game.load.audio('sfx', 'assets/battletheme.mp3');
+
 	//start screen 
 
         game.load.image('amber', 'assets/title_screen/logo.png');
@@ -39,19 +58,39 @@ function preload() {
         game.load.image('startbtn', 'assets/title_screen/start.png');
 	game.load.image('start_bg', 'assets/title_screen/slc_tiles.jpg');
 
-	game.load.image('player1', 'assets/thomas.png');
-	game.load.image('player2', 'assets/HAMID.png');
+	game.load.image('player1', 'assets/faisal_new.png');
+	game.load.image('player2', 'assets/xavier.png');
 
 	//Science skills 
-	game.load.image('ss', 'assets/science_skills/sb_special.png');
-     	game.load.image('sr', 'assets/science_skills/sb_reg.png');
-     	game.load.image('sul', 'assets/science_skills/sb_ultimate.png');
-     	game.load.image('sut', 'assets/science_skills/sb_utility.png');
+	game.load.spritesheet('ss', 'assets/science_skills/sb_special.png', 200,100);
+     	game.load.spritesheet('sr', 'assets/science_skills/sb_reg.png', 200,100);
+     	game.load.spritesheet('sul', 'assets/science_skills/sb_ultimate.png',200,100);
+     	game.load.spritesheet('sut', 'assets/science_skills/sb_utility.png',200,100);
 
  	game.load.image('es', 'assets/engineering_skills/eb_special.png');
         game.load.image('er', 'assets/engineering_skills/eb_reg.png');
         game.load.image('eul', 'assets/engineering_skills/eb_ultimate.png');
         game.load.image('eut', 'assets/engineering_skills/eb_utility.png');
+
+	//Xavier
+	game.load.image('xavier_bg', 'assets/battle_screens/xavier/victoria_lane.jpg');
+
+	//Faisal
+	game.load.image('faisal_bg', 'assets/battle_screens/faisal/devo.jpg');
+ 	game.load.image('faisal', 'assets/battle_screens/faisal/faisal.png');
+
+	//Jess
+	game.load.image('jess_bg', 'assets/battle_screens/jess/victoria_lane.jpg');
+
+	//Tom
+	game.load.image('tom_bg', 'assets/battle_screens/xavier/victoria_lane.jpg');
+
+	//Alex
+	game.load.image('alex_bg', 'assets/battle_screens/xavier/victoria_lane.jpg');
+
+	//Retinder
+	game.load.image('retinder_bg', 'assets/battle_screen/retinder/outside_slc.jpg');
+
 
 }
 
@@ -90,34 +129,36 @@ function height(){
 	return window.innerHeight;
 	console.log('Height: ' + window.innerHeight);
 }
+
+var audio;
+
 function startScreen(){
 
 	console.log("in start screen " + window.innerHeight);
      	game.stage.backgroundColor = '#000';
 
-//	start_bg = game.add.sprite(0,0,'start_bg');
-//	start_bg.scale.setTo(0.3,0.3);
+	//audio = game.add.audio('sfx');
+	//audio.play();
+	//audio.onDecoded.add(audio_start,this);
 
 	amber = game.add.sprite(100, 200,'amber');
-//	amber.scale.setTo(0.5,0.5);
-//	amber.anchor.setTo(0.5,0.5);
 
-	game.time.events.add(Phaser.Timer.SECOND * 2, fadePicture, this);
-/*
-	rufighter = game.add.sprite(150, 20,'rufighter');
-//	rufighter.scale.setTo(1,1)
-	startbtn = game.add.sprite(800, 525,'startbtn');
-//	startbtn.scale.setTo(0.8,0.8);
-	startbtn.anchor.set(0.5);
-	startbtn.inputEnabled = true;
-	startbtn.events.onInputDown.add(start_action, this);
-*/
+	game.time.events.add(Phaser.Timer.SECOND , fadePicture, this);
 }
 
+function audio_start() {
+
+	console.log("in audio");
+	audio.fadeIn(5000);
+	//audio.play();
+
+}
+
+//fix the fade picture
 function fadePicture(){
 
 	console.log("in fade");
-	game.add.tween(amber).to( {alpha: 0}, 1000, Phaser.Easing.Linear.None, true);
+	game.add.tween(amber).to( {alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
 
         start_bg = game.add.sprite(0,0,'start_bg');
         start_bg.scale.setTo(0.3,0.3);
@@ -129,11 +170,11 @@ function fadePicture(){
         startbtn.anchor.set(0.5);
         startbtn.inputEnabled = true;
         startbtn.events.onInputDown.add(start_action, this);
-
 }
-function start_action(){
 
+function start_action(){
 	console.log("clearing the start screen");
+	remove(start_bg);
 	remove(amber);
 	remove(rufighter);
 	remove(startbtn);
@@ -141,7 +182,6 @@ function start_action(){
 }
 
 function battleFeild(){
-
 	console.log("in the battle screen");
 	callingServer();
 }
@@ -149,6 +189,7 @@ function battleFeild(){
 //------------------------------------ server related ---------------------------------
 function callingServer(){
 
+	console.log("calling the server");
 	var request = new XMLHttpRequest();
         var url = 'http://52.38.67.158:8081/';
         request.open('GET',url,true);
@@ -174,13 +215,10 @@ function callingServer(){
 
 function storeJSON(JSON_object)
 {
-        console.log(JSON_object);
-	console.log(JSON_object[0]);
-	console.log(JSON_object[1]);
-
-
-	user_info(JSON_object[0].avatar, JSON_object[0].facility,JSON_object[0].name, JSON_object[0].stats);
-	ai_info(JSON_object[1].avatar, JSON_object[1].facility,JSON_object[1].name, JSON_object[1].stats);
+	ai_info();
+	//ai_info(JSON_object[1].avatar, JSON_object[1].facility,JSON_object[1].name, JSON_object[1].stats);
+//	user_info(JSON_object[0].avatar, JSON_object[0].facility,JSON_object[0].name, JSON_object[0].stats);
+	//ai_info(JSON_object[1].location, JSON_object[1].facility,JSON_object[1].name, JSON_object[1].stats);
 
 }
 
@@ -192,41 +230,106 @@ function user_info(avatar, facility, name, stats){
 	console.log(facility);
 	console.log(name); 
 	console.log(stats);
-
-	this.avatar = game.add.sprite(width()/9,height()/8,'player1');
+/*
+	this.avatar = game.add.sprite(6,300,'player1');
 	this.avatar.scale.setTo(0.2,0.2);
-
+*/
 	if( facility == "Science")
-		science();
+	{
+		console.log("going to science");
+		science(avatar);
+	}
 	else
 		engineering();
 
+  	this.avatar = game.add.sprite(770,100,'player1');
+        this.avatar.scale.setTo(0.2,0.2);
+
+
 }
 
-function ai_info(avatar, facility, name, stats){
-
-	console.log( avatar); 
+function ai_info(/*location, facility, name, stats*/){
+/*
+	console.log(location);
         console.log(facility);
-        console.log(name); 
+        console.log(name);
         console.log(stats);
+*/
 
-        this.avatar2 = game.add.sprite(width()/2 + width()/3,height()/2,'player2');
-        this.avatar2.scale.setTo(0.2,0.2);
+/*
+	if( location == 'devo')
+	{
+		devo();
+	}
+*/
+	devo();
+	science();
+}
 
+//--------------------------------- battle screens -------------------------
+
+//faisal
+function devo(){
+	//background
+	faisal_bg = game.add.sprite(30,0,'faisal_bg');
+        faisal_bg.scale.setTo(0.2,0.2);
+
+	//character
+	faisal = game.add.sprite(100/*350*/,/*150*/200,'faisal');
+        faisal.scale.setTo(0.1,0.1);
 
 }
 
 // --------------------------------- facility skills ------------------------
 
-function science(){
+var regTxt, specialTxt, UtilityTxt, UltimateTxt;
 
-	reg = game.add.sprite(width()/15 ,window.innerHeight - 100,'sr');
-  	reg.anchor.set(0.5);
+function science(/*avatar*/){
+
+	console.log("in science");
+/*
+ 	bat = game.add.sprite(30,0,'vic');
+        bat.scale.setTo(0.2,0.2);
+*/
+ 	regTxt = game.add.text(120, 550, "DMG: 5     MP Cost: 0",
+                                {font: "15px Arial", fill: "#ffffff"});
+        specialTxt = game.add.text(340, 550, "DMG: 8     MP Cost: 3", 
+                                {font: "15px Arial", fill: "#ffffff"});
+
+        UitlityTxt = game.add.text(560, 550, "Heal: 5     MP Cost: 6", 
+                                {font: "15px Arial", fill: "#ffffff"});
+
+        UltimateTxt = game.add.text(780, 550, "DMG: 18     MP Cost: 14", 
+                                {font: "15px Arial", fill: "#ffffff"});
+
+	console.log("text is up");
+
+	reg = game.add.button(100,450, 'sr');
+//	reg = game.add.button(100 ,450,'sr', sr_action, this, 2,1,0);
+	special = game.add.button(320 ,450,'ss');//, ss_action, this, 2,1,0);
+	utility = game.add.button(540 ,450,'sut');//, utility_action, this,2,1,0);
+	ultimate = game.add.button(760 ,450,'sul');//, ultimate_action, this, 2,1,0);
+	console.log("buttons are up");
+
+//	bat = game.add.sprite(0,0,'vic');
+//	bat.scale.setTo(0.3,0.3);
+	console.log("battle bg is up");
+	console.log(bat);
+/*
+  	//reg.anchor.set(0.5);
         reg.inputEnabled = true;
         reg.events.onInputDown.add(reg_action, this);
-
+*/
 }
 
+function sr_action(){
+
+
+
+}
+function ss_action(){}
+function utility_action(){}
+function ultimate(){}
 function engineering(){
 
 }

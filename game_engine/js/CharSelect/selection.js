@@ -3,6 +3,8 @@ var speedMult= 0.7;
 var friction  =  0.99;
 var chars = ["Faisal", "Xavier"];
 var gawd = ["Faisal", "Xavier"];
+var faisal;
+var xavier;
 window.onload = function () {
 	game =  new Phaser.Game (1366,673, Phaser.AUTO, "");
 	game.state.add("PlayGame", playGame);	
@@ -30,18 +32,30 @@ playGame.prototype = {
 		this.scrollingMap.input.allowVerticalDrag = false;
       		this.scrollingMap.input.boundsRect = new Phaser.Rectangle(game.width - this.scrollingMap.width, game.height - this.scrollingMap.height, this.scrollingMap.width * 2 - game.width, this.scrollingMap.height * 2 - game.height);
 		
+
 		for (var i = 0 ; i < chars.length; i++){
 			var character = game.add.sprite(game.width/2 +(i * 480), game.height/2, chars[i]);
-                       for (var j; j< gawd.length; j++){
-			 if (chars[i] === gawd[j]) {
-				gawd[j] = character;
-				gawd[j].anchor.set(0.5);
-				gawd[j].inputEnabled = true;
-				gawd[j].scale.setTo(-2, -2);
-				this.scrollingMap.addChild(gawd[j]);
-				gawd[j].events.onInputDown.add(listener, this);
-			} }
+			character.anchor.set(0.5);
+			character.inputEnabled = true;
+			character.scale.setTo(0.65);
+			this.scrollingMap.addChild(character);
+			//faisal.events.onInputDown.add(listener, this);
 		}
+		
+		/* Example of inputField Properties incase we need to change something
+		var password = game.add.inputField(10, 90, {
+    			font: '18px Arial',
+    			fill: '#212121',
+    			fontWeight: 'bold',
+			width: 150,
+    			padding: 8,
+    			borderWidth: 1,
+    			borderColor: '#000',
+    			borderRadius: 6,
+    			placeHolder: 'Password',
+    			type: PhaserInput.InputType.password
+		}); */
+		
 		//text = game.add.text(250, 16, '', { fill: '#ffffff' });
 		//character.events.onInputDown.add(listener, this);
 		/*var character = game.add.image(game.width/4 , game.height/2, "Xavier");
@@ -67,7 +81,7 @@ playGame.prototype = {
 			if (Math.abs(this.scrollingMap.children[i].world.x - game.width / 2) < 46 && !zoomed){
 				this.scrollingMap.getChildAt(i).scale.setTo(0.8);
 				zoomed = true; 
-				//this is where you should add selection or in a different function
+				//select();
 			} else {
 				this.scrollingMap.getChildAt(i).scale.setTo(0.65);
 			}
@@ -79,12 +93,12 @@ playGame.prototype = {
 				this.scrollingMap.x += this.scrollingMap.movingSpeed * Math.cos(this.scrollingMap.movingangle);
 				if (this.scrollingMap.x > game.width - this.scrollingMap.width){
 					this.scrollingMap.x = game.width - this.scrollingMap.width;
-					this.scrollingMap.movingSpeed *= 0.5;
+					this.scrollingMap.movingSpeed = 1; //0.5
 					this.scrollingMap.movingangle += Math.PI;
 				}
 				if (this.scrollingMap.x > 0){
 					this.scrollingMap.x = 0;
-					this.scrollingMap.movingSpeed *= 0.5;
+					this.scrollingMap.movingSpeed = 1; //0.5;
 					this.scrollingMap.movingangle += Math.PI;
 				}
 				this.scrollingMap.movingSpeed *= friction;
@@ -105,9 +119,9 @@ playGame.prototype = {
 
 		}
 	},
-	listener: function() {
+	/*listener: function() {
 		counter++;
    		text.text = "You clicked " + counter + " times!";
-	}
+	}*/
 
 }
