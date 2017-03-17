@@ -59,8 +59,8 @@ function preload()
     game.load.image('rufighter', 'assets/title_screen/RUFighter_logo.png');
     game.load.image('startbtn', 'assets/title_screen/start.png');
     game.load.image('start_bg', 'assets/title_screen/slc_tiles.jpg');
-    //
-	game.load.image('player1', 'assets/faisal_new.png');
+    //preload player images
+	//game.load.image('player1', 'assets/faisal_new.png');
 	game.load.image('player2', 'assets/xavier.png');
 	//Science skills 
 	game.load.spritesheet('ss', 'assets/science_skills/sb_special.png', 200,100);
@@ -199,9 +199,12 @@ function callingServer()
         {
                 if (request.status >= 200 && request.status < 400)
                 {
-                        //do something 
-			log(['callingServer','onload'],request.responseText);
-                        storeJSON(JSON.parse(request.response));
+                        var object = JSON.parse(request.response);
+                        var avatar1 = 'assets/'+object[0].avatar;
+                        log(['callingServer','onload', 'response'],request.responseText);
+                        storeJSON(object);
+                        log(['callingServer','onload','avatar1'], avatar1);
+                        game.load.image('player1', avatar1);
                 }
                 else
                 {
