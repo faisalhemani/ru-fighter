@@ -35,7 +35,7 @@ var xavier_bg;
 
 var retinder;
 var retinder_bg;
-
+var url = 'http://35.162.14.150';
 
 //----------------------------------- game frame ------------------------------------
 
@@ -198,18 +198,20 @@ function callingServer(){
 
 	console.log("calling the server");
 	var request = new XMLHttpRequest();
-        var url = 'http://52.38.67.158:8081/';
-        request.open('GET',url,true);
+	var port = ':8081'
+	log(['callingServer'], request);
+        request.open('GET',url+port,true);
         request.onload = function ()
         {
                 if (request.status >= 200 && request.status < 400)
                 {
                         //do something 
+			log(['callingServer','onload'],request.responseText);
                         storeJSON(JSON.parse(request.response));
                 }
                 else
                 {
-                        console.log("URL could not be reached: "+url);
+			log(['callingServer', 'onload'],'game server denied request');
                         alert("game server could not be reached");
                 }
         };
@@ -249,12 +251,13 @@ function user_info(avatar, facility, name, stats){
 	else
 		engineering();
 
-  	this.avatar = game.add.sprite(770,100,'player1');
-        this.avatar.scale.setTo(0.2,0.2);
+ 	this.avatar = game.add.sprite(770,100,'player1');
+       	this.avatar.scale.setTo(0.2,0.2);
 
 
 }
 
+var txt_color;
 function ai_info(/*location, facility, name, stats*/){
 /*
 	console.log(location);
@@ -269,11 +272,11 @@ function ai_info(/*location, facility, name, stats*/){
 		devo();
 	}
 */
-	devo();
-	science();
+	devo();txt_color = '#000000';
+	science(txt_color);
 }
 
-//--------------------------------- battle screens -------------------------
+//----------------------------------- battle screens -------------------------
 
 //faisal
 function devo(){
@@ -293,20 +296,20 @@ function devo(){
 
 var regTxt, specialTxt, UtilityTxt, UltimateTxt;
 
-function science(/*avatar*/){
+function science(/*avatar*/txt_color){
 
 	console.log("in science");
 
  	regTxt = game.add.text(120, 550, "DMG: 5     MP Cost: 0",
-                                {font: "15px Arial", fill: "#ffffff"});
+                                {font: "15px Arial", fill: txt_color});
         specialTxt = game.add.text(340, 550, "DMG: 8     MP Cost: 3", 
-                                {font: "15px Arial", fill: "#ffffff"});
+                                {font: "15px Arial", fill: txt_color});
 
         UitlityTxt = game.add.text(560, 550, "Heal: 5     MP Cost: 6", 
-                                {font: "15px Arial", fill: "#ffffff"});
+                                {font: "15px Arial", fill: txt_color});
 
         UltimateTxt = game.add.text(780, 550, "DMG: 18     MP Cost: 14", 
-                                {font: "15px Arial", fill: "#ffffff"});
+                                {font: "15px Arial", fill: txt_color});
 
 	console.log("text is up");
 
@@ -340,4 +343,14 @@ function reg_action(){
 function remove(element)
 {
         element.visible = false;
+}
+
+function log(tags, message)
+{
+	var prefix = '';
+	for (var i = 0; i < tags.length; i++)
+	{
+		prefix = prefix + '['+tags[i]+']';
+	}
+	return prefix+' : '+message;
 }
