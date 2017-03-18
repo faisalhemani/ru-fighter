@@ -27,23 +27,29 @@ var sprite = {
 
 function preload() 
 {
+	log(['preload'],'started');
 	requestPlayers();
 	game.load.image('player1', 'assets/enemy_btn.png');
+	log(['preload'],'ended');
 }
 
 function create() 
 {
+	log(['create'],'started');
 	player1 = new Player(0, game.world.centerY, 'player1');
 	player2 = new Player(game.world.width-sprite.width, game.world.centerY, 'player');
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
     player1.sprite = createPlayer(player1.x, player1.y, player1.key);
     player2.sprite = createPlayer(player2.x, player2.y, player2.key);
+    log(['create'],'ended');
 }
 
 function update() 
 {
+	log(['update'],'started');
 	controlPlayer(player1,game.input.x,player1.y);
+	log(['update'],'ended');
 }
 
 function createPlayer(x,y,key)
