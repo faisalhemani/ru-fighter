@@ -32,7 +32,7 @@ function preload()
 
 function create() 
 {
-	player1 = new Player(0, game.world.centerY, 'player');
+	player1 = new Player(0, game.world.centerY, 'player1');
 	player2 = new Player(game.world.width-sprite.width, game.world.centerY, 'player');
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
