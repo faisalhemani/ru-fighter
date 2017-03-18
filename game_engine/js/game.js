@@ -12,6 +12,7 @@ function Player(x,y,key)
 	this.y = y;
 	this.key = key;
 	this.sprite = {};
+	this.model = {};
 }
 
 //object to store player 1 related information
@@ -70,6 +71,7 @@ function requestPlayers()
 	var request = new XMLHttpRequest();
 	//Run sync so that we wait for our response before trying to operate with it. 
 	request.open('GET',json_url.ip+json_url.port, false);
+	log(['requestPlayers','open'],json_url.ip+json_url.port);
 	request.onload = function ()
 	{
 		if (request.status >= 200 && request.status < 400)
