@@ -1,4 +1,35 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+/* IGNORE THIS COMMENTED OUT CODE IT IS NOT IN USE
+//stores minimum width per breakpoint
+var dimensions = {
+	'widthSmall' : 720,
+	'widthMedium' : 1200,
+	'widthLarge' : 1920
+}
+//stores breakpoint keys and phaser values
+var mode = {
+	small : {
+		'width' : 'window.innerWidth',
+		'height' : 'window.innerHeight'
+	},
+	medium : {
+		'width' : 800,
+		'height' : 600
+	},
+	large : {
+		//todo
+	}
+}
+
+if (window.innerWidth < dimensions.small)
+{
+
+}
+*/
+
+log(['viewport', 'width'],window.innerWidth);
+log(['viewport', 'width'],window.innerHeight);
+
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 var json_url = {
 	ip : 'http://35.162.14.150',
@@ -28,34 +59,58 @@ var sprite = {
 function preload() 
 {
 	log(['preload'],'started');
-	//requestPlayers();
-	game.load.image('player1', 'assets/enemy_btn.png');
+	//creates the players of the game
+	player1 = new Player(100, game.world.centerY, 'player1');
+	player2 = new Player(game.world.width-sprite.width-100, game.world.centerY, 'player2');
+	//use Phaser.ScaleManage.EXACT_FIT for exact screen scaling
+	scaleGame();
+	//request player data from game db & wait until player response is recieved
+	requestPlayers();
+	//load the player sprite images
+	game.load.image('player1', 'assets/'+player1.model.avatar);
+	game.load.image('player2', 'assets/'+player2.model.avatar);
+	//sets the background color
+	game.stage.backgroundColor = '#eee';
+
+	//logs player1's relative sprite image path 
+	log(['preload','player1'],'assets/'+player1.model.avatar);
 	log(['preload'],'ended');
+}
+
+//all phaser functionality to scale the game to the viewport
+function scaleGame()
+{
+	game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	game.scale.setScreenSize();
+	game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.maxWidth = 1280;
+    game.scale.maxheight = 800;
 }
 
 function create() 
 {
 	log(['create'],'started');
-	player1 = new Player(0, game.world.centerY, 'player1');
-	player2 = new Player(game.world.width-sprite.width, game.world.centerY, 'player');
-    
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    //game.stage.scale.startFullScreen();
+    //game.physics.startSystem(Phaser.Physics.ARCADE);
     player1.sprite = createPlayer(player1.x, player1.y, player1.key);
+    player1.sprite.scale.setTo(0.1,0.1);
     player2.sprite = createPlayer(player2.x, player2.y, player2.key);
+    player2.sprite.scale.setTo(0.1,0.1);
     log(['create'],'ended');
 }
 
 function update() 
 {
-	controlPlayer(player1,game.input.x,player1.y);
+	//controlPlayer(player1,game.input.x,player1.y);
 }
 
 function createPlayer(x,y,key)
 {
 	var player = game.add.sprite(x,y,key);
 	player.anchor.setTo(0.5,0.5);
-	game.physics.arcade.enable(player);
-	player.body.collideWorldBounds = true;
+	//game.physics.arcade.enable(player);
+	//player.body.collideWorldBounds = true;
 	return player;
 }
 
@@ -81,17 +136,37 @@ function requestPlayers()
 		if (request.status >= 200 && request.status < 400)
 		{
 			log(['requestPlayers','onload'],request.responseText);
+			storePlayers(request.responseText);
+			return;
 		}
 		else
 		{
-
+			alert('Request defined');
 		}
 	}
 	request.onerror = function ()
 	{
 		log(['requestPlayers','onerror'],'error');
+		alert('Error on request');
 	}
 	request.send();
+}
+
+function storePlayers(JSONText)
+{
+	var players = [];
+	//only store data when defined
+	if (typeof(JSONText) != 'undefined')
+	{
+		players = JSON.parse(JSONText);
+		player1.model = players[0];
+		player2.model = players[1];
+		//print recived players name for debugging purposes
+		log(['storePlayers','player1.model.name'],player1.model.name);
+		log(['storePlayers','player1.model.name'],player1.model.name);
+	}
+	else
+		alert('Could not store player data : undefined');
 }
 
 function log(tags, message)
