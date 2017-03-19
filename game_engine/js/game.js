@@ -28,7 +28,7 @@ var sprite = {
 function preload() 
 {
 	log(['preload'],'started');
-	requestPlayers();
+	//requestPlayers();
 	game.load.image('player1', 'assets/enemy_btn.png');
 	log(['preload'],'ended');
 }
