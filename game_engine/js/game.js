@@ -47,9 +47,7 @@ function create()
 
 function update() 
 {
-	log(['update'],'started');
 	controlPlayer(player1,game.input.x,player1.y);
-	log(['update'],'ended');
 }
 
 function createPlayer(x,y,key)
@@ -103,5 +101,5 @@ function log(tags, message)
 	{
 		prefix = prefix + '['+tags[i]+']';
 	}
-	return prefix+' : '+message;
+	console.log(prefix+' : '+message);
 }
