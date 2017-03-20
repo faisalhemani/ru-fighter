@@ -1,7 +1,7 @@
 log(['viewport', 'width'],window.innerWidth);
 log(['viewport', 'width'],window.innerHeight);
 
-var game = new Phaser.Game(1100, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(1200, 800, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 var json_url = {
 	ip : 'http://35.162.14.150',
