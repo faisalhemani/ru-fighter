@@ -30,6 +30,7 @@ function controlPlayer(player,x,y)
 		player.width = game.world.width - paddle.width/2;
 }
 
+//request server for player model/json
 function requestPlayers()
 {
 	var request = new XMLHttpRequest();
@@ -57,6 +58,7 @@ function requestPlayers()
 	request.send();
 }
 
+//store the player model/json response
 function storePlayers(JSONText)
 {
 	var players = [];
