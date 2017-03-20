@@ -32,8 +32,8 @@ function preload()
 {
 	log(['preload'],'started');
 	//creates the players of the game
-	player1 = new Player(100, game.world.centerY, 'player1');
-	player2 = new Player(game.world.width-sprite.width-100, game.world.centerY, 'player2');
+	player1 = new Player(100, game.world.centerY/2, 'player1');
+	player2 = new Player(game.world.width-sprite.width-100, game.world.centerY/2, 'player2');
 	//use Phaser.ScaleManage.EXACT_FIT for exact screen scaling
 	scaleGame();
 	//request player data from game db & wait until player response is recieved
