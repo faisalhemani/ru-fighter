@@ -84,7 +84,7 @@ function create()
 {
 	log(['create'],'started');
 	//game.stage.scale.startFullScreen();
-	//game.physics.startSystem(Phaser.Physics.ARCADE);
+	game.physics.startSystem(Phaser.Physics.ARCADE);
 	createBackground('background');
 	//displays our 2 players
 	displayPlayer(player1);
