@@ -1,4 +1,7 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+log(['viewport', 'width'],window.innerWidth);
+log(['viewport', 'width'],window.innerHeight);
+
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 var json_url = {
 	ip : 'http://35.162.14.150',
@@ -18,28 +21,50 @@ var sprite = {
 function preload() 
 {
 	log(['preload'],'started');
-	//requestPlayers();
-	game.load.image('player1', 'assets/enemy_btn.png');
+	//creates the players of the game
+	player1 = new Player(100, game.world.centerY, 'player1');
+	player2 = new Player(game.world.width-sprite.width-100, game.world.centerY, 'player2');
+	//use Phaser.ScaleManage.EXACT_FIT for exact screen scaling
+	scaleGame();
+	//request player data from game db & wait until player response is recieved
+	requestPlayers();
+	//load the player sprite images
+	game.load.image('player1', 'assets/'+player1.model.avatar);
+	game.load.image('player2', 'assets/'+player2.model.avatar);
+	//sets the background color
+	game.stage.backgroundColor = '#eee';
+
+	//logs player1's relative sprite image path 
+	log(['preload','player1'],'assets/'+player1.model.avatar);
 	log(['preload'],'ended');
+}
+
+//all phaser functionality to scale the game to the viewport
+function scaleGame()
+{
+	game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	game.scale.setScreenSize();
+	game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.maxWidth = 1280;
+    game.scale.maxheight = 800;
 }
 
 function create() 
 {
 	log(['create'],'started');
-	player1 = new Player(0, game.world.centerY, 'player1');
-	player2 = new Player(game.world.width-sprite.width, game.world.centerY, 'player');
-    
-    game.physics.startSystem(Phaser.Physics.ARCADE);
+    //game.stage.scale.startFullScreen();
+    //game.physics.startSystem(Phaser.Physics.ARCADE);
     player1.sprite = createPlayer(player1.x, player1.y, player1.key);
+    player1.sprite.scale.setTo(0.1,0.1);
     player2.sprite = createPlayer(player2.x, player2.y, player2.key);
+    player2.sprite.scale.setTo(0.1,0.1);
     log(['create'],'ended');
 }
 
 function update() 
 {
-	log(['update'],'started');
-	controlPlayer(player1,game.input.x,player1.y);
-	log(['update'],'ended');
+	//controlPlayer(player1,game.input.x,player1.y);
 }
 
 function log(tags, message)
@@ -49,5 +74,5 @@ function log(tags, message)
 	{
 		prefix = prefix + '['+tags[i]+']';
 	}
-	return prefix+' : '+message;
+	console.log(prefix+' : '+message);
 }
