@@ -93,7 +93,8 @@ function animatePlayer(player)
 
 function player1Skills()
 {
-	if (game.input.keyboard.isDown(Phaser.keyboard.LEFT))
+	var q = game.keyboard.addKey(Phaser.Keyboard.ONE);
+	if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
 	{
 		log(['player1Skills'],'keyboard down pressed');
 		doAtomicRestructure(50);
