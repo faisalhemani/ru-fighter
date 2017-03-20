@@ -86,6 +86,7 @@ function displayPlayer(player)
 function animatePlayer(player)
 {
 	player.sprite = createPlayer(player.x, player.y, player.key);
+	player.sprite.scale.setTo(3,3);
 	var animate = player.sprite.animations.add('animate');
 	player.sprite.animations.play('animate', 30, true);
 }
