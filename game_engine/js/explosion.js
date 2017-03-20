@@ -23,7 +23,7 @@ function checkExplosion(sprite)
 		//log(['checkSprite', 'sprite.x'], sprite.x);
 		//log(['checkSprite', 'game.width/2'], game.width/2)
 		//log(['checkSprite','if'],sprite.x > game.width/2);
-		if (sprite.x > game.width/2)
+		if (sprite.x > game.width)
 		{
 			sprite.kill();
 			//particles.zombies.remove(sprite,true);
