@@ -114,7 +114,7 @@ function checkSprite(sprite)
 	}
 	catch(error)
 	{
-		log(['checkSprite','catch'], sprite);
+		//log(['checkSprite','catch'], sprite);
 	}
 }
 
@@ -130,5 +130,5 @@ function log(tags, message)
 
 function render()
 {
-	
+
 }
