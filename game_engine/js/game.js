@@ -166,12 +166,12 @@ function checkLight(light)
 {
 	try 
 	{	
-		if (sprite.y > game.height/2)
+		if (light.y > light.height/2)
 			light.kill();
 	}
 	catch (error)
 	{
-		log(['checkLight','catch'], sprite);
+		log(['checkLight','catch'], light);
 	}
 }
 
