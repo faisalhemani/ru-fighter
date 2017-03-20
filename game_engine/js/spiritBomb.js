@@ -1,7 +1,7 @@
 function createSpiritBomb()
 {
 	var chargeLight = particles.explosions.create(0, game.height/2, 'redPartical');
-	chargeLight.scale.setTo(5,5);
+	chargeLight.scale.setTo(8,8);
 }
 
 function animateSpiritBomb()
@@ -12,7 +12,8 @@ function animateSpiritBomb()
 
 function doSpiritBomb()
 {
-	game.time.events.repeat(50, 0, createSpiritBomb, this);
+	//game.time.events.repeat(50, 0, createSpiritBomb, this);
+	createSpiritBomb();
 }
 
 function checkSpiritBomb(sprite)
