@@ -22,6 +22,7 @@ function Player(x,y,key)
 var player1;
 var player2;
 var player3; 
+var battle;
 
 var sprite = {
 	width: 16,
@@ -74,7 +75,17 @@ function create()
 	displayPlayer(player1);
 	displayPlayer(player2);
 	animatePlayer(player3);
+
+	battle = game.add.group();
+	game.time.event.loop(5, createBattle, this);
 	log(['create'],'ended');
+}
+
+function createBattle()
+{
+	var player = battle.create(0, game.world.randomY, 'player3');
+	player.animations.add('walk');
+	player.play('walk', 10, true);
 }
 
 function createBackground(key)
@@ -87,7 +98,24 @@ function createBackground(key)
 
 function update() 
 {
+	battle.setAll('x', 10, true, true, 1);
+	battle.forEach(checkSprite, this, true);
 	//controlPlayer(player1,game.input.x,player1.y);
+}
+
+function checkSprite(sprite)
+{
+	try
+	{
+		if (sprite.x > game.width)
+		{
+			sprites.remove(sprite, true);
+		}
+	}
+	catch(error)
+	{
+		log(['checkSprite','catch'], sprite);
+	}
 }
 
 function log(tags, message)
