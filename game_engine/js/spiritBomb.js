@@ -6,7 +6,7 @@ function createSpiritBomb()
 
 function animateSpiritBomb()
 {
-	particles.spiritBomb.setAll('x', 10, true, true, 1);
+	particles.spiritBomb.setAll('x', 1, true, true, 1);
 	particles.spiritBomb.forEach(checkSpiritBomb, this, true);
 }
 
