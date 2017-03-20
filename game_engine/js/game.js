@@ -109,7 +109,7 @@ function createBattle()
 function createAtomicRestructure()
 {
 	var x = game.rnd.integerInRange(game.width/2, game.width);
-	var random = var x = game.rnd.integerInRange(0, 1);
+	var random = game.rnd.integerInRange(0, 1);
 	var sprite = 'redPartical';
 	if (random)
 		sprite = 'bluePartical';
