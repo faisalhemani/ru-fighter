@@ -167,7 +167,9 @@ function checkLight(light)
 	try 
 	{	
 		if (light.y > light.height/2)
+		{
 			light.kill();
+		}
 	}
 	catch (error)
 	{
