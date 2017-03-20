@@ -73,7 +73,6 @@ function create()
 	createBackground('background');
 	displayPlayer(player1);
 	displayPlayer(player2);
-	createPlayer(player3);
 	animatePlayer(player3);
 	log(['create'],'ended');
 }
