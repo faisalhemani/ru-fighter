@@ -75,3 +75,10 @@ function storePlayers(JSONText)
 	else
 		alert('Could not store player data : undefined');
 }
+
+//displays the player in phaser js
+function displayPlayer(player)
+{
+	player.sprite = createPlayer(player.x, player.y, player.key);
+	player.sprite.scale.setTo(0.1,0.1);
+}

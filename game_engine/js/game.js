@@ -69,10 +69,8 @@ function create()
 	//game.stage.scale.startFullScreen();
 	//game.physics.startSystem(Phaser.Physics.ARCADE);
 	createBackground('background');
-	player1.sprite = createPlayer(player1.x, player1.y, player1.key);
-	player1.sprite.scale.setTo(0.1,0.1);
-	player2.sprite = createPlayer(player2.x, player2.y, player2.key);
-	player2.sprite.scale.setTo(0.1,0.1);
+	displayPlayer(player1);
+	displayPlayer(player2);
 	log(['create'],'ended');
 }
 
