@@ -80,7 +80,7 @@ function create()
 function createBackground(key)
 {
 	var background = game.add.sprite(0,0,key);
-	background.anchor.setTo(0.5,0.5);
+	background.anchor.setTo(1,1);
 	background.scale.setTo(0.2,0.2);
 	return background;
 }
