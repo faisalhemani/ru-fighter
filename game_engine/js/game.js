@@ -1,7 +1,7 @@
 log(['viewport', 'width'],window.innerWidth);
 log(['viewport', 'width'],window.innerHeight);
 
-var game = new Phaser.Game(1100, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(1100, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render : render });
 
 var json_url = {
 	ip : 'http://35.162.14.150',
@@ -77,7 +77,7 @@ function create()
 	animatePlayer(player3);
 
 	battle = game.add.group();
-	game.time.event.loop(5, createBattle, this);
+	game.time.events.loop(5, createBattle, this);
 	log(['create'],'ended');
 }
 
