@@ -39,8 +39,8 @@ function preload()
 {
 	log(['preload'],'started');
 	//creates the players of the game
-	player1 = new Player(100, game.world.centerY/2, 'player1');
-	player2 = new Player(game.world.width-100, game.world.centerY/2, 'player2');
+	player1 = new Player(100, game.world.centerY, 'player1');
+	player2 = new Player(game.world.width-100, game.world.centerY, 'player2');
 	player3 = new Player(100, game.world.centerY, 'zombie');
 	//use Phaser.ScaleManage.EXACT_FIT for exact screen scaling
 	scaleGame();
@@ -90,7 +90,7 @@ function create()
 	displayPlayer(player1);
 	displayPlayer(player2);
 	//animates player3 (zombie_large)
-	animatePlayer(player3);
+	//animatePlayer(player3);
 	//initializes zombies particle group
 	particles.explosions = game.add.group();
 	//initializes lights particle group
