@@ -13,7 +13,7 @@ function animateExplosion()
 
 function doExplosion(repeat)
 {
-	game.time.events.repeat(50, repeat, createBattle, this);
+	game.time.events.repeat(50, repeat, createExplosion, this);
 }
 
 function checkExplosion(sprite)
