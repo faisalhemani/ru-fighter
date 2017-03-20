@@ -127,3 +127,8 @@ function log(tags, message)
 	}
 	console.log(prefix+' : '+message);
 }
+
+function render()
+{
+	
+}
