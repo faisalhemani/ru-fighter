@@ -61,8 +61,8 @@ function scaleGame()
 	game.scale.setScreenSize();
 	game.scale.pageAlignHorizontally = true;
 	game.scale.pageAlignVertically = true;
-	game.scale.maxWidth = 1280;
-	game.scale.maxheight = 800;
+	game.scale.maxWidth = 720;
+	game.scale.maxheight = 720;
 }
 
 function create() 
