@@ -18,10 +18,10 @@ function Player(x,y,key)
 	this.model = {};
 }
 
-//object to store player 1 related information
+//object to store player related information
 var player1;
-//object to store player 2 related information
 var player2;
+var player3; 
 
 var sprite = {
 	width: 16,
@@ -34,6 +34,7 @@ function preload()
 	//creates the players of the game
 	player1 = new Player(100, game.world.centerY/2, 'player1');
 	player2 = new Player(game.world.width-sprite.width-100, game.world.centerY/2, 'player2');
+	player3 = new Player(100, game.world.centerY/2, 'player3');
 	//use Phaser.ScaleManage.EXACT_FIT for exact screen scaling
 	scaleGame();
 	//request player data from game db & wait until player response is recieved
@@ -41,6 +42,7 @@ function preload()
 	//load the player sprite images
 	game.load.image('player1', 'assets/'+player1.model.avatar);
 	game.load.image('player2', 'assets/'+player2.model.avatar);
+	game.load.spritesheet('player3', 'assets/spritesheet.jpg');
 	//load the game background image
 	game.load.image('background', 'assets/battle_screens/'+player2.model.name+'/'+'background.jpg');
 	//sets the background color
@@ -71,6 +73,7 @@ function create()
 	createBackground('background');
 	displayPlayer(player1);
 	displayPlayer(player2);
+	displayPlayer(player3);
 	log(['create'],'ended');
 }
 
