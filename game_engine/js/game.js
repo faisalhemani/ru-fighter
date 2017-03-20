@@ -77,6 +77,7 @@ function create()
 function createBackground(key)
 {
 	var background = game.add.sprite(0,0,key);
+	background.scale.setTo(0.2,0.2);
 	return background;
 }
 
