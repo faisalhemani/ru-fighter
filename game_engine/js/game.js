@@ -40,7 +40,7 @@ function preload()
 	//creates the players of the game
 	player1 = new Player(100, game.world.centerY/2, 'player1');
 	player2 = new Player(game.world.width-sprite.width-100, game.world.centerY/2, 'player2');
-	player3 = new Player(100, game.world.centerY, 'player3');
+	player3 = new Player(100, game.world.centerY, 'zombie');
 	//use Phaser.ScaleManage.EXACT_FIT for exact screen scaling
 	scaleGame();
 	//request player data from game db & wait until player response is recieved
@@ -48,7 +48,7 @@ function preload()
 	//load the player sprite images
 	game.load.image('player1', 'assets/'+player1.model.avatar);
 	game.load.image('player2', 'assets/'+player2.model.avatar);
-	game.load.spritesheet('player3', 'assets/metalslug.png',37, 45, 18);
+	game.load.spritesheet('zombie', 'assets/metalslug.png',37, 45, 18);
 	//load the game background image
 	game.load.image('background', 'assets/battle_screens/'+player2.model.name+'/'+'background.jpg');
 	//sets the background color
@@ -87,7 +87,7 @@ function create()
 
 function createBattle()
 {
-	var zombie = particles.zombies.create(0, game.world.randomY, 'player3');
+	var zombie = particles.zombies.create(0, game.world.randomY, 'zombie');
 	zombie.animations.add('walk');
 	zombie.play('walk', 10, true);
 }
