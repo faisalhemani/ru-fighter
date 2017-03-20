@@ -42,7 +42,7 @@ function preload()
 	game.load.image('player1', 'assets/'+player1.model.avatar);
 	game.load.image('player2', 'assets/'+player2.model.avatar);
 	//load the game background image
-	game.load.image('background', 'assets/battle_screens/'+player2.model.name+'/'+player2.model.name+'background.png');
+	game.load.image('background', 'assets/battle_screens/'+player2.model.name+'/'+'background.png');
 	//sets the background color
 	game.stage.backgroundColor = '#000';
 
