@@ -1,7 +1,7 @@
 function createSpiritBomb()
 {
 	var chargeLight = particles.explosions.create(0, game.height/2, 'redPartical');
-	chargeLight.scale.setTo(12,12);
+	chargeLight.scale.setTo(10,10);
 }
 
 function animateSpiritBomb()
