@@ -113,7 +113,7 @@ function createAtomicRestructure()
 	var sprite = 'redPartical';
 	if (random)
 		sprite = 'bluePartical';
-	var light = particles.lights.create(x,0,sprite);
+	var light = particles.lights.create(game.width/2+50,0,'bluePartical');
 }
 
 function createBackground(key)
