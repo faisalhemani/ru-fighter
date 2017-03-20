@@ -26,6 +26,7 @@ var player3;
 var particles = {
 	zombies : {},
 	explosions : {},
+	lights : {},
 	text : {}
 }
 
@@ -45,6 +46,12 @@ function preload()
 	//load the player sprite images
 	game.load.image('player1', 'assets/'+player1.model.avatar);
 	game.load.image('player2', 'assets/'+player2.model.avatar);
+	//load 
+	game.load.image('bluePartical', 'assets/blue.png');
+	game.load.image('redPartical', 'assets/red.png');
+	//load explosion sprite sheet
+	game.load.spritesheet('explosion','assets/explode.png',128,128);
+	//load zombie sprite sheet
 	game.load.spritesheet('zombie', 'assets/metalslug.png',37, 45, 18);
 	//load the game background image
 	game.load.image('background', 'assets/battle_screens/'+player2.model.name+'/'+'background.jpg');
@@ -81,6 +88,10 @@ function create()
 	animatePlayer(player3);
 	//initializes zombies particle group
 	particles.zombies = game.add.group();
+	//initializes lights particle group
+	particles.lights = game.add.group();
+	//
+	game.time.events.loop(50, createAtomicRestructure, this);
 	//
 	game.time.events.loop(50, createBattle, this);
 	buttons = game.add.group();
@@ -95,6 +106,16 @@ function createBattle()
 	zombie.play('walk', 10, true);
 }
 
+function createAtomicRestructure()
+{
+	var x = game.rnd.integerInRange(game.width/2, game.width);
+	var random = var x = game.rnd.integerInRange(0, 1);
+	var sprite = 'redPartical';
+	if (random)
+		sprite = 'bluePartical';
+	var light = particles.lights.create(x,0,sprite);
+}
+
 function createBackground(key)
 {
 	var background = game.add.sprite(30,0,key);
@@ -106,6 +127,7 @@ function createBackground(key)
 function update() 
 {
 	animateZombies();
+	animateAtomicRestructure();
 	//controlPlayer(player1,game.input.x,player1.y);
 }
 
@@ -113,6 +135,12 @@ function animateZombies()
 {
 	particles.zombies.setAll('x', 10, true, true, 1);
 	particles.zombies.forEach(checkSprite, this, true);
+}
+
+function animateAtomicRestructure()
+{
+	particles.lights.setAll('y' 10, true, true, 1);
+	particles.lights.forEach(checkLight, this, true);
 }
 
 function checkSprite(sprite)
@@ -131,6 +159,19 @@ function checkSprite(sprite)
 	catch(error)
 	{
 		log(['checkSprite','catch'], sprite);
+	}
+}
+
+function checkLight(light)
+{
+	try 
+	{	
+		if (sprite.y > game.height/2)
+			light.kill();
+	}
+	catch (error)
+	{
+		log(['checkLight','catch'], sprite);
 	}
 }
 
