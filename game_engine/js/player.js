@@ -93,11 +93,25 @@ function animatePlayer(player)
 
 function player1Skills()
 {
+	var keyboard = game.input.keyboard;
 	//var q = game.keyboard.addKey(Phaser.Keyboard.ONE);
-	if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
+	if (keyboard.isDown(Phaser.Keyboard.Q))
 	{
-		log(['player1Skills'],'keyboard down pressed');
+		log(['player1Skills'],'keyboard Q down pressed');
 		doAtomicRestructure(50);
+	}
+	if (keyboard.isDown(Phaser.Keyboard.W))
+	{
+		log(['player1Skills'],'keyboard W down pressed');
+		doExplosion();
+	}
+	if (Keyboard.isDown(Phaser.Keyboard.E))
+	{
+		log(['player1Skills'],'keyboard E down pressed');
+	}
+	if (Keyboard.isDown(Phaser.Keyboard.R))
+	{
+		log(['player1Skills'],'keyboard R down pressed');
 	}
 }
 
