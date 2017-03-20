@@ -91,9 +91,9 @@ function create()
 	//initializes lights particle group
 	particles.lights = game.add.group();
 	//
-	game.time.events.repeat(50, 10, createAtomicRestructure, this);
+	game.time.events.repeat(50, 50, createAtomicRestructure, this);
 	//
-	game.time.events.repeat(50, 10, createBattle, this);
+	game.time.events.repeat(50, 50, createBattle, this);
 	buttons = game.add.group();
 
 	log(['create'],'ended');
