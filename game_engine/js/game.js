@@ -27,6 +27,7 @@ var particles = {
 	zombies : {},
 	explosions : {},
 	lights : {},
+	spiritBomb : {},
 	text : {}
 }
 
@@ -94,10 +95,14 @@ function create()
 	particles.explosions = game.add.group();
 	//initializes lights particle group
 	particles.lights = game.add.group();
+	//initializes spiritbomb particle group
+	particles.spiritBomb = game.add.group();
 	//
 	doAtomicRestructure(50);
 	//
 	doExplosion(50);
+	//
+	doSpiritBomb();
 	buttons = game.add.group();
 	//add music to the game
 	music = game.add.audio('battletheme');
@@ -119,6 +124,7 @@ function update()
 	player1Skills();
 	animateExplosion();
 	animateAtomicRestructure();
+	animateSpiritBomb();
 	//controlPlayer(player1,game.input.x,player1.y);
 }
 

@@ -108,6 +108,7 @@ function player1Skills()
 	if (keyboard.isDown(Phaser.Keyboard.E))
 	{
 		log(['player1Skills'],'keyboard E down pressed');
+		doSpiritBomb();
 	}
 	if (keyboard.isDown(Phaser.Keyboard.R))
 	{
