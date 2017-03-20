@@ -105,11 +105,11 @@ function player1Skills()
 		log(['player1Skills'],'keyboard W down pressed');
 		doExplosion();
 	}
-	if (Keyboard.isDown(Phaser.Keyboard.E))
+	if (keyboard.isDown(Phaser.Keyboard.E))
 	{
 		log(['player1Skills'],'keyboard E down pressed');
 	}
-	if (Keyboard.isDown(Phaser.Keyboard.R))
+	if (keyboard.isDown(Phaser.Keyboard.R))
 	{
 		log(['player1Skills'],'keyboard R down pressed');
 	}
