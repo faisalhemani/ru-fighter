@@ -91,7 +91,7 @@ function create()
 	//initializes lights particle group
 	particles.lights = game.add.group();
 	//
-	doAtomicReconstruction(50);
+	doAtomicRestructure(50);
 	//
 	doExplosion(50);
 	buttons = game.add.group();
