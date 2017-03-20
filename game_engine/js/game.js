@@ -32,6 +32,8 @@ var particles = {
 
 var buttons = {}; 
 
+var music;
+
 function preload() 
 {
 	log(['preload'],'started');
@@ -55,6 +57,8 @@ function preload()
 	game.load.spritesheet('zombie', 'assets/metalslug.png',37, 45, 18);
 	//load the game background image
 	game.load.image('background', 'assets/battle_screens/'+player2.model.name+'/'+'background.jpg');
+	
+	game.load.audio('battletheme', 'assets/music/battletheme.mp3');
 	//sets the background color
 	game.stage.backgroundColor = '#000';
 
@@ -95,6 +99,9 @@ function create()
 	//
 	doExplosion(50);
 	buttons = game.add.group();
+	//add music to the game
+	music = game.add.audio('battletheme');
+	music.play();
 
 	log(['create'],'ended');
 }
