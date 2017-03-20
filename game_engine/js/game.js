@@ -114,6 +114,7 @@ function createAtomicRestructure()
 	if (random)
 		sprite = 'bluePartical';
 	var light = particles.lights.create(x,0,sprite);
+	light.scale.setTo(2,2);
 }
 
 function createBackground(key)
