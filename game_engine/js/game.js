@@ -42,7 +42,7 @@ function preload()
 	//load the player sprite images
 	game.load.image('player1', 'assets/'+player1.model.avatar);
 	game.load.image('player2', 'assets/'+player2.model.avatar);
-	game.load.spritesheet('player3', 'assets/spritesheet.jpg');
+	game.load.spritesheet('player3', 'assets/metalslug.png',37, 45, 18);
 	//load the game background image
 	game.load.image('background', 'assets/battle_screens/'+player2.model.name+'/'+'background.jpg');
 	//sets the background color
