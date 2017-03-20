@@ -103,7 +103,7 @@ function player1Skills()
 	if (keyboard.isDown(Phaser.Keyboard.W))
 	{
 		log(['player1Skills'],'keyboard W down pressed');
-		doExplosion();
+		doExplosion(50);
 	}
 	if (keyboard.isDown(Phaser.Keyboard.E))
 	{
