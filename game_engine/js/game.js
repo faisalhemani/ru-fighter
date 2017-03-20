@@ -97,7 +97,7 @@ function createBattle()
 
 function createBackground(key)
 {
-	var background = game.add.sprite(0,0,game.width, game.height,key);
+	var background = game.add.sprite(0,0,600, 600,key);
 	//background.anchor.setTo(0,0);
 	background.scale.setTo(0.2,0.2);
 	return background;
