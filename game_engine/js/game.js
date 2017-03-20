@@ -55,21 +55,21 @@ function scaleGame()
 	game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	game.scale.setScreenSize();
 	game.scale.pageAlignHorizontally = true;
-    game.scale.pageAlignVertically = true;
-    game.scale.maxWidth = 1280;
-    game.scale.maxheight = 800;
+	game.scale.pageAlignVertically = true;
+	game.scale.maxWidth = 1280;
+	game.scale.maxheight = 800;
 }
 
 function create() 
 {
 	log(['create'],'started');
-    //game.stage.scale.startFullScreen();
-    //game.physics.startSystem(Phaser.Physics.ARCADE);
-    player1.sprite = createPlayer(player1.x, player1.y, player1.key);
-    player1.sprite.scale.setTo(0.1,0.1);
-    player2.sprite = createPlayer(player2.x, player2.y, player2.key);
-    player2.sprite.scale.setTo(0.1,0.1);
-    log(['create'],'ended');
+	//game.stage.scale.startFullScreen();
+	//game.physics.startSystem(Phaser.Physics.ARCADE);
+	player1.sprite = createPlayer(player1.x, player1.y, player1.key);
+	player1.sprite.scale.setTo(0.1,0.1);
+	player2.sprite = createPlayer(player2.x, player2.y, player2.key);
+	player2.sprite.scale.setTo(0.1,0.1);
+	log(['create'],'ended');
 }
 
 function update() 
