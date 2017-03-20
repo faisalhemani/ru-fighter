@@ -101,7 +101,7 @@ function create()
 
 function createBattle()
 {
-	var zombie = particles.zombies.create(0, game.world.randomY, 'zombie');
+	var zombie = particles.zombies.create(0, game.world.randomY, 'explosion');
 	zombie.animations.add('walk');
 	zombie.play('walk', 10, true);
 }
