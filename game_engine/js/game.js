@@ -109,6 +109,7 @@ function createBackground(key)
 
 function update() 
 {
+	player1Skills();
 	animateExplosion();
 	animateAtomicRestructure();
 	//controlPlayer(player1,game.input.x,player1.y);

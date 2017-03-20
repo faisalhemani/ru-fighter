@@ -90,3 +90,17 @@ function animatePlayer(player)
 	var animate = player.sprite.animations.add('animate');
 	player.sprite.animations.play('animate', 30, true);
 }
+
+function player1Skills()
+{
+	if (game.input.keyboard.isDown(Phaser.keyboard.Q))
+	{
+		log(['player1Skills'],'keyboard down pressed');
+		doAtomicRestructure(50);
+	}
+}
+
+function player2Skills()
+{
+
+}
