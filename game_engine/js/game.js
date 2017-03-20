@@ -42,7 +42,7 @@ function preload()
 	game.load.image('player1', 'assets/'+player1.model.avatar);
 	game.load.image('player2', 'assets/'+player2.model.avatar);
 	//sets the background color
-	game.stage.backgroundColor = '#eee';
+	game.stage.backgroundColor = '#000';
 
 	//logs player1's relative sprite image path 
 	log(['preload','player1'],'assets/'+player1.model.avatar);
