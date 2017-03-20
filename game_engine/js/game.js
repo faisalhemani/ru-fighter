@@ -91,9 +91,9 @@ function create()
 	//initializes lights particle group
 	particles.lights = game.add.group();
 	//
-	game.time.events.repeat(50, 50, createAtomicRestructure, this);
+	doAtomicReconstruction(50);
 	//
-	game.time.events.repeat(50, 50, createBattle, this);
+	
 	buttons = game.add.group();
 
 	log(['create'],'ended');
@@ -109,7 +109,7 @@ function createBackground(key)
 
 function update() 
 {
-	animateExplosions();
+	animateExplosion();
 	animateAtomicRestructure();
 	//controlPlayer(player1,game.input.x,player1.y);
 }

@@ -1,14 +1,19 @@
-function createBattle()
+function createExplosion()
 {
 	var explosion = particles.explosions.create(0, game.world.randomY, 'explosion');
 	explosion.animations.add('walk');
 	explosion.play('walk', 10, true);
 }
 
-function animateExplosions()
+function animateExplosion()
 {
 	particles.explosions.setAll('x', 10, true, true, 1);
 	particles.explosions.forEach(checkExplosion, this, true);
+}
+
+function doExplosion()
+{
+	game.time.events.repeat(50, 50, createBattle, this);
 }
 
 function checkExplosion(sprite)

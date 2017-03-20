@@ -15,6 +15,11 @@ function animateAtomicRestructure()
 	particles.lights.forEach(checkLight, this, true);
 }
 
+function doAtomicRestructure(repeat)
+{
+	game.time.events.repeat(50, repeat, createAtomicRestructure, this);
+}
+
 function checkLight(light)
 {
 	try 
