@@ -87,7 +87,7 @@ function create()
 	//animates player3 (zombie_large)
 	animatePlayer(player3);
 	//initializes zombies particle group
-	particles.zombies = game.add.group();
+	particles.explosions = game.add.group();
 	//initializes lights particle group
 	particles.lights = game.add.group();
 	//
@@ -97,24 +97,6 @@ function create()
 	buttons = game.add.group();
 
 	log(['create'],'ended');
-}
-
-function createBattle()
-{
-	var zombie = particles.zombies.create(0, game.world.randomY, 'explosion');
-	zombie.animations.add('walk');
-	zombie.play('walk', 10, true);
-}
-
-function createAtomicRestructure()
-{
-	var x = game.rnd.integerInRange(game.width/2, game.width);
-	var random = game.rnd.integerInRange(0, 1);
-	var sprite = 'redPartical';
-	if (random)
-		sprite = 'bluePartical';
-	var light = particles.lights.create(x,0,sprite);
-	light.scale.setTo(2,2);
 }
 
 function createBackground(key)
@@ -127,55 +109,9 @@ function createBackground(key)
 
 function update() 
 {
-	animateZombies();
+	animateExplosions();
 	animateAtomicRestructure();
 	//controlPlayer(player1,game.input.x,player1.y);
-}
-
-function animateZombies()
-{
-	particles.zombies.setAll('x', 10, true, true, 1);
-	particles.zombies.forEach(checkSprite, this, true);
-}
-
-function animateAtomicRestructure()
-{
-	particles.lights.setAll('y', 10, true, true, 1);
-	particles.lights.forEach(checkLight, this, true);
-}
-
-function checkSprite(sprite)
-{
-	try
-	{
-		//log(['checkSprite', 'sprite.x'], sprite.x);
-		//log(['checkSprite', 'game.width/2'], game.width/2)
-		//log(['checkSprite','if'],sprite.x > game.width/2);
-		if (sprite.x > game.width/2)
-		{
-			sprite.kill();
-			//particles.zombies.remove(sprite,true);
-		}
-	}
-	catch(error)
-	{
-		log(['checkSprite','catch'], sprite);
-	}
-}
-
-function checkLight(light)
-{
-	try 
-	{	
-		if (light.y > game.height)
-		{
-			light.kill();
-		}
-	}
-	catch (error)
-	{
-		log(['checkLight','catch'], light);
-	}
 }
 
 function log(tags, message)
