@@ -85,6 +85,6 @@ function displayPlayer(player)
 
 function animatePlayer(player)
 {
-	var walk = player.animations.add('animate');
+	var animate = player.animations.add('animate');
 	player.animations.play('animate', 30, true);
 }
