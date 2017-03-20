@@ -167,7 +167,7 @@ function checkLight(light)
 {
 	try 
 	{	
-		if (light.y > light.height)
+		if (light.y > game.height)
 		{
 			light.kill();
 		}
