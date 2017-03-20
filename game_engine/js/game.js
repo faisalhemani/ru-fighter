@@ -93,7 +93,7 @@ function create()
 	//
 	doAtomicReconstruction(50);
 	//
-	
+	doExplosion(50);
 	buttons = game.add.group();
 
 	log(['create'],'ended');

@@ -11,9 +11,9 @@ function animateExplosion()
 	particles.explosions.forEach(checkExplosion, this, true);
 }
 
-function doExplosion()
+function doExplosion(repeat)
 {
-	game.time.events.repeat(50, 50, createBattle, this);
+	game.time.events.repeat(50, repeat, createBattle, this);
 }
 
 function checkExplosion(sprite)
