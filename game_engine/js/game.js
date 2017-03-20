@@ -83,6 +83,8 @@ function create()
 	particles.zombies = game.add.group();
 	//
 	game.time.events.loop(50, createBattle, this);
+	buttons = game.add.group();
+
 	log(['create'],'ended');
 }
 
@@ -95,7 +97,7 @@ function createBattle()
 
 function createBackground(key)
 {
-	var background = game.add.sprite(30,0,key);
+	var background = game.add.sprite(0,0,game.width, game.height,key);
 	//background.anchor.setTo(0,0);
 	background.scale.setTo(0.2,0.2);
 	return background;
