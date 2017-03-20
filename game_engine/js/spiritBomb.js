@@ -2,7 +2,7 @@ function createSpiritBomb()
 {
 	var chargeLight = particles.explosions.create(0, game.height/2, 'redPartical');
 	chargeLight.scale.setTo(10,10);
-	chargeLight.enableBody = true;
+	//chargeLight.enableBody = true;
     chargeLight.physicsBodyType = Phaser.Physics.ARCADE;
 }
 
