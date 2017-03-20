@@ -125,7 +125,7 @@ function update()
 	animateExplosion();
 	animateAtomicRestructure();
 	animateSpiritBomb();
-	if (keyboard.isDown(Phaser.Keyboard.M))
+	if (game.input.keyboard.isDown(Phaser.Keyboard.M))
 		music.pause();
 	//controlPlayer(player1,game.input.x,player1.y);
 }
