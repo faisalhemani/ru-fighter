@@ -29,17 +29,14 @@ var particles = {
 	text : {}
 }
 
-var sprite = {
-	width: 16,
-	height : 16
-}
+var buttons = {}; 
 
 function preload() 
 {
 	log(['preload'],'started');
 	//creates the players of the game
 	player1 = new Player(100, game.world.centerY/2, 'player1');
-	player2 = new Player(game.world.width-sprite.width-100, game.world.centerY/2, 'player2');
+	player2 = new Player(game.world.width-100, game.world.centerY/2, 'player2');
 	player3 = new Player(100, game.world.centerY, 'zombie');
 	//use Phaser.ScaleManage.EXACT_FIT for exact screen scaling
 	scaleGame();
@@ -77,10 +74,14 @@ function create()
 	//game.stage.scale.startFullScreen();
 	//game.physics.startSystem(Phaser.Physics.ARCADE);
 	createBackground('background');
+	//displays our 2 players
 	displayPlayer(player1);
 	displayPlayer(player2);
+	//animates player3 (zombie_large)
 	animatePlayer(player3);
+	//initializes zombies particle group
 	particles.zombies = game.add.group();
+	//
 	game.time.events.loop(50, createBattle, this);
 	log(['create'],'ended');
 }
@@ -102,9 +103,14 @@ function createBackground(key)
 
 function update() 
 {
+	animateZombies();
+	//controlPlayer(player1,game.input.x,player1.y);
+}
+
+function animateZombies()
+{
 	particles.zombies.setAll('x', 10, true, true, 1);
 	particles.zombies.forEach(checkSprite, this, true);
-	//controlPlayer(player1,game.input.x,player1.y);
 }
 
 function checkSprite(sprite)
