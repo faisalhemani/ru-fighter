@@ -22,7 +22,12 @@ function Player(x,y,key)
 var player1;
 var player2;
 var player3; 
-var battle;
+//stores the particle sprites in game groups
+var particles = {
+	zombies : {},
+	explosions : {},
+	text : {}
+}
 
 var sprite = {
 	width: 16,
@@ -75,17 +80,16 @@ function create()
 	displayPlayer(player1);
 	displayPlayer(player2);
 	animatePlayer(player3);
-
-	battle = game.add.group();
-	game.time.events.loop(5, createBattle, this);
+	particles.zombies = game.add.group();
+	game.time.events.loop(50, createBattle, this);
 	log(['create'],'ended');
 }
 
 function createBattle()
 {
-	var player = battle.create(0, game.world.randomY, 'player3');
-	player.animations.add('walk');
-	player.play('walk', 10, true);
+	var zombie = particles.zombies.create(0, game.world.randomY, 'player3');
+	zombie.animations.add('walk');
+	zombie.play('walk', 10, true);
 }
 
 function createBackground(key)
@@ -98,8 +102,8 @@ function createBackground(key)
 
 function update() 
 {
-	battle.setAll('x', 10, true, true, 1);
-	battle.forEach(checkSprite, this, true);
+	particles.zombies.setAll('x', 10, true, true, 1);
+	particles.zombies.forEach(checkSprite, this, true);
 	//controlPlayer(player1,game.input.x,player1.y);
 }
 
@@ -107,14 +111,18 @@ function checkSprite(sprite)
 {
 	try
 	{
-		if (sprite.x > game.width)
+		//log(['checkSprite', 'sprite.x'], sprite.x);
+		//log(['checkSprite', 'game.width/2'], game.width/2)
+		//log(['checkSprite','if'],sprite.x > game.width/2);
+		if (sprite.x > game.width/2)
 		{
-			sprites.remove(sprite, true);
+			sprite.kill();
+			//particles.zombies.remove(sprite,true);
 		}
 	}
 	catch(error)
 	{
-		//log(['checkSprite','catch'], sprite);
+		log(['checkSprite','catch'], sprite);
 	}
 }
 
