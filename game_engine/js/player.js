@@ -12,8 +12,9 @@ function Player(x,y,key)
 function createPlayer(x,y,key)
 {
 	var player = game.add.sprite(x,y,key);
-	player.anchor.setTo(0.5,0.5);
+	player.anchor.setTo(0.5,0.5);D
 	//game.physics.arcade.enable(player);
+	//game.physics.enable(player, Phaser.Physics.ARCADE);
 	//player.body.collideWorldBounds = true;
 	return player;
 }
@@ -30,6 +31,7 @@ function controlPlayer(player,x,y)
 		player.width = game.world.width - paddle.width/2;
 }
 
+//request server for player model/json
 function requestPlayers()
 {
 	var request = new XMLHttpRequest();
@@ -57,6 +59,7 @@ function requestPlayers()
 	request.send();
 }
 
+//store the player model/json response
 function storePlayers(JSONText)
 {
 	var players = [];
@@ -72,4 +75,49 @@ function storePlayers(JSONText)
 	}
 	else
 		alert('Could not store player data : undefined');
+}
+
+//displays the player in phaser js
+function displayPlayer(player)
+{
+	player.sprite = createPlayer(player.x, player.y, player.key);
+	player.sprite.scale.setTo(0.1,0.1);
+}
+
+function animatePlayer(player)
+{
+	player.sprite = createPlayer(player.x, player.y, player.key);
+	player.sprite.scale.setTo(3,3);
+	var animate = player.sprite.animations.add('animate');
+	player.sprite.animations.play('animate', 30, true);
+}
+
+function player1Skills()
+{
+	var keyboard = game.input.keyboard;
+	//var q = game.keyboard.addKey(Phaser.Keyboard.ONE);
+	if (keyboard.isDown(Phaser.Keyboard.Q))
+	{
+		log(['player1Skills'],'keyboard Q down pressed');
+		doAtomicRestructure(50);
+	}
+	if (keyboard.isDown(Phaser.Keyboard.W))
+	{
+		log(['player1Skills'],'keyboard W down pressed');
+		doExplosion(50);
+	}
+	if (keyboard.isDown(Phaser.Keyboard.E))
+	{
+		log(['player1Skills'],'keyboard E down pressed');
+		doSpiritBomb();
+	}
+	if (keyboard.isDown(Phaser.Keyboard.R))
+	{
+		log(['player1Skills'],'keyboard R down pressed');
+	}
+}
+
+function player2Skills()
+{
+
 }
