@@ -161,11 +161,9 @@ function startScreen()
 
 function audio_start() 
 {
-
 	console.log("in audio");
 	audio.fadeIn(5000);
 	//audio.play();
-
 }
 
 //fix the fade picture
@@ -189,7 +187,7 @@ function fadePicture()
 
 function start_action()
 {
-	console.log("clearing the start screen");
+	//console.log("clearing the start screen");
 	remove(start_bg);
 	remove(amber);
 	remove(rufighter);
@@ -199,7 +197,7 @@ function start_action()
 
 function battleFeild()
 {
-	console.log("in the battle screen");
+	//console.log("in the battle screen");
 	callingServer();
 }
 
@@ -209,7 +207,6 @@ function callingServer()
 	console.log("calling the server");
 	var request = new XMLHttpRequest();
 	var port = ':8081'
-//	log(['callingServer'], request);
         request.open('GET',url+port,true);
         request.onload = function ()
         {
@@ -235,21 +232,18 @@ function callingServer()
 function storeJSON(JSON_object)
 {
 	uhp = JSON_object[0].stats.hp;
-  //      console.log(uhp);  
         ulevel = JSON_object[0].stats.level;
         umana = JSON_object[0].stats.mana;
         uspeed = JSON_object[0].stats.speed;
 
  	chp = JSON_object[1].stats.hp;
-        //console.log(chp);  
         clevel = JSON_object[1].stats.level;
         cmana = JSON_object[1].stats.mana;
         cspeed = JSON_object[1].stats.speed;
 
 	ai_info(JSON_object[1].stats, JSON_object[1].facility);
 	user_info(JSON_object[0].avatar, JSON_object[0].facility,JSON_object[0].name, JSON_object[0].stats);
-//        ai_info(JSON_object[1].stats, JSON_object[1].facility);
-
+	battle(JSON_object[0].stats.speed, JSON_object[1].stats.speed);
 }
 
 /*
@@ -261,6 +255,7 @@ var chp_txt,chp, clevel_txt, clevel, cmana_txt, cmana, cspeed_txt, cspeed;
 
 function user_info(avatar, facility, name, stats)
 {
+/*
 	if( facility == "science")
 	{
 		console.log("going to science");
@@ -268,7 +263,7 @@ function user_info(avatar, facility, name, stats)
 	}
 	else
 		engineering();
-
+*/
 	if (avatar == "xavier.png")
 	{
  		this.avatar = game.add.sprite(100,200,'player1');
@@ -310,22 +305,22 @@ function ai_info(stats, facility)
 		victoria_lane();
 	}
 */
+
 	devo();
 	//kerr_hall();
 	//outside_eng();
 	//bridge();
 	//victoria_lane();
 
-//	txt_color = '#000000';
-//	science(txt_color);
-
+//we might not need this
+/*
 	if (facility == "science")
 	{
 		ai_science();
 	}
 	else
 		ai_engineering();
-
+*/
 }
 
 /*
@@ -384,7 +379,7 @@ function kerr_hall()
 	console.log(alex);
         //add sprites
 
-   //text 
+   	//text 
         //text for hp and stuff 
         txt_color = '#0000ff';
         console.log("show the text");
@@ -552,6 +547,8 @@ function victoria_lane()
         cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
         console.log(uhp_txt);
 
+
+
 //      dmg_txt.destroy();
 
 
@@ -585,48 +582,6 @@ function science(txt_color)
 	ultimate = game.add.sprite(760 ,450,'sul');//, ultimate_action, this, 2,1,0);
 	console.log("buttons are up");
 
-//	console.log(counter);
-/*
-	if(counter == 0 && uspeed == cspeed)
-	{
-			if( random == 0){
-				console.log("Random: " + random);
-                                dmg_txt = game.add.text(700,200,"Your Turn", {font: "30px Arial", fill: '#ffff00'});
-
-				reg.inputEnabled = true;
-	        		reg.events.onInputDown.add(sr_action,this);
-        			special.inputEnabled = true;
-	        		special.events.onInputDown.add(ss_action,this);
-		        	utility.inputEnabled = true;
-	        		utility.events.onInputDown.add(utility_action,this);
-        			ultimate.inputEnabled = true;
-        			ultimate.events.onInputDown.add(ultimate_action,this);
-				counter++;
-			}
-			else{
-				ai_txt = game.add.text(300,200, "AI GOES FIRST", {font: "45px Arial", fill: "#00ffff"});
-				ai_science();
-				dmg_txt = game.add.text(700,200,"Still need to add attacks for AI", {font: "30px Arial", fill: '#ffff00'});
-				counter ++;
-			}
-
-	}
-	else if(uspeed > cspeed)
-	{
-		 reg.inputEnabled = true;
-	        reg.events.onInputDown.add(sr_action,this);
-        	special.inputEnabled = true;
-	        special.events.onInputDown.add(ss_action,this);
-        	utility.inputEnabled = true;
-        	utility.events.onInputDown.add(utility_action,this);
-        	ultimate.inputEnabled = true;
-        	ultimate.events.onInputDown.add(ultimate_action,this);
-
-
-	}
-	else if (speed<cspeed){
-	}
-*/
 	reg.inputEnabled = true;
 	reg.events.onInputDown.add(sr_action,this);
 	special.inputEnabled = true;
@@ -635,48 +590,99 @@ function science(txt_color)
         utility.events.onInputDown.add(utility_action,this);
 	ultimate.inputEnabled = true;
         ultimate.events.onInputDown.add(ultimate_action,this);
-
-	battle();
+//	dmg_txt.destroy();
+//	battle();
 
 }
 
+var user_counter=0, ai_counter=0;
 
-function battle(){
+function battle(user_speed, ai_speed){
+	console.log("in the battle function");
 
-console.log("in the battle function");
-//turns andd mp increase and stuff
-/*
+	//first turn
+	if( counter == 0)
+	{
+		if (user_speed == ai_speed)
+		{
+			console.log("speed is same");
+			if (user_speed ==3)
+			{
+				console.log("the facility is science");
+				if (random == 1)
+				{
+					console.log("user is going first");
+					science("#0000ff"); user_counter++;
+					dmg_txt = game.add.text(350, 300, "You Go First", {font: "40px Arial", fill: txt_color});
 
- 	//text for hp and stuff 
-        txt_color = '#0000ff';
-        console.log("show the text");
-        uhp_txt = game.add.text(170,15,"Hp: " + uhp,{font: "22px Arial", fill: txt_color});
-        ulevel_txt = game.add.text(260,15,"Level: " + ulevel, {font: "22px Arial", fill: txt_color});
-        umana_txt = game.add.text(370,15, "Mp: " +umana,{font: "22px Arial", fill: txt_color});
-        uspeed_txt = game.add.text(480,15,"Speed: "+uspeed,{font: "22px Arial", fill: txt_color});
+				}
+				else
+				{
+					ai_science();
+					ai_counter++;
+					dmg_txt = game.add.text(350, 300, "Ai Goes First", {font: "40px Arial", fill: txt_color});
 
-        console.log(uhp_txt);
+				}
+			}
+			else
+			{
+				console.log("the facility is engineering");
+			 	if (random == 1)
+                                {	engineering("#0000ff"); user_counter++;}
+                        	else
+                                {	ai_engineering(); ai_counter++;}
 
-        txt_color = '#ff0000';
-        console.log("show the text");
-        chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
-        clevel_txt = game.add.text(730,15,"Level: " + clevel, {font: "22px Arial", fill: txt_color});
-        cmana_txt = game.add.text(830,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
-        cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
-        console.log(uhp_txt);
+			}
+		}
+		counter++;
+	}
+	else
+	{
+		if (user_counter > ai_counter)
+		{
+			console.log("user's turn");
+                        if (user_speed ==3)
+                        {
+                                console.log("the facility is science");
+                                science("#0000ff"); user_counter++;
+                        }
+                        else
+                        {
+                                console.log("the facility is engineering");
+                                engineering("#0000ff"); user_counter++;
 
-//      dmg_txt.destroy();
-*/
+                        }
+
+		}
+		else
+		{
+			console.log("ai's turn");
+                        if (user_speed ==3)
+                        {
+                                console.log("the facility is science");
+                                ai_science(); ai_counter++;
+                        }
+                        else
+                        {
+                                console.log("the facility is engineering");
+				ai_engineering(); ai_counter++;
+                        }
+
+		}
+
+	}
 
 }
 
 var dmg_txt;
+
+
 function sr_action(){
 	dmg_txt.destroy();
 	txt_color = '#ff0000';
 	chp = chp - 5;
 	chp_txt.destroy();
- 	console.log("reg attack");
+ 	console.log("user : reg attack");
 	chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
 	dmg_txt = game.add.text(700,200,"DMG: 5", {font: "30px Arial", fill: txt_color});
 	if(cspeed == 3) ai_science();
@@ -692,7 +698,7 @@ function ss_action() {
 		umana = umana-3;
         	chp_txt.destroy();
         	umana_txt.destroy();
-		console.log("special");
+		console.log("user : special");
         	chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
 		txt_color = '#0000ff'
         	umana_txt = game.add.text(370,15, "Mp: " +umana,{font: "22px Arial", fill: txt_color});
@@ -701,14 +707,15 @@ function ss_action() {
 	}
 }
 function utility_action() {
+dmg_txt.destroy();
 	if(umana >= 6){
 		txt_color = '#0000ff';
         	uhp = uhp + 5;
         	umana =umana-6;
         	uhp_txt.destroy();
         	umana_txt.destroy();
-        	console.log("utility");
-        	uhp_txt = game.add.text(170,15,"Hp: " + uhp,{font: "22px Arial", fill: txt_color});
+        	console.log("user: utility");
+        	uhp_txt = game.add.text(120,15,"Hp: " + uhp,{font: "22px Arial", fill: txt_color});
         	txt_color = '#0000ff'
         	umana_txt = game.add.text(370,15, "Mp: " +umana,{font: "22px Arial", fill: txt_color});
 		if(cspeed == 3) ai_science(); 
@@ -724,18 +731,108 @@ function ultimate_action() {
         	umana =umana-14;
         	chp_txt.destroy();
         	umana_txt.destroy();
-        	console.log("ultimate");
+        	console.log("user: ultimate");
         	chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
         	txt_color = '#0000ff'
         	umana_txt = game.add.text(370,15, "Mp: " +umana,{font: "22px Arial", fill: txt_color});
-		dmg_txt = game.add.text(700,200,"DMG: 14", {font: "30px Arial", fill: txt_color});
+		dmg_txt = game.add.text(700,200,"DMG: 18", {font: "30px Arial", fill: txt_color});
 		if(cspeed == 3) ai_science(); 
 	}
 }
 
 function ai_science(){
 	console.log("ai's turn");
+	//dmg_txt.destroy();
+        //dmg_txt = game.add.text(350,200,"AI's Turn", {font: "50px Arial", fill: txt_color});
+
 	//ai_txt.destroy();
+	if(cmana >= 14)
+	{
+	        ai_ultimate_action();
+	}
+	else if (cmana >=6)
+	{
+        	ai_utility_action();
+	}
+	else if (cmana>=3)
+	{
+	        ai_ss_action();
+	}
+	else
+	{
+		ai_sr_action();
+	}
+
+/*
+	function ai_sr_action(){
+	console.log("ai is doing reg attack");
+        dmg_txt.destroy();
+
+        txt_color = '#0000ff';
+        uhp = uhp - 5;
+        uhp_txt.destroy();
+        console.log("reg attack");
+        uhp_txt = game.add.text(170,15,"Hp: " + uhp,{font: "22px Arial", fill: txt_color});
+        dmg_txt = game.add.text(300,200,"DMG: 5", {font: "30px Arial", fill: txt_color});
+        //if(uspeed == 3) science();
+	}
+
+	function ai_ss_action() {
+	console.log("ai is doing special attack");
+        dmg_txt.destroy();
+
+        if( cmana >=3)
+        {
+                txt_color = '#0000ff';
+                uhp = uhp - 8;
+                cmana = cmana-3;
+                uhp_txt.destroy();
+                cmana_txt.destroy();
+                console.log("special");
+                uhp_txt = game.add.text(170,15,"Hp: " + uhp,{font: "22px Arial", fill: txt_color});
+               // txt_color = '#ff0000'
+                cmana_txt = game.add.text(840,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
+                dmg_txt = game.add.text(300,200,"DMG: 8", {font: "30px Arial", fill: txt_color});
+             //   if(cspeed == 3) ai_science(); 
+        }
+	}
+	function ai_utility_action() {
+	console.log("ai is doing a utility attack");
+	dmg_txt.destroy();
+        if(cmana >= 6){
+                //txt_color = '#0000ff';
+                chp = chp + 5;
+                cmana =cmana-6;
+                chp_txt.destroy();
+                cmana_txt.destroy();
+                console.log("utility");
+                chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
+                txt_color = '#ff0000'
+                cmana_txt = game.add.text(840,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
+              //  if(cspeed == 3) ai_science(); 
+        }
+	}
+*/
+	function ai_ultimate_action() {
+	console.log("ai is ultimate attack");
+        dmg_txt.destroy();
+
+        if(cmana >= 14)
+        {
+                txt_color = '#0000ff';
+                uhp = uhp - 18;
+                cmana =cmana-14;
+                uhp_txt.destroy();
+                cmana_txt.destroy();
+                console.log("ultimate");
+                uhp_txt = game.add.text(170,15,"Hp: " + uhp,{font: "22px Arial", fill: txt_color});
+                txt_color = '#ff0000'
+                cmana_txt = game.add.text(840,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
+                dmg_txt = game.add.text(300,200,"DMG: 18", {font: "30px Arial", fill: txt_color});
+                //if(cspeed == 3) ai_science(); 
+        }
+	}
+
 }
 
 function engineering() {

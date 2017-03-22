@@ -22,7 +22,7 @@ div#panel
 	width: 100%;
 	background-color: white;
 	border-radius: 6px;
-	border: 1px solid #d8dde2;	
+	border: 1px solid #d8dde2;
 }
 
 div.trigger
@@ -54,6 +54,27 @@ div.overlay
 div.overlay p , div.overlay h2
 {
 	
+
+}
+
+.xavier
+{
+	background-image: url('http://35.162.14.150/public/assets/battle_screens/xavier/xavier.png');
+	height: 550px;
+	background-repeat: no-repeat;
+	/*background-position: center;*/
+	background-size: cover;
+	border-radius: 6px;
+}
+
+.faisal
+{
+	background-image: url('http://35.162.14.150/public/assets/battle_screens/faisal/faisal.png');
+	height: 550px;
+	background-repeat: no-repeat;
+	/*background-position: center;*/
+	background-size: cover;
+	border-radius: 6px;
 }
 
 div.card
@@ -83,7 +104,7 @@ button#submit_login
 	border-radius: 6px;
 	color:white;
 	text-align: center;
-	width:25%;
+	width:20%;
 }
 
 img.logo
@@ -98,6 +119,7 @@ img.logo
 
 img.profile
 {
+	height: 100%;
 	width: 100%;
 }
 
@@ -131,15 +153,14 @@ div#alert { margin-bottom: 25px; padding-bottom: 0px; padding-top: 0px;}
 {
 	background-color: rgb(249,249,249);
 	/*text-align: center;*/
-	border-bottom: none;	
+	border-bottom: none;
 	/* border-bottom: 1px solid #e5e5e5; */
 }
 
 .jumbotron .btn 
 {
-	padding: 14px 24px;
-	font-size: 21px;
-	
+	padding: 10px 14px;
+	font-size: 18px;	
 }
 
 div.container 
@@ -151,7 +172,7 @@ div.container
 
 div.row
 {
-	padding-top: 20px;
+	/*padding-top: 20px; */
 }
 
 label { font-size: 24px;}
@@ -216,4 +237,58 @@ input:hover, input:focus
 footer 
 {
 	margin-top: 40px;
+}
+
+/* multiple slide carousel */
+.multi-item-carousel
+{
+	.carousel-inner
+	{
+		> .item
+		{
+			height: 100%;
+			transition: 500ms ease-in-out left;
+		}
+		
+		.active
+		{
+ 			&.left
+			{
+  				left:-33%;
+      			}
+      			&.right
+			{
+ 				left:33%;
+ 			}
+		}
+ 		
+		.next
+		{
+  			left: 33%;
+ 		}
+ 		
+		.prev
+		{
+ 			left: -33%;
+		}
+		
+		@media all and (transform-3d), (-webkit-transform-3d)
+		 {
+			> .item
+			{
+        			//use your favourite prefixer here
+        			transition: 500ms ease-in-out left;
+        			transition: 500ms ease-in-out all;
+        			backface-visibility: visible;
+				transform: none!important;
+			}
+		}
+	}
+	.carouse-control
+	{
+		&.left, &.right
+		{
+			background-image: none;
+		}
+	}
 }
