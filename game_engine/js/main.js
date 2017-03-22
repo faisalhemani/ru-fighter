@@ -3,7 +3,7 @@
 var game_started = 0;
 var timer;
 var amber, rufighter, startbtn, start_bg;
-
+var random ;//= game.rnd.integerInRange(0, 1);
 /*
 user details
 */
@@ -35,6 +35,7 @@ var xavier_bg;
 
 var retinder;
 var retinder_bg;
+
 var url = 'http://35.162.14.150';
 
 //initializing the game
@@ -54,37 +55,44 @@ function preload()
 	//start music
 	//game.load.audio('sfx', 'assets/battletheme.mp3');
 
-	//start screen 
+//start screen 
     game.load.image('amber', 'assets/title_screen/logo.png');
     game.load.image('rufighter', 'assets/title_screen/RUFighter_logo.png');
     game.load.image('startbtn', 'assets/title_screen/start.png');
     game.load.image('start_bg', 'assets/title_screen/slc_tiles.jpg');
-    //preload player images
-	//game.load.image('player1', 'assets/faisal_new.png');
-	game.load.image('player2', 'assets/xavier.png');
-	//Science skills 
+//preload player images
+	game.load.image('player1', 'assets/HAMID.png');
+	game.load.image('player2', 'assets/picka.png');
+//Science skills 
 	game.load.spritesheet('ss', 'assets/science_skills/sb_special.png', 200,100);
-    game.load.spritesheet('sr', 'assets/science_skills/sb_reg.png', 200,100);
-    game.load.spritesheet('sul', 'assets/science_skills/sb_ultimate.png',200,100);
-    game.load.spritesheet('sut', 'assets/science_skills/sb_utility.png',200,100);
-    //
+    	game.load.spritesheet('sr', 'assets/science_skills/sb_reg.png', 200,100);
+    	game.load.spritesheet('sul', 'assets/science_skills/sb_ultimate.png',200,100);
+    	game.load.spritesheet('sut', 'assets/science_skills/sb_utility.png',200,100);
+//engineering skills
  	game.load.image('es', 'assets/engineering_skills/eb_special.png');
-    game.load.image('er', 'assets/engineering_skills/eb_reg.png');
-    game.load.image('eul', 'assets/engineering_skills/eb_ultimate.png');
-    game.load.image('eut', 'assets/engineering_skills/eb_utility.png');
+   	 game.load.image('er', 'assets/engineering_skills/eb_reg.png');
+    	game.load.image('eul', 'assets/engineering_skills/eb_ultimate.png');
+    	game.load.image('eut', 'assets/engineering_skills/eb_utility.png');
+//Battle screens
+
 	//Xavier
 	game.load.image('xavier_bg', 'assets/battle_screens/xavier/victoria_lane.jpg');
+
 	//Faisal
 	game.load.image('faisal_bg', 'assets/battle_screens/faisal/devo.jpg');
  	game.load.image('faisal', 'assets/battle_screens/faisal/faisal.png');
+
 	//Jess
-	game.load.image('jess_bg', 'assets/battle_screens/jess/victoria_lane.jpg');
+	game.load.image('jess_bg', 'assets/battle_screens/jess/outside_eng.jpg');
+
 	//Tom
-	game.load.image('tom_bg', 'assets/battle_screens/xavier/victoria_lane.jpg');
+	game.load.image('tom_bg', 'assets/battle_screens/tom/bridge.jpg');
+
 	//Alex
-	game.load.image('alex_bg', 'assets/battle_screens/xavier/victoria_lane.jpg');
+	game.load.image('alex_bg', 'assets/battle_screens/alex/kerr_hall.jpg');
+
 	//Retinder
-	game.load.image('retinder_bg', 'assets/battle_screen/retinder/outside_slc.jpg');
+	game.load.image('retinder_bg', 'assets/battle_screens/retinder/outside_slc.jpg');
 
 
 }
@@ -92,7 +100,10 @@ function preload()
 function create()
 {
         if (!game_started)
-                startScreen();
+	{
+                random = game.rnd.integerInRange(0, 1);
+		startScreen();
+	}
         else
         {
                 log(['create','phaser'], 'game starting');
@@ -200,12 +211,13 @@ function callingServer()
                 if (request.status >= 200 && request.status < 400)
                 {
                         var object = JSON.parse(request.response);
-                        var avatar1 = 'assets/'+object[0].avatar;
-                        log(['callingServer','onload', 'response'],request.responseText);
+                        console.log(object);
+			//var avatar1 = 'assets/'+object[0].avatar;
+                        //log(['callingServer','onload', 'response'],request.responseText);
                         storeJSON(object);
-                        log(['callingServer','onload','avatar1'], avatar1);
-                        game.load.image('player1', avatar1);
-                        game.add.sprite(770,100,'player1');
+                        //log(['callingServer','onload','avatar1'], avatar1);
+                        //game.load.image('player1', avatar1);
+                        //game.add.sprite(770,100,'player1');
                 }
                 else
                 {
@@ -222,9 +234,23 @@ function callingServer()
 
 function storeJSON(JSON_object)
 {
-	ai_info();
+	uhp = JSON_object[0].stats.hp;
+        console.log(uhp);  
+        ulevel = JSON_object[0].stats.level;
+        umana = JSON_object[0].stats.mana;
+        uspeed = JSON_object[0].stats.speed;
+
+ 	chp = JSON_object[1].stats.hp;
+        console.log(chp);  
+        clevel = JSON_object[1].stats.level;
+        cmana = JSON_object[1].stats.mana;
+        cspeed = JSON_object[1].stats.speed;
+
+
+
+	ai_info(JSON_object[1].stats);
 	//ai_info(JSON_object[1].avatar, JSON_object[1].facility,JSON_object[1].name, JSON_object[1].stats);
-//	user_info(JSON_object[0].avatar, JSON_object[0].facility,JSON_object[0].name, JSON_object[0].stats);
+	user_info(JSON_object[0].avatar, JSON_object[0].facility,JSON_object[0].name, JSON_object[0].stats);
 	//ai_info(JSON_object[1].location, JSON_object[1].facility,JSON_object[1].name, JSON_object[1].stats);
 
 }
@@ -232,33 +258,38 @@ function storeJSON(JSON_object)
 /*
 Player info area
 */
+var txt_color;
+var uhp_txt,uhp, ulevel_txt, ulevel, umana_txt, umana, uspeed_txt, uspeed;
+var chp_txt,chp, clevel_txt, clevel, cmana_txt, cmana, cspeed_txt, cspeed;
 
 function user_info(avatar, facility, name, stats)
 {
-	console.log( avatar); 
+	console.log("avatar "+ avatar);
 	console.log(facility);
-	console.log(name); 
+	console.log(name);
 	console.log(stats);
-/*
-	this.avatar = game.add.sprite(6,300,'player1');
-	this.avatar.scale.setTo(0.2,0.2);
-*/
+
 	if( facility == "Science")
 	{
 		console.log("going to science");
-		science(avatar);
+		science(txt_color);
 	}
 	else
 		engineering();
 
- 	this.avatar = game.add.sprite(770,100,'player1');
-       	this.avatar.scale.setTo(0.2,0.2);
-
+	if (avatar == "xavier.png")
+	{
+ 		this.avatar = game.add.sprite(100,200,'player1');
+     		this.avatar.scale.setTo(0.2,0.2);
+	}
+	else{
+  		this.avatar = game.add.sprite(100,200,'player2');
+        	this.avatar.scale.setTo(0.2,0.2);
+	}
 
 }
 
-var txt_color;
-function ai_info(/*location, facility, name, stats*/)
+function ai_info(stats)
 {
 /*
 	console.log(location);
@@ -273,7 +304,8 @@ function ai_info(/*location, facility, name, stats*/)
 		devo();
 	}
 */
-	devo();txt_color = '#000000';
+	devo();
+	txt_color = '#000000';
 	science(txt_color);
 }
 
@@ -286,22 +318,25 @@ function devo()
 {
 	//background
 	faisal_bg = game.add.sprite(30,0,'faisal_bg');
-    faisal_bg.scale.setTo(0.2,0.2);
+    	faisal_bg.scale.setTo(0.2,0.2);
 
 	//character
 	faisal = game.add.sprite(700/*350*/,/*150*/150,'faisal');
-    faisal.scale.setTo(0.15,0.15);
+    	faisal.scale.setTo(0.15,0.15);
+
+	//add sprites
+
 }
 
 /*
 Facilities area
 */
-
+var counter = 0;
 var regTxt, specialTxt, UtilityTxt, UltimateTxt;
-
-function science(/*avatar*/txt_color)
+var ai_txt;
+function science(txt_color)
 {
-	log(['science'],'entered');
+	//log(['science'],'entered');
 
  	regTxt = game.add.text(120, 550, "DMG: 5     MP Cost: 0",
                                 {font: "15px Arial", fill: txt_color});
@@ -314,21 +349,159 @@ function science(/*avatar*/txt_color)
         UltimateTxt = game.add.text(780, 550, "DMG: 18     MP Cost: 14", 
                                 {font: "15px Arial", fill: txt_color});
 
-	log(['science'],'text is up');
+//	log(['science'],'text is up');
 
-	reg = game.add.button(100,450, 'sr');
-	special = game.add.button(320 ,450,'ss');//, ss_action, this, 2,1,0);
-	utility = game.add.button(540 ,450,'sut');//, utility_action, this,2,1,0);
-	ultimate = game.add.button(760 ,450,'sul');//, ultimate_action, this, 2,1,0);
+	reg = game.add.sprite(100,450, 'sr');
+	special = game.add.sprite(320 ,450,'ss');//, ss_action, this, 2,1,0);
+	utility = game.add.sprite(540 ,450,'sut');//, utility_action, this,2,1,0);
+	ultimate = game.add.sprite(760 ,450,'sul');//, ultimate_action, this, 2,1,0);
 	console.log("buttons are up");
+
+	console.log(counter);
+	if(counter == 0 && uspeed == cspeed)
+	{
+			if( random == 0){
+				console.log("Random: " + random);
+                                dmg_txt = game.add.text(700,200,"Your Turn", {font: "30px Arial", fill: '#ffff00'});
+
+				reg.inputEnabled = true;
+	        		reg.events.onInputDown.add(sr_action,this);
+        			special.inputEnabled = true;
+	        		special.events.onInputDown.add(ss_action,this);
+		        	utility.inputEnabled = true;
+	        		utility.events.onInputDown.add(utility_action,this);
+        			ultimate.inputEnabled = true;
+        			ultimate.events.onInputDown.add(ultimate_action,this);
+				counter++;
+			}
+			else{
+				ai_txt = game.add.text(300,200, "AI GOES FIRST", {font: "45px Arial", fill: "#00ffff"});
+				ai_science();
+				dmg_txt = game.add.text(700,200,"Still need to add attacks for AI", {font: "30px Arial", fill: '#ffff00'});
+				counter ++;
+			}
+
+	}
+	else if(uspeed > cspeed)
+	{
+		 reg.inputEnabled = true;
+	        reg.events.onInputDown.add(sr_action,this);
+        	special.inputEnabled = true;
+	        special.events.onInputDown.add(ss_action,this);
+        	utility.inputEnabled = true;
+        	utility.events.onInputDown.add(utility_action,this);
+        	ultimate.inputEnabled = true;
+        	ultimate.events.onInputDown.add(ultimate_action,this);
+
+
+	}
+	else if (speed<cspeed){
+
+	}
+	
+	
+
+	reg.inputEnabled = true;
+	reg.events.onInputDown.add(sr_action,this);
+	special.inputEnabled = true;
+        special.events.onInputDown.add(ss_action,this);
+	utility.inputEnabled = true;
+        utility.events.onInputDown.add(utility_action,this);
+	ultimate.inputEnabled = true;
+        ultimate.events.onInputDown.add(ultimate_action,this);
+	
+
+	//text for hp and stuff 
+	txt_color = '#0000ff';
+        console.log("show the text");
+        uhp_txt = game.add.text(170,15,"Hp: " + uhp,{font: "22px Arial", fill: txt_color});
+        ulevel_txt = game.add.text(260,15,"Level: " + ulevel, {font: "22px Arial", fill: txt_color});
+        umana_txt = game.add.text(370,15, "Mp: " +umana,{font: "22px Arial", fill: txt_color});
+        uspeed_txt = game.add.text(480,15,"Speed: "+uspeed,{font: "22px Arial", fill: txt_color});
+
+        console.log(uhp_txt);
+
+  	txt_color = '#ff0000';
+        console.log("show the text");
+        chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
+        clevel_txt = game.add.text(730,15,"Level: " + clevel, {font: "22px Arial", fill: txt_color});
+        cmana_txt = game.add.text(830,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
+        cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
+        console.log(uhp_txt);
+
+	dmg_txt.destroy();
 }
 
-function sr_action() {}
+var dmg_txt;
+function sr_action(){
+	dmg_txt.destroy();
+	txt_color = '#ff0000';
+	chp = chp - 5;
+	chp_txt.destroy();
+ 	console.log("reg attack");
+	chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
+	dmg_txt = game.add.text(700,200,"DMG: 5", {font: "30px Arial", fill: txt_color});
+	if(cspeed == 3) ai_science();
+}
 
-function ss_action() {}
-function utility_action() {}
-function ultimate() {}
-function engineering() {}
+function ss_action() {
+	dmg_txt.destroy();
+
+	if( umana >=3)
+	{
+		txt_color = '#ff0000';
+	        chp = chp - 8;
+		umana = umana-3;
+        	chp_txt.destroy();
+        	umana_txt.destroy();
+		console.log("special");
+        	chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
+		txt_color = '#0000ff'
+        	umana_txt = game.add.text(370,15, "Mp: " +umana,{font: "22px Arial", fill: txt_color});
+		dmg_txt = game.add.text(700,200,"DMG: 8", {font: "30px Arial", fill: txt_color});
+		if(cspeed == 3) ai_science(); 
+	}
+}
+function utility_action() {
+	if(umana >= 6){
+		txt_color = '#0000ff';
+        	uhp = uhp + 5;
+        	umana =umana-6;
+        	uhp_txt.destroy();
+        	umana_txt.destroy();
+        	console.log("utility");
+        	uhp_txt = game.add.text(170,15,"Hp: " + uhp,{font: "22px Arial", fill: txt_color});
+        	txt_color = '#0000ff'
+        	umana_txt = game.add.text(370,15, "Mp: " +umana,{font: "22px Arial", fill: txt_color});
+		if(cspeed == 3) ai_science(); 
+	}
+}
+function ultimate_action() {
+	dmg_txt.destroy();
+
+	if(umana >= 14)
+	{
+		txt_color = '#ff0000';
+  	      	chp = chp - 18;
+        	umana =umana-14;
+        	chp_txt.destroy();
+        	umana_txt.destroy();
+        	console.log("ultimate");
+        	chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
+        	txt_color = '#0000ff'
+        	umana_txt = game.add.text(370,15, "Mp: " +umana,{font: "22px Arial", fill: txt_color});
+		dmg_txt = game.add.text(700,200,"DMG: 14", {font: "30px Arial", fill: txt_color});
+		if(cspeed == 3) ai_science(); 
+	}
+}
+
+function ai_science(){
+	console.log("ai's turn");
+	ai_txt.destroy();
+}
+
+function engineering() {
+}
 
 /*
 Skill function area

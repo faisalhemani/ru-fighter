@@ -5,6 +5,16 @@ var chars = ["Faisal", "Xavier"];
 var gawd = ["Faisal", "Xavier"];
 var faisal;
 var xavier;
+
+//change made by Xavier
+//initializes a character group
+var charGroup;
+//the character you will select
+var characterChoice;
+//initialize start coords
+var startX;
+var startY;
+
 window.onload = function () {
 	game =  new Phaser.Game (1366,673, Phaser.AUTO, "");
 	game.state.add("PlayGame", playGame);	
@@ -15,10 +25,10 @@ var playGame = function (game) {};
 playGame.prototype = {
 	preload: function () {
 
-		game.load.image("Faisal", "http://52.38.67.158/game_engine/js/CharSelect/faisal.png");
-		game.load.image("Xavier", "http://52.38.67.158/game_engine/js/CharSelect/xavier.png");
-		game.load.image("transp", "http://52.38.67.158/game_engine/js/CharSelect/transp.png");
-		game.load.image("bg", "http://52.38.67.158/game_engine/js/CharSelect/bg.jpg");
+		game.load.image("Faisal", "http://35.162.14.150/game_engine/js/CharSelect/faisal.png");
+		game.load.image("Xavier", "http://35.162.14.150/game_engine/js/CharSelect/xavier.png");
+		//game.load.image("transp", "http://35.162.14.150/game_engine/js/CharSelect/transp.png");
+		game.load.image("bg", "http://35.162.14.150/game_engine/js/CharSelect/bg.jpg");
 	},
 	create: function () {
 		game.stage.backgroundColor = "#5f503b";
@@ -31,17 +41,44 @@ playGame.prototype = {
 		this.scrollingMap.movingSpeed = 0;
 		this.scrollingMap.input.allowVerticalDrag = false;
       		this.scrollingMap.input.boundsRect = new Phaser.Rectangle(game.width - this.scrollingMap.width, game.height - this.scrollingMap.height, this.scrollingMap.width * 2 - game.width, this.scrollingMap.height * 2 - game.height);
-		
 
+		//changes made by Xavier
+		charGroup = game.add.group();
+		charGroup.add(this.scrollingMap);
 		for (var i = 0 ; i < chars.length; i++){
 			var character = game.add.sprite(game.width/2 +(i * 480), game.height/2, chars[i]);
 			character.anchor.set(0.5);
 			character.inputEnabled = true;
 			character.scale.setTo(0.65);
+			character.events.onInputDown.add(selectCharacter, this);
+			character.events.onInputUp.add(confirmCharacter, this);
+			charGroup.add(character);
 			this.scrollingMap.addChild(character);
 			//faisal.events.onInputDown.add(listener, this);
 		}
+		game.input.onDown.add(fingerOnScreen, this);
 		
+
+		
+		function selectCharacter(sprite, pointer){
+			characterChoice = sprite;
+		}
+
+		function confirmCharacter(sprite, pointer){
+			if (characterChoice==cprite){
+				alert("Character selected!");
+			}
+		}
+
+		function fingerOnScreen(){
+			startX = game.input.worldX;
+			startY = game.input.worldY;
+			charGroup.saveX = charGroup.x;	
+			charGroup.saveY = charGroup.y; 
+		}	
+
+		//Changes made by Xavier done
+
 		/* Example of inputField Properties incase we need to change something
 		var password = game.add.inputField(10, 90, {
     			font: '18px Arial',
@@ -125,3 +162,4 @@ playGame.prototype = {
 	}*/
 
 }
+
