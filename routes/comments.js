@@ -43,6 +43,11 @@ router.post('/forum', function(req, res) {
 					throw err;
 					console.log(user);
 				}
+			}, function () {
+				Comment.find()
+				.then(function (doc){
+					res.render('function', {comments:doc});
+				});
 			});	
 			//res.render('forum');
 			/*
@@ -62,10 +67,12 @@ router.post('/forum', function(req, res) {
 			*/
 			//req.flash('success_msg', 'You Have Successfully Registered');
 			//res.redirect('/users/login');
+			/*
 			Comment.find()
 			.then(function (doc){
 				res.render('forum', {comments: doc});
 			});
+			*/
   		}
 	}
 	else 

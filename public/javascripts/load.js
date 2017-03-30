@@ -41,7 +41,7 @@ var load = {
 
         //Jess
         this.load.image('jess_bg', 'assets/battle_screens/jessica/outside_eng.jpg');
-	this.load.image.('jess', 'assets/battle_screens/jessica/jessica.png');
+	this.load.image('jess', 'assets/battle_screens/jessica/jessica.png');
 
         //Tom
         this.load.image('tom_bg', 'assets/battle_screens/tom/bridge.jpg');
@@ -55,7 +55,10 @@ var load = {
         //Retinder
         this.load.image('retinder_bg', 'assets/battle_screens/retinder/outside_slc.jpg');
 	this.load.image('retinder_bg', 'assets/battle_screens/retinder/retinder.png');
-
+	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	this.scale.setScreenSize();
+	this.scale.pageAlignHorizontally = true;
+	this.scale.pageAlignVertically = true;
 	},
         create: function () {
                 this.state.start('logo');

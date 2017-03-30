@@ -10,6 +10,10 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 	res.render('index', { title: 'RU-Fighter' });
 });
 
+router.post('/', ensureAuthenticated, function (req, res, next) {
+	res.writeHead(200, {"Content-Type":"application/json"});
+	res.end(JSON.stringify(req.user));
+});
 
 router.get('/team', function(req,res,next) {
 	res.render('team', { title: 'RU-Fighter - Team'});
