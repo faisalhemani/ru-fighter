@@ -4,6 +4,8 @@ var mongo = require('mongodb');
 var assert = require('assert');
 
 var url = 'mongodb://localhost:27017/rufighter';
+var User = require('../models/user');
+var Player = require('../models/player');
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
@@ -11,18 +13,42 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 });
 
 router.post('/', ensureAuthenticated, function (req, res, next) {
-	res.writeHead(200, {"Content-Type":"application/json"});
-	res.end(JSON.stringify(req.user));
+	Player.getPlayerByUsername(req.user.username, function (err, doc){
+		if (err)
+		{
+			console.err('Error no entrie found');
+		}
+		else
+		{
+			res.json(doc);
+		}
+	});
+});
+
+router.get('/api/player', ensureAuthenticated, function (req, res, next){
+	Player.getPlayerByUsername(req.user.username, function (err, doc) {
+		if (err)
+		{
+			console.err('Error no entrie found');
+		}
+		else
+		{
+			res.json(doc);
+		}
+	});
 });
 
 router.get('/team', function(req,res,next) {
 	res.render('team', { title: 'RU-Fighter - Team'});
 });
 
+/*
 router.get('/news', function(req,res,next) {
 	res.render('news', { title: 'RU-Fighter - News'});
 });
+*/
 
+/*
 router.get('/get-players', function (req, res, next) {
 	var results = [];
 	mongo.connect(url, function (err, db) {
@@ -38,6 +64,7 @@ router.get('/get-players', function (req, res, next) {
 		});
 	});
 });
+*/
 
 /*
 router.get('/forum', function (req, res, next) {

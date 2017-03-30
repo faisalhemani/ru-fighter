@@ -17,7 +17,7 @@
 
 div.container 
 {
-		
+	max-width: 900px;		
 }
 
 input#message
@@ -53,10 +53,13 @@ button[type=submit]
 {
 	margin-top: 25px;
 }
+h3.username { font-size: 24px; color: black;}
 
-p.comment { }
+p.comment { font-size: 20px; color; grey;}
 
-p.tag { color: red;} 
+p.tag { font-size: 24px; color: red;} 
+
+p.time { text-align: right; }
 
 div.container-large { max-width: 1300px; margin: auto; padding: 20px;}
 
@@ -80,6 +83,7 @@ html,body
 {
 	height: 100%;
 	width: 100%;
+	min-width: 350px;
 	background-color: rgb(249,249,249);
 }
 

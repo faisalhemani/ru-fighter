@@ -1,11 +1,13 @@
 var load = {
         preload: function () {
                 console.log("In the Load funtion:)");
-                this.logo = this.add.sprite(this.game.world.centerX, this.game.centerY);
-                this.logo.anchor.setTo(0.5);
+                this.logo = this.add.sprite(this.game.world.centerX/5, this.game.centerY/2,'logo');
+                //this.logo.anchor.setTo(0.5);
+		this.logo.scale.setTo(0.5,0.5);
 
-                this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY -25);
-                this.preloadBar.anchor.setTo(0.5);
+                this.preloadBar = this.add.sprite(this.game.world.centerX/3.5, this.game.world.centerY/2, 'preloadBar');
+                //this.preloadBar.anchor.setTo(0.5);
+		//this.preloadBar.scale.setTo(0.8);
                 this.load.setPreloadSprite(this.preloadBar);
 
 		//change the faisal and xavier once  player 1 and player 2 are ready
@@ -15,7 +17,7 @@ var load = {
 		this.load.image("player1", "http://35.162.14.150/game_engine/js/CharSelect/faisal.png");
                 this.load.image("player2", "http://35.162.14.150/game_engine/js/CharSelect/xavier.png");
   */
-                this.load.image("transp", "http://35.162.14.150/game_engine/js/CharSelect/transp.png");
+//                this.load.image("transp", "http://35.162.14.150/game_engine/js/CharSelect/transp.png");
                 this.load.image("bg", "assets/charselect/atrium.jpg");
                 //load all game images here
 //Science skills 
@@ -36,7 +38,7 @@ var load = {
 
 
         //Faisal
-        this.load.image('faisal_bg', 'assets/battle_screens/faisal/background.jpg');
+        this.load.image('faisal_bg', 'assets/battle_screens/faisal/devo.jpg');
         this.load.image('faisal', 'assets/battle_screens/faisal/faisal.png');
 
         //Jess
@@ -59,6 +61,16 @@ var load = {
 	this.scale.setScreenSize();
 	this.scale.pageAlignHorizontally = true;
 	this.scale.pageAlignVertically = true;
+
+	//Music
+	this.introScreenMusic = document.createElement('audio');
+        this.introScreenMusic.setAttribute('id', 'introMusic');
+        this.introScreenMusic.setAttribute('src', 'assets/music/intro_screen.mp3');
+
+        this.battleMusic = document.createElement('audio');
+        this.battleMusic.setAttribute('id', 'battleMusic');
+	this.battleMusic.setAttribute('src', 'assets/music/commence_battletheme.mp3');
+
 	},
         create: function () {
                 this.state.start('logo');

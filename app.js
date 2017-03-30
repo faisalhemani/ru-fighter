@@ -15,7 +15,6 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/rufighter');
 var db = mongoose.connection;
 
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 var comments = require('./routes/comments');
@@ -85,7 +84,6 @@ app.listen(app.get('port'), function()
 		console.log('Server started on port '+ app.get('port'));
 });
 
-/*
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -104,7 +102,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-*/
 
 
 

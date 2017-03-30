@@ -45,6 +45,9 @@ var playerSchema = mongoose.Schema({
                         manacost: Number
 		}
 	],
+	created: {
+		type: Boolean
+	},
 	ramz: {
 		type: Number
 	},
@@ -82,7 +85,7 @@ module.exports.createPlayer = function(newPlayer, callback){
 }
 
 module.exports.getPlayerByUsername = function(username, callback){
-        var query = {username: username};
+        var query = {name: username};
         Player.findOne(query, callback);
 }
 

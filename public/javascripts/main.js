@@ -264,7 +264,7 @@ function loopMusic() {
 		introScreenMusic.currentTime = 0.1;
 		introScreenMusic.play();
 	}
-	else if(currentMusic === 1 && batleMusic.currentTime >= battleMusic.duration || battle.currentTime === 0) {
+	else if(currentMusic === 1 && battleMusic.currentTime >= battleMusic.duration || battle.currentTime === 0) {
 		battleMusic.currentTime = 0.1;
 		battleMusic.play();
 	}

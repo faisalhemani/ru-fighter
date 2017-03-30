@@ -86,6 +86,7 @@ router.post('/register', function(req, res) {
 				manacost: 14
 			}
 		],
+		created: false,
 		ramz: 100,
 		hair: {
 			style: "regular",

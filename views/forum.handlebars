@@ -20,13 +20,15 @@
 		</div>	
 		<div class='container' id='comments-container'>
 			{{# each comments}}
-					<div class='col-lg-6'>
-						<p>Posted on: {{this.time}}</p>
+					<div class='row'>
+					<div class='col-lg-12 col-md-12'>
+						<p class='time'>Posted on: {{this.time}}</p>
 						<div class='col-xs-12'>
 							<p class='tag'>[{{this.tag}}]</p>
 						</div>
-						<h3>{{this.username}}</h3>
+						<h3 class='username'>{{this.username}}</h3>
 						<p class='comment''>{{this.message}}</p>
+					</div>
 					</div>
 			{{/each}}
 		</div>
