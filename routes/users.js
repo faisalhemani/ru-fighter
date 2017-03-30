@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 
 var User = require('../models/user');
+var Player = require('../models/player'); 
 
 //Register
 router.get('/register', function(req, res) {
@@ -34,8 +35,7 @@ router.post('/register', function(req, res) {
 
 	//Determine if there are errors with request as specified above
 	var errors = req.validationErrors();
-	//if errors exist display them
-	if(errors){
+	if (errors){
 		res.render('register', {
 			errors: errors
 		});
@@ -46,17 +46,89 @@ router.post('/register', function(req, res) {
 		username: username,
 		password: password
 	});
-	//var newPlayerData = Player({ 
+	var newPlayer = Player({ 
+		name: name,
+		avatar: 'faisal.png',
+		stats: 
+		{
+			hp : 50,
+			maxhp : 50,
+			mana : 25,
+			speed : 3,
+			exp : 0
+		},
+		skills: [
+			{
+				name: "Velocity=d/t",
+				tier: "regualar",
+      				dmg: 5,
+      				manacost: 0
+			},
+			
+			{
+				name: "DNA Splice",
+      				tier: "special",
+				dmg: 8,
+				manacost: 3
+			},
+
+			{
+				name: "Atomic Restructure",
+				tier: "utility",
+				dmg: 10,
+				manacost: 6
+			},
+			
+			{
+				name: "TrojanHorse.exe",
+				tier: "ultimate",
+ 				dmg: 18,
+				manacost: 14
+			}
+		],
+		ramz: 100,
+		hair: {
+			style: "regular",
+			color: "black"
+		},
+		eyes: "black",
+		skin: "defualt",
+		facility: "Science",
+		wins: 0,
+		loss: 0,
+		items: [
+			{
+				potions:5
+			}
+		]  
+	});
 	User.createUser(newUser, function(err, user){
 		if(err){
 			throw err;
 			console.log(user);
 		}
 	});
+	
+	Player.createPlayer(newPlayer, function (err, player){
+		if (err){
+			throw err;
+			console.log(player);
+		}
+	});
+	
 	req.flash('success_msg', 'You Have Successfully Registered');
 	res.redirect('/users/login');
-  }
+  	}
 });
+
+/*
+router.post('/playerdata', function (req, res) {
+	passport.use(new LocalStrategy(
+	function(username, password, done) {
+
+	});
+});
+*/
 
 passport.use(new LocalStrategy(
    function(username, password, done) {

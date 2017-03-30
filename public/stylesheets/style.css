@@ -1,7 +1,80 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
+.carousel-control.left, .carousel-control.right 
+{
+	/* Removes the background tint */
+    background-image: none
+}
+
+.tagContainer { position: relative; }
+
+.tagContainer, p.tag, p.tag + b
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+div.container 
+{
+		
+}
+
+input#message
+{
+	padding: 20px 20px 200px 10px;
+}
+
+textarea
+{
+	margin-bottom: 20px;
+	height: 150px;
+}
+
+input[type=text]
+{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+button[type=submit]
+{
+	color: white;
+	background-color: orange;
+	width: 33%;
+}
+
+#submit-container
+{
+	text-align: center;
+}
+
+#comments-container 
+{
+	margin-top: 25px;
+}
+
+p.comment { }
+
+p.tag { color: red;} 
+
+div.container-large { max-width: 1300px; margin: auto; padding: 20px;}
+
+img.banner
+{
+	width: 100%;
+	padding-bottom: 20px;
+}
+
 a, a:hover, a:focus { color: orange;}
 a:visited { color: red; }
+
+#team-container { max-width: 728px; height: 400px;}
+
+#team-container div.row , #team-container div.carousel , #team-container div.carousel-inner, #team-container div.item , #team-container div.trigger  
+{
+	height: 100%;
+}
 
 html,body
 {
@@ -27,6 +100,8 @@ div#panel
 
 div.trigger
 {
+	padding: 0px;
+	margin: 0px;
 	transition: height 1s;	
 }
 
@@ -35,6 +110,7 @@ div.trigger:hover div.overlay , div.overlay:hover div.overlay
 	padding: 20px;
 	color: white;
 	height:100%;
+	transition-timing-function: ease-out;
 }
 
 div.overlay
@@ -47,8 +123,8 @@ div.overlay
 	z-index: 2;
 	border-radius: 0px;
 	color: transparent;
-	background-color: rgba(50,50,50, 0.9);
-	transition: height 1s, padding 1s, color 1s;
+	background-color: rgba(200,100,0, 0.9);
+	transition: height 0.5s, padding 1s, color 1s;
 }
 
 div.overlay p , div.overlay h2
@@ -82,7 +158,7 @@ div.card
 	height: 100%;
 }
 
-h2
+h2,h3
 {
 	margin-top:0px;
 }
@@ -163,7 +239,7 @@ div#alert { margin-bottom: 25px; padding-bottom: 0px; padding-top: 0px;}
 	font-size: 18px;	
 }
 
-div.container 
+div.container-small 
 {
 	max-width: 900px;
 	padding-left: 25px;

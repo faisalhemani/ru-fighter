@@ -38,6 +38,13 @@ var retinder_bg;
 
 var url = 'http://35.162.14.150';
 
+//music
+var introScreenMusic;
+var battleMusic;
+var peacefulMusic;
+var currentMusic;
+var beep;
+
 //initializing the game
 var game = new Phaser.Game(1100, 600, Phaser.CANVAS, 'phaser-container', {
         preload: preload,
@@ -54,10 +61,12 @@ function preload()
 
 	//start music
 	//game.load.audio('sfx', 'assets/battletheme.mp3');
+}
 
 //start screen 
-    game.load.image('amber', 'assets/title_screen/logo.png');
-    game.load.image('rufighter', 'assets/title_screen/RUFighter_logo.png');
+//    game.load.image('amber', 'assets/title_screen/logo.png');
+
+/*    game.load.image('rufighter', 'assets/title_screen/RUFighter_logo.png');
     game.load.image('startbtn', 'assets/title_screen/start.png');
     game.load.image('start_bg', 'assets/title_screen/slc_tiles.jpg');
 //preload player images
@@ -98,12 +107,42 @@ function preload()
 
 	//Retinder
 	game.load.image('retinder_bg', 'assets/battle_screens/retinder/outside_slc.jpg');
+*/
 
+	//Audio
+	/*game.load.audio('introScreen', 'assets/music/intro_screen.mp3');
+	game.load.audio('battleMusic', 'assets/music/commence_battletheme.mp3');
+	game.load.audio('peacefulMusic', 'assets/music/peaceful.mp3');*/
 
+	//Code taken from
+	//http://stackoverflow.com/questions/8489710/play-an-audio-file-using-jquery-when-a-button-is-clicked
+	introScreenMusic = document.createElement('audio');
+	introScreenMusic.setAttribute('id', 'introMusic');
+	introScreenMusic.setAttribute('src', 'assets/music/intro_screen.mp3');
+	//introScreenMusic.addEventListener('canplay', function() {
+		//audio_start(introScreenMusic);
+	//});
+	battleMusic = document.createElement('audio');
+	battleMusic.setAttribute('id', 'battleMusic');
+	battleMusic.setAttribute('src', 'assets/music/commence_battletheme.mp3');
+
+	beep = document.createElement('audio');
+	beep.setAttribute('id', 'beep');
+	beep.setAttribute('src', 'assets/music/beep-07.mp3');
 }
 
 function create()
 {
+	//var intro_music = game.add.audio('introScreen');a
+	//intro_music.loop = true;
+	//intro_music.play();
+        //battleMusic = game.add.audio('introScreen');
+	//this.game.sound.play("introScreen", 1, true);
+	//sound.loop = true;
+	//battleMusic.play();
+	//console.log(temp);
+	audio_start(introScreenMusic);
+	//game.sound.setDecodedCallBack(['peacefulMusic'], fadeInMusic, this);
         if (!game_started)
 	{
                 random = game.rnd.integerInRange(0, 1);
@@ -115,6 +154,10 @@ function create()
                 clearScreen();
                 signupScreen();
         }
+
+	//battleMusic = game.add.audio('battleMusic');
+	//battleMusic.onDecoded.add(fadeInMusic, this);
+	//battleMusic.play();
 
 }
 
@@ -128,6 +171,7 @@ function render()
                 var x = 32;
                 var y = 0;
                 var yi = 32;
+		loopMusic();
 }
 
 
@@ -150,8 +194,10 @@ function startScreen()
     log(['startScreen'],"in start screen " + window.innerHeight);
     game.stage.backgroundColor = '#000';
 
-	//audio = game.add.audio('sfx');
-	//audio.play();
+	//introScreenMusic = game.add.audio('introScreen', 0, true, false);
+	//console.log("Here2");
+	//introScreenMusic.onDecoded.add(audio_start, this);
+	//audio_start();
 	//audio.onDecoded.add(audio_start,this);
 
 	amber = game.add.sprite(100, 200,'amber');
@@ -159,11 +205,81 @@ function startScreen()
 	game.time.events.add(Phaser.Timer.SECOND , fadePicture, this);
 }
 
-function audio_start() 
+/*
+*Adding fade-in manually within the code below - Xavier
+*/
+
+function fadeStart(volume)
 {
-	console.log("in audio");
-	audio.fadeIn(5000);
-	//audio.play();
+	for (var i = 0; i < 8000; i++)
+	{
+		volume += 0.000125;
+	}
+}
+
+function audio_start(musicToPlay)
+{
+	//console.log("in audio");
+	//audio.fadeIn(5000);
+	//musicToPlay.animate({volume: newVolume}, 1000);
+
+	musicToPlay.play();
+	currentMusic = 0;
+	//Set the  fade out time to 2 sec
+	/*var fadePoint = musicToPlay.duration - (musicToPlay.duration - 2);
+
+	var fadeAudio = setInterval(function() {
+		if((musicToPlay.currentTime <= fadePoint) && (musicToPlay.volume != 1.0)) {
+			musicToPlay.volume += 0.1;
+		}
+		console.log(musicToPlay.volume);
+		if(musicToPlay.volume === 1.0) {
+			clearInterval(fadeAudio);
+		}
+	}, 200);*/
+
+	//console.log("Here");
+	//introScreenMusic = game.add.audio('introScreen');
+	//fadeInMusic(introScreenMusic);
+	//introScreenMusic.onDecoded();}
+	//introScreenMusic.fadeIn(4000, true);
+	//introScreenMusic.play('', '', 0, true, '');
+	//introScreenMusic.play();
+	//fadeInMusic(introScreenMusic);
+}
+
+function switchMusic(currMusic, nextMusic) {
+	currMusic.pause();
+	nextMusic.play();
+	if(nextMusic == battleMusic) {
+		currentMusic = 1;
+	}
+}
+
+function loopMusic() {
+	//console.log("Current time: " + introScreenMusic.currentTime);
+	//console.log("Total time: " + introScreenMusic.duration);
+	if(currentMusic === 0 && introScreenMusic.currentTime >= introScreenMusic.duration || introScreenMusic.currentTime === 0) {
+		//console.log("Looped");
+		introScreenMusic.currentTime = 0.1;
+		introScreenMusic.play();
+	}
+	else if(currentMusic === 1 && batleMusic.currentTime >= battleMusic.duration || battle.currentTime === 0) {
+		battleMusic.currentTime = 0.1;
+		battleMusic.play();
+	}
+	else if(currentMusic === 2) {
+
+	}
+}
+
+function fadeInMusic() {
+	/*for(var i = 0; i < 100; i++) {
+		musicToFade.volume += 0.1;
+		console.log("Volume method");
+	}*/
+	console.log("Volume method");
+	battleMusic.fadeIn(4000);
 }
 
 //fix the fade picture
@@ -174,7 +290,7 @@ function fadePicture()
 	game.add.tween(amber).to( {alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
 
     start_bg = game.add.sprite(0,0,'start_bg');
-    start_bg.scale.setTo(0.3,0.3);
+ //   start_bg.scale.setTo(0.3,0.3);
 
     rufighter = game.add.sprite(150, 20,'rufighter');
     //rufighter.scale.setTo(1,1)
@@ -193,6 +309,7 @@ function start_action()
 	remove(rufighter);
 	remove(startbtn);
 	battleFeild();
+	switchMusic(introScreenMusic, battleMusic);
 }
 
 function battleFeild()
@@ -206,8 +323,8 @@ function callingServer()
 {
 	console.log("calling the server");
 	var request = new XMLHttpRequest();
-	var port = ':8081'
-        request.open('GET',url+port,true);
+	var port = ':8081';
+        request.open('GET','http://35.162.14.150:8081',true);
         request.onload = function ()
         {
                 if (request.status >= 200 && request.status < 400)
@@ -306,7 +423,8 @@ function ai_info(stats, facility)
 	}
 */
 
-	devo();
+	temp();
+	//devo();
 	//kerr_hall();
 	//outside_eng();
 	//bridge();
@@ -321,6 +439,19 @@ function ai_info(stats, facility)
 	else
 		ai_engineering();
 */
+
+}
+
+/*
+Temporary function to start up the battle music
+before the battle screen is loaded
+*/
+function temp() {
+	introScreenMusic.pause();
+
+	battleMusic = game.add.audio('battleMusic');
+	battleMusic.play();
+	devo();
 }
 
 /*
@@ -748,19 +879,23 @@ function ai_science(){
 	//ai_txt.destroy();
 	if(cmana >= 14)
 	{
-	        ai_ultimate_action();
+	 	console.log("ultimate");
+	     // ai_ultimate_action();
 	}
 	else if (cmana >=6)
 	{
-        	ai_utility_action();
+		console.log("ulitlity");
+        //	ai_utility_action();
 	}
 	else if (cmana>=3)
 	{
-	        ai_ss_action();
+		console.log("special");
+	  //      ai_ss_action();
 	}
 	else
 	{
-		ai_sr_action();
+		console.log("reg");
+	//	ai_sr_action();
 	}
 
 /*
