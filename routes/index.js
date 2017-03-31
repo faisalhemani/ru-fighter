@@ -9,10 +9,6 @@ var Player = require('../models/player');
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
-	res.render('index', { title: 'RU-Fighter' });
-});
-
-router.post('/', ensureAuthenticated, function (req, res, next) {
 	Player.getPlayerByUsername(req.user.username, function (err, doc){
 		if (err)
 		{
@@ -20,7 +16,34 @@ router.post('/', ensureAuthenticated, function (req, res, next) {
 		}
 		else
 		{
-			res.json(doc);
+			var player = new Array().push(doc);
+			console.log("*"+doc+"*");	
+			res.render('index', {players: doc});	
+		}
+	});	
+	//res.render('index', { title: 'RU-Fighter' });
+});
+
+router.post('/update', ensureAuthenticated, function (req, res, next) {
+	Player.getPlayerByUsername(req.user.username, function (err, doc){
+		if (err)
+		{
+			console.err('Error no entrie found');
+		}
+		else
+		{
+			console.log(req.method);
+			console.log(req.connection.remoteAddress);
+			console.log(doc);
+			//res.writeHead("Content-Type", "application/json");
+			//res.header("Access-Control-Allow-Origin", "*");
+			//res.header("Access-Control-Allow-Headers", "X-Requested-With");
+			//res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+			doc.created = true;
+			doc.save();
+			res.json({'doc':doc.created});
+			//res.json(doc);
+			//res.json(doc);
 		}
 	});
 });
@@ -33,6 +56,11 @@ router.get('/api/player', ensureAuthenticated, function (req, res, next){
 		}
 		else
 		{
+			console.log(req.isAuthenticated());
+			res.header("Access-Control-Allow-Credentials", "true");
+			res.header("Access-Control-Allow-Origin", "*");
+                        res.header("Access-Control-Allow-Headers", "X-Requested-With");               
+                        res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
 			res.json(doc);
 		}
 	});

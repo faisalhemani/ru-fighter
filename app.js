@@ -18,6 +18,7 @@ var db = mongoose.connection;
 var index = require('./routes/index');
 var users = require('./routes/users');
 var comments = require('./routes/comments');
+var news = require('./routes/news');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 //Express Session
 app.use(session({
 	secret: 'secret',
@@ -44,6 +46,7 @@ app.use(session({
 //Passport initialize
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 //Express Validator 
 app.use(expressValidator({
@@ -70,11 +73,12 @@ app.use(function(req,res, next){
 	res.locals.error = req.flash('error');
   res.locals.user =req.user || null;
 	next();
-})
+});
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/comments', comments);
+app.use('/news', news);
 //app.use('/players', players);
 
 //Set Port

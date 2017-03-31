@@ -19,6 +19,7 @@ router.get('/login', function(req, res) {
 
 //Router handle sign up/register of new users and log in existing users
 router.post('/register', function(req, res) {
+	var username = req.body.username;
 	var name = req.body.name;
 	var email = req.body.email;
 	var username = req.body.username;
@@ -47,7 +48,7 @@ router.post('/register', function(req, res) {
 		password: password
 	});
 	var newPlayer = Player({ 
-		name: name,
+		name: username,
 		avatar: 'faisal.png',
 		stats: 
 		{

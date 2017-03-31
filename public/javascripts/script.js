@@ -29,10 +29,15 @@ function store_coords(position)
 function request_news()
 {
 	log('request_news', 'started');
-	var request = new XMLHttpRequest();
-	request.open('GET', news_url,true);
+	var request = window.XDomainRequest ? new XDomainRequest() : new XMLHttpRequest();
+	var pda;
+	request.open('GET', 'http://35.162.14.150:8080/api/player' ,true);
+	request.withCredentials = true;
+	request.setRequestHeader("Content-type", "application/json");
 	request.onload = new function ()
 	{
+		log('request_comments', request.status);
+		log('request_comments', request.responseText);
 		if (request.status >= 200 && request.status < 400)
 		{
 			log('request_news', request.responseText);
@@ -53,10 +58,11 @@ function request_comments()
 {
 	log('request_comments','started');
 	var request = new XMLHttpRequest();
-	request.open('GET','http://35.162.14.150:8080/api/comments/' , true);
-	log('request_comments', url+comments);
+	request.open('POST','http://35.162.14.150:8080/' , true);
+	log('request_comments', url);
 	request.onload = new function ()
 	{
+		log('request_comments', request.status);
 		log('request_comments', request.status);
 		if ( request.status >= 200 & request.status < 400)
 		{
@@ -65,6 +71,7 @@ function request_comments()
 		}
 		else
 		{
+			log('request_comments', request.status);
 			alert('News request denied');
 		}
 	};
@@ -111,3 +118,40 @@ $('.multi-item-carousel .item').each(function(){
   	$(this).siblings(':first').children(':first-child').clone().appendTo($(this));
   }
 });
+
+/*
+$.ajax({ type : "POST", 
+             url : 'http://35.162.14.150:8080/', 
+            /* 
+		data: {
+             'FN'    : 'GetPages',
+             'PIN'   : '7659' 
+             },*/
+	/*
+            xhrFields: {
+             withCredentials: true
+             },
+             crossDomain: true,
+             dataType : "jsonp", 
+		/*
+             jsonp : "jsoncallback", 
+             jsonpCallback : "SMS", 
+             */
+		/*
+		cache : true, 
+              success : function(service_data) { 
+
+			alert(JSON.stringify(service_data));
+                      },
+              error : function(msg) {
+                 alert(JSON.stringify(msg));
+                }
+          });
+
+function getPages()
+{
+	System.out.println('temp');
+}
+*/
+
+

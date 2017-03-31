@@ -7,8 +7,18 @@ var logo = {
 
         },
         create: function () {
-                this.state.start('menu');
+
+//		this.state.start('menu');
+	console.log(player.created);
+	if( player.created == true)
+		this.state.start('map');
+	else 
+		this.state.start('char');
+        },
+        update: function () {
+                loopMusic();
         }
+
 };
 
 

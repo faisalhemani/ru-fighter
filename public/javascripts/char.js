@@ -43,22 +43,22 @@ var char = {
 		charGroup.add(background);
 
 		//Creates xavier and adds an event listener
-		player1 = game.add.image(game.width/4, game.height - game.height/3,"Xavier");
+		player1 = game.add.image(game.width/4, game.height - game.height/3,"player1");
 		player1.selected = false;
-		xavier.anchor.setTo(0.5);
-		xavier.inputEnabled = true;
-		xavier.events.onInputDown.add(selectXavier, this);
-		xavier.events.onInputUp.add(confirmXavier, this);
-		charGroup.add(xavier);
+		player1.anchor.setTo(0.5);
+		player1.inputEnabled = true;
+		player1.events.onInputDown.add(selectPlayer1, this);
+		player1.events.onInputUp.add(confirmPlayer1, this);
+		charGroup.add(player1);
 
 		//Creates Faisal and adds an event listener
-		faisal = game.add.image((3 * game.width)/4, game.height - game.height/3, "Faisal");
-		faisal.selected = false;
-		faisal.anchor.setTo(0.5);
-		faisal.inputEnabled = true;
-		faisal.events.onInputDown.add(selectFaisal, this);
-		faisal.events.onInputUp.add(confirmFaisal, this);
-		charGroup.add(faisal);
+		player2 = game.add.image((3 * game.width)/4, game.height - game.height/3, "player2");
+		player2.selected = false;
+		player2.anchor.setTo(0.5);
+		player2.inputEnabled = true;
+		player2.events.onInputDown.add(selectPlayer2, this);
+		player2.events.onInputUp.add(confirmPlayer2, this);
+		charGroup.add(player2);
 
 		charGroup.x = (game.width - background.width)/2;
 		charGroup.y = (game.width - background.width)/2;
@@ -68,138 +68,139 @@ var char = {
 		style = { font: "32px Arial", fill: "#000000", wordWrap: false, wordWrapWidth: "100px", align: "center"};
 		text = game.add.text(game.width/2, 0, "Selected Character is not chosen yet", style);
 		//next state
-                this.state.start('map');
+//                this.state.start('map');
         },
-	fingerOnScreen: function ()
-	{
-		startX = game.input.worldX;
-		startY = game.input.worldY;
-		charGroup.saveX = charGroup.x;
-		charGroup.saveY = charGroup.y;
-
-		game.input.onDown.remove(fingerOnScreen);
-		game.input.onUp.add(stopScreen);
-		//moveIndex = game.input.addMoveCallback(dragScreen, this);
-	},
-
-	dragScreen: function()
-	{
-		var currentX = game.input.worldX;
-		var currentY = game.input.worldY;
-		var deltaX = startX - currentX;
-		var deltaY = startY - currentY;
-		if (deltaX * deltaX + deltaY * deltaY > 25)
-		{
-			characterChoice = null;
-		}
-		if(mapGroup.x < - map.width + game.width)
-		{
-               		mapGroup.x = - map.width + game.width;
-          	}
-          	if(mapGroup.x > 0)
-		{
-               		mapGroup.x = 0;
-          	}
-	},
-
-	stopScreen: function ()
-	{
-		game.input.onDown.add(fingerOnScreen);
-		game.input.onUp.remove(stopScreen);
-		//game.input.deleteMoveCallback(moveIndex);
-	},
-
-	selectXavier: function(sprite, pointer)
-	{
-		characterChoice = sprite;
-	},
-
-	confirmXavier: function(sprite, pointer)
-	{
-		if (characterChoice == sprite)
-		{
-                        xavierSelected = true;
-                        faisalSelected = false;
-                        console.log("Xavier is: " +xavierSelected);
-                        console.log("Faisal is: " +faisalSelected);
-			//alert("Xavier selected!");
-			characterText();
-		}
-	},
-
-        selectFaisal: function(sprite, pointer)
-        {
-                characterChoice = sprite;
-        },
-
-        confirmFaisal: function(sprite, pointer)
-        {
-                if (characterChoice == sprite)
-                {
-                        xavierSelected = false;
-                        faisalSelected = true;
-                        console.log("Xavier is: " +xavierSelected);
-                        console.log("Faisal is: " +faisalSelected);
-                        //alert("Faisal selected!");
-			characterText();
-                }
-        },
-
 
 	Update: function()
 	{
-		if (xavier.input.pointerOver()) 
+		if (player1.input.pointerOver()) 
 		{
-			console.log("Here xavier");
-			xavier.alpha = 1;
-			xavier.scale.setTo(1.2);
+			console.log("Here player1");
+			player1.alpha = 1;
+			player1.scale.setTo(1.2);
 			//if (faisalSelected)
 			//{
-        	        	faisal.alpha = 0.7;
-	                	faisal.scale.setTo(1);
+        	        	player2.alpha = 0.7;
+	                	player2.scale.setTo(1);
 			//}
 		}
-		else if (faisal.input.pointerOver()) 
+		else if (player2.input.pointerOver()) 
 		{
-			console.log("Here faisal");
-			faisal.alpha = 1;
-			faisal.scale.setTo(1.2);
+			console.log("Here player2");
+			player2.alpha = 1;
+			player2.scale.setTo(1.2);
 			//if (xavierSelected)
 			//{
-                        	xavier.alpha = 0.7;
-                        	xavier.scale.setTo(1);
+                        	player1.alpha = 0.7;
+                        	player1.scale.setTo(1);
 			//}
 		}
 		else 
 		{
 			console.log("Here else");
-			xavier.alpha = 0.7;
-			xavier.scale.setTo(1);
-			faisal.alpha = 0.7;
-			faisal.scale.setTo(1);
+			player1.alpha = 0.7;
+			player1.scale.setTo(1);
+			playe2.alpha = 0.7;
+			player2.scale.setTo(1);
 		}
 		//text = game.add.text(0, 0, characterText(), style);
-	},
-	
-	characterText: function()
-	{
-		//text = game.add.text(0, 0, "", style);
-		if (xavierSelected) {
-			text.setText("Selected Character: Xavier");
-			console.log("1");
-		}
-		else if (faisalSelected) {
-			text.setText("Selected Character: Faisal");
-			console.log("2");
-		}
-		else {
-			text.setText("Selected Character is not chosen yet");
-			console.log("3");
-		}
 	}
+
 };
 
 
 
+function selectPlayer1(sprite, pointer) {
+ 	characterChoice = sprite;
+}
 
+function confirmPlayer1(sprite, pointer)
+        {
+                if (characterChoice == sprite)
+                {
+                        player1Selected = true;
+                        player2Selected = false;
+                        console.log("Player 1 is: " +player1Selected);
+                        console.log("Player 2 is: " +player2Selected);
+                        //alert("Xavier selected!");
+                        characterText();
+			 this.state.start('map');
+                }
+        }
+
+        function selectPlayer2(sprite, pointer)
+        {
+                characterChoice = sprite;
+        }
+
+        function confirmPlayer2(sprite, pointer)
+        {
+                if (characterChoice == sprite)
+                {
+                        player1Selected = false;
+                        player2Selected = true;
+                        console.log("Player 1 is: " +player1Selected);
+                        console.log("Player 2 is: " +player2Selected);
+ 			//alert("Faisal selected!");
+                        characterText();
+			 this.state.start('map');
+                }
+        }
+
+
+ 	function fingerOnScreen()
+        {
+                startX = game.input.worldX;
+                startY = game.input.worldY;
+                charGroup.saveX = charGroup.x;
+                charGroup.saveY = charGroup.y;
+
+                game.input.onDown.remove(fingerOnScreen);
+                game.input.onUp.add(stopScreen);
+                //moveIndex = game.input.addMoveCallback(dragScreen, this);
+        }
+
+        function dragScreen()
+        {
+                var currentX = game.input.worldX;
+                var currentY = game.input.worldY;
+                var deltaX = startX - currentX;
+                var deltaY = startY - currentY;
+                if (deltaX * deltaX + deltaY * deltaY > 25)
+                {
+                        characterChoice = null;
+                }
+                if(mapGroup.x < - map.width + game.width)
+                {
+                        mapGroup.x = - map.width + game.width;
+                }
+                if(mapGroup.x > 0)
+                {
+                        mapGroup.x = 0;
+                }
+        }
+
+        function stopScreen()
+        {
+                game.input.onDown.add(fingerOnScreen);
+                game.input.onUp.remove(stopScreen);
+                //game.input.deleteMoveCallback(moveIndex);
+        }
+
+ 	function characterText()
+        {
+                //text = game.add.text(0, 0, "", style);
+                if (player1Selected) {
+                        text.setText("Selected Character: player 1");
+                        console.log("1");
+                }
+                else if (player2Selected) {
+                        text.setText("Selected Character: player 2");
+                        console.log("2");
+                }
+                else {
+                        text.setText("Selected Character is not chosen yet");
+                        console.log("3");
+                }
+        }
 

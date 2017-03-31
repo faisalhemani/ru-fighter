@@ -63,17 +63,24 @@ var load = {
 	this.scale.pageAlignVertically = true;
 
 	//Music
-	this.introScreenMusic = document.createElement('audio');
-        this.introScreenMusic.setAttribute('id', 'introMusic');
-        this.introScreenMusic.setAttribute('src', 'assets/music/intro_screen.mp3');
+	//this.introScreenMusic = document.createElement('audio');
+        //this.introScreenMusic.setAttribute('id', 'introMusic');
+        //this.introScreenMusic.setAttribute('src', 'assets/music/intro_screen.mp3');
 
-        this.battleMusic = document.createElement('audio');
-        this.battleMusic.setAttribute('id', 'battleMusic');
-	this.battleMusic.setAttribute('src', 'assets/music/commence_battletheme.mp3');
+        //this.battleMusic = document.createElement('audio');
+        //this.battleMusic.setAttribute('id', 'battleMusic');
+	//this.battleMusic.setAttribute('src', 'assets/music/commence_battletheme.mp3');
+
+	introScreenMusic.play();
+	//beep.play();
+	currentMusic = 0;
 
 	},
         create: function () {
-                this.state.start('logo');
-        }
+		this.state.start('logo');
+        },
+	update: function () {
+		loopMusic();
+	}
 };
 
