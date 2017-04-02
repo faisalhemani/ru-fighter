@@ -1,3 +1,5 @@
+var mana_count = 0;
+
 var random ;
 var reg, special, utility, ultimate, reg2, special2, utility2, ultimate2;
 var uhp_txt,uhp, ulevel_txt, ulevel, umana_txt, umana, uspeed_txt, uspeed;
@@ -7,7 +9,7 @@ function battle_functions()
 {
 	console.log("In battle function");
 	ai();
-	playerSpeed();
+	//playerSpeed();
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 }
 
@@ -26,9 +28,9 @@ function ai()
 
 function topText(ai_hp, ai_mp, ai_speed)
 {
-
+c();
 //rectangle box
-
+console.log("IN TOP TEXT FUNCTION");
 	var graphics = game.add.graphics(10,10);
 
 	//set a fill and line style
@@ -92,12 +94,11 @@ var player_counter = 0, ai_counter = 0, counter = 0;
 
 function playerSpeed(user, computer)
 {
+console.log("IM PS, counter: " + counter);
 if(counter == 0)
 {
 	console.log("checking which player will go first");
-	//chance("checking which player will go first");
  	random = game.rnd.integerInRange(0, 1);
-	//speed same
 	if(user == computer)
 	{
 		if(random == 1)
@@ -109,6 +110,12 @@ if(counter == 0)
 		                science();
         		else
         		        engineering();
+	/*		 if (computer == 3)
+                        	aisci_attacks();
+               	 	else
+                        	aieng_attacks();
+*/
+
 		}
 		else
 		{
@@ -116,9 +123,20 @@ if(counter == 0)
  			chance("AI Will Go First");
 			console.log("AI will go first");
 			if (computer == 3)
-        	                aisci_attacks();
-	                else
+        	        {
+			       aisci_attacks();
+			//	if(player.facility == "Science")
+                        //        	science();
+                        //	else
+                        //        	engineering();
+			}
+	                else{
                 	        aieng_attacks();
+			//	if(player.facility == "Science")
+                          //              science();
+                        //        else
+                        //                engineering();
+                        }
 
 		}
 	}
@@ -131,6 +149,13 @@ if(counter == 0)
                         science();
                 else
 	                engineering();
+//		 if (computer == 3)
+  //                              aisci_attacks();
+    //                    else
+      //                          aieng_attacks();
+
+
+
 	}
 	else
 	{
@@ -142,68 +167,93 @@ if(counter == 0)
 			aisci_attacks();
 		else
 			aieng_attacks();
+	//	 if(player.facility == "Science")
+          //              science();
+            //    else
+              //          engineering();
 	}
 
 	counter++;
-}
-else 
-	trueBattle();
+	//truBattle();
 }
 
-var mana_count =0;
+}
+
+//var mana_count = 0;
+
 function trueBattle()
 {
+	console.log("IN TRUE BATTLE, MANACOUNTER: " + mana_count);
 	message_txt.destroy;
+	report_txt.destroy;
+	player_report_txt.destroy;
 
+	cgraphics.visible = false;
+	console.log("counter: " + counter);
+	console.log("user HP: " + uhp);
+	console.log("AI HP: " + chp);
 	if(counter > 0 && uhp > 0 && chp > 0)
 	{
-//	while (uhp > 0 || chp > 0)
-//	{
-		if(player_counter > ai_counter)
+		cgraphics.visible = true;
+		if(player_counter < ai_counter)
 		{
-			 chance("Now The AI Will Attack");
-			if (cspeed == 3)
-                        	aisci_attacks();
-                	else
-                        	aieng_attacks();
-			//ai_counter = ai_counter + 2; //uhp = uhp - 20;
-			console.log(ai_counter);
+			  chance("Now The YOU Will Attack");
+
+                        if(player.facility == "Science")
+                                science();
+                        else
+                                engineering();
+                        ai_counter = ai_counter + 2; //uhp = uhp - 20;
+                        console.log("AI cOUNTER: " + ai_counter);
+
+//			 player_counter++;// chp = chp - 30;
+  //                      console.log("Player counter: " + player_counter);
+
 		}
 		else
 		{
-			 chance("Now The YOU Will Attack");
+//			console.log("player count is heigher so its AI's turen");
+                         chance("Now The AI Will Attack");
+                        if (cspeed == 3)
+                                aisci_attacks();
+                        else
+                                aieng_attacks();
+  //                      ai_counter = ai_counter + 2; //uhp = uhp - 20;
+    //                    console.log("AI cOUNTER: " + ai_counter);
 
-			if(player.facility == "Science")
-                        	science();
-                	else
-                        	engineering();
+//
+//			 chance("Now The YOU Will Attack");
+//
+//			if(player.facility == "Science")
+  //                      	science();
+    //            	else
+      //                  	engineering();
 			player_counter = player_counter + 2;// chp = chp - 30;
-			console.log(player_counter);
+			console.log("Player counter: " + player_counter);
 		}
 	mana_count++;
-//	}
-		//endgame(uhp,chp);
+	console.log("MANA COUNTER : " + mana_count);
 	}
-	if(!(mana_count%2))
+	if((mana_count%2))
 	{
-	//cmana.destroy();
-	//umana.destroy();
-
-		cmana = cmana++;
+		cmana_txt.destroy;
+		umana_txt.destroy;
+		cmana = cmana+1;
         	cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
-	 	umana = umana++;
+	 	umana = umana+1;
          	umana_txt = game.add.text(260,30,"Mp : " + umana,{
                 font: "20px Arial",
                 fill: "#ff0000",
                 align: "center" });
-	}
+		console.log("AI MP: " + cmana + "  USER MP: " + umana);
+ 	}
 
 }
 
-var dmg_txt;
+//var dmg_txt;
 
 function sr_action(){
 	chp = chp - 5;
@@ -264,7 +314,7 @@ function utility_action() {
                         align: "center" });
                 player_report = "HEAL: 5";
                 player_dmg(player_report);
-                trueBattle();
+            trueBattle();
 //		if(cspeed == 3) ai_science(); 
 	}
 }
@@ -291,7 +341,9 @@ function ultimate_action() {
                 ai_dmg(report);
                 player_report = "MP: -14";
                 player_dmg(player_report);
-                trueBattle();
+
+
+              trueBattle();
 	}
 }
 
@@ -308,7 +360,13 @@ function er_action(){
 	//chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
 	report= "DMG: 5";
 	ai_dmg(report);
-	trueBattle();
+//	trueBattle();
+ if (computer == 3)
+                        aisci_attacks();
+                else
+                        aieng_attacks();
+
+
 //	if(cspeed == 3) ai_science();
 }
 
@@ -333,7 +391,11 @@ function es_action() {
 		ai_dmg(report);
 		player_report = "MP: -3";
 		player_dmg(player_report);
-		trueBattle();
+//trueBattle();
+ if (computer == 3)
+                        aisci_attacks();
+                else
+                        aieng_attacks();
 
 //		if(cspeed == 3) ai_science(); 
 	}
@@ -343,7 +405,7 @@ function eutility_action() {
 //		txt_color = '#0000ff';
         	chp = chp - 10;
         	umana =umana-6;
-        	uhp_txt.destroy();
+        	chp_txt.destroy();
         	umana_txt.destroy();
         	console.log("user: utility");
 		chp_txt = game.add.text(560,30,"Hp : " + chp,{
@@ -354,10 +416,16 @@ function eutility_action() {
                         font: "20px Arial",
                         fill: "#ff0000",
                         align: "center" });
-                ai_dmg(report);
+                report = "DMG: 10"
+		ai_dmg(report);
                 player_report = "MP: -6";
                 player_dmg(player_report);
-                trueBattle();
+//          trueBattle();
+ if (computer == 3)
+                        aisci_attacks();
+                else
+                        aieng_attacks();
+
 //		if(cspeed == 3) ai_science(); 
 	}
 }
@@ -366,9 +434,9 @@ function eultimate_action() {
 
 	if(umana >= 14)
 	{
-		txt_color = '#ff0000';
+		//txt_color = '#ff0000';
   	      	chp = chp - 18;
-        	umana =umana-14;
+        	umana = umana - 14;
         	chp_txt.destroy();
         	umana_txt.destroy();
         	console.log("user: ultimate");
@@ -384,7 +452,13 @@ function eultimate_action() {
                 ai_dmg(report);
                 player_report = "MP: -14";
                 player_dmg(player_report);
-                trueBattle();
+ if (computer == 3)
+                        aisci_attacks();
+                else
+                        aieng_attacks();
+
+
+//            trueBattle();
 	}
 }
 
@@ -409,7 +483,7 @@ function ai_ultimate_action()
         player_dmg(player_report);
         report = "MP: -14";
         ai_dmg(report);
-        trueBattle();
+  //      trueBattle();
 
 
 }
@@ -430,7 +504,7 @@ function ai_utility_action()
                 align: "center" });
         report = "MP: -6 and HEAL: 10";
         ai_dmg(report);
-        trueBattle();
+//        trueBattle();
 
 
 }
@@ -453,7 +527,7 @@ function  ai_ss_action()
         player_dmg(player_report);
         report = "MP: -3";
         ai_dmg(report);
-        trueBattle();
+//        trueBattle();
 
 
 }
@@ -461,9 +535,9 @@ function ai_sr_action()
 {
 
 	uhp = uhp - 5;
-       // cmana = cmp - 14;
+       	//cmana = cmp - 14;
         uhp_txt.destroy();
-        cmana_txt.destroy();
+        //cmana_txt.destroy();
         uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
                 font: "20px Arial",
                 fill: "#ff0000",
@@ -476,7 +550,7 @@ function ai_sr_action()
         player_dmg(player_report);
        // report = "MP: -14";
        // ai_dmg(report);
-        trueBattle();
+        //trueBattle();
 
 
 }
@@ -504,7 +578,7 @@ function ai_eultimate_action()
         player_dmg(player_report);
         report = "MP: -14";
         ai_dmg(report);
-        trueBattle();
+      //  trueBattle();
 
 
 }
@@ -527,7 +601,7 @@ function ai_eutility_action()
         ai_dmg(report);
 	 player_report = "DMG: 10 ";
         player_dmg(player_report);
-        trueBattle();
+    //    trueBattle();
 
 
 }
@@ -550,7 +624,7 @@ function  ai_es_action()
         player_dmg(player_report);
         report = "MP: -3";
         ai_dmg(report);
-        trueBattle();
+  //      trueBattle();
 
 
 }
@@ -559,14 +633,14 @@ function ai_er_action()
 
 	uhp = uhp - 5;
         uhp_txt.destroy();
-        cmana_txt.destroy();
+        //cmana_txt.destroy();
         uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
                 font: "20px Arial",
                 fill: "#ff0000",
                 align: "center" });
         player_report = "DMG: 5 ";
         player_dmg(player_report);
-        trueBattle();
+//        trueBattle();
 
 
 }

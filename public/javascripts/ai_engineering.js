@@ -39,6 +39,12 @@ function aieng_attacks(){
 		console.log("reg");
 		ai_er_action();
 	}
+ if(player.facility == "Science")
+                                science();
+                        else
+                                engineering();
+
+
 
 }
 

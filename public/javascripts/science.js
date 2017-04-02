@@ -63,6 +63,8 @@ console.log("in science function");
   		this.avatar = game.add.sprite(100,200,'player2');
         	this.avatar.scale.setTo(0.2,0.2);
 	}
+
+
 }
 
 function sr_action()

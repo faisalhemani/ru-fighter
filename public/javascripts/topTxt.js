@@ -1,9 +1,8 @@
 var cgraphics;
-function chance(message){
-
-        console.log("chance function will display who will be playing first");
-        cgraphics = game.add.graphics(0,0);
-
+function c()
+{
+	cgraphics = game.add.graphics(0,0);
+        //cgraphics.visible = true;
         //set a fill and line style
         cgraphics.beginFill(0x000000, 0.8);
         cgraphics.lineStyle(2, 0x0f0f12);
@@ -13,6 +12,23 @@ function chance(message){
 
         window.graphics = cgraphics;
 
+}
+function chance(message){
+
+//        console.log("chance function will display who will be playing first");
+
+/*cgraphics = game.add.graphics(0,0);
+	cgraphics.visible = true;
+        //set a fill and line style
+        cgraphics.beginFill(0x000000, 0.8);
+        cgraphics.lineStyle(2, 0x0f0f12);
+
+        //draw a rectangle
+        cgraphics.drawRect(200,200,650,150);
+
+        window.graphics = cgraphics;
+*/
+//	cgraphics.visible = true;
 	 message_txt = game.add.text(220,255,message,{
 		font: "40px Arial",
 		fill: "#ff0000",
@@ -22,7 +38,7 @@ function chance(message){
 var report_txt, message_txt;
 function ai_dmg(report){
 
-        console.log("function will display the dmg the ai has taken");
+  //      console.log("function will display the dmg the ai has taken");
         var graphics = game.add.graphics(0,0);
 
         //set a fill and line style
@@ -44,7 +60,7 @@ function ai_dmg(report){
 var player_report_txt;
 function player_dmg(report){
 
-        console.log("This will show the dmg player has taken");
+    //    console.log("This will show the dmg player has taken");
         var graphics = game.add.graphics(0,0);
 
         //set a fill and line style
@@ -66,7 +82,7 @@ function player_dmg(report){
 var endgame_txt;
 function endgame(report){
 
-        console.log("This will show the dmg player has taken");
+      //  console.log("This will show the dmg player has taken");
         var graphics = game.add.graphics(0,0);
 
         //set a fill and line style

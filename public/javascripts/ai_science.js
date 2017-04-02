@@ -41,6 +41,12 @@ function aisci_attacks(){
               ai_sr_action();
         }
 
+ if(player.facility == "Science")
+                                science();
+                        else
+                                engineering();
+
+
 }
 
 
