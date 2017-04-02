@@ -29,21 +29,24 @@ function science_regular()
 {
 	doKunai(3); 	
 	ai_counter = ai_counter + 2;
+	turn = 'ai';
 }
 
 function science_special()
 {
 	doExplosion(50);
+	turn = 'ai';
 }
 
 function science_utility()
 {
-
+	turn = 'ai';
 }
 
 function science_ultimate()
 {
 	doAtomicRestructure(50);
+	turn = 'ai';
 }
 
 function displayScience()
