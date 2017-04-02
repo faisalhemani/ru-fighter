@@ -284,7 +284,7 @@ function confirmClass(sprite, pointer) {
 	clearMap();
 	switchMusic(mapTheme, nhanMusic);
 	nhanclass();
-        battle_functions();
+        battle();
 
       }
 }
