@@ -66,7 +66,7 @@ var map = {
                         eng.anchor.setTo(0.5);
                         eng.scale.setTo(0.5,0.5);
                         eng.inputEnabled = true;
-                        eng.events.onInputDown.add(selectEng,this);
+                        eng.events.onInputDown.add(select,this, 'eng');
                         eng.events.onInputUp.add(confirmEng, this);
 			eng.events.onInputOver.add(hover, this);
 			eng.events.onInputOut.add(endHover, this);
@@ -204,13 +204,26 @@ function selectEng(sprite, pointer) {
         candidateEng = sprite;
 }
 
+function select(sprite, pointer) {
+	candidate = sprite;
+	console.log();
+}
+
+function confirm(sprite, candidate, music, pointer) {
+	if (sprite == candidate){
+		clearMap();
+		switchMusic(mapTheme, music);
+
+	}
+}
+
 function confirmEng(sprite, pointer) {
         if(candidateEng == sprite) {
                 //alert("Eng");
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
 		outside_eng();
-                battle();
+        battle();
         }
 }
 var candidateSLC;
@@ -225,7 +238,7 @@ function confirmSLC(sprite, pointer) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
 		outside_slc();
-                battle();
+        battle();
         }
 }
 
@@ -234,6 +247,7 @@ var candidateTown;
 
 function selectTown(sprite, pointer) {
         candidateTown = sprite;
+        console.log(pointer);
 }
 
 function confirmTown(sprite, pointer) {
