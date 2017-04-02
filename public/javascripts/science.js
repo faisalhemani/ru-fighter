@@ -32,28 +32,17 @@ function science_regular()
 
 function science_special()
 {
-	if (turn === 'player')
-	{
-		doExplosion(50);
-		turn = 'ai';
-	}
+	applyDamage(8, doExplosion, 50);
 }
 
 function science_utility()
 {
-	if (turn === 'player')
-	{
-		turn = 'ai';
-	}
+	//applyDamage(0, )
 }
 
 function science_ultimate()
 {
-	if (turn === 'player')
-	{
-		doAtomicRestructure(50);
-		turn = 'ai';
-	}
+	applyDamage(18, doAtomicRestructure, 50);
 }
 
 function applyDamage(damage, animation, amount) {
