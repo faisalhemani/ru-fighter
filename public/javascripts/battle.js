@@ -24,6 +24,9 @@ function topText()
 	//draw a rectangle
 	graphics.drawRect(90,10,860,40);
 
+	if (gameOver)
+		graphics.destroy;
+
 	window.graphics = graphics;
 
 	console.log(enemy);
