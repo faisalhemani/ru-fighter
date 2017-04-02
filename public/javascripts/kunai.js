@@ -16,10 +16,7 @@ function animateKunai()
 
 function doKunai(repeat)
 {
-	if (particles.kunai.children.length <= 3)
-	{
-		game.time.events.repeat(10, repeat, createKunai, this);
-	}
+	game.time.events.repeat(10, repeat, createKunai, this);
 }
 
 function checkKunai(sprite)

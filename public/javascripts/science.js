@@ -27,7 +27,8 @@ function science()
 
 function science_regular()
 {
-	damage(5,doKunai, 3);
+	if (particles.kunai.children.length <= 3)
+		damage(5,doKunai, 3);
 }
 
 function science_special()
