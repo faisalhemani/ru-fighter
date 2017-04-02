@@ -27,13 +27,7 @@ function science()
 
 function science_regular()
 {
-	if (turn === 'player')
-	{
-		doKunai(3); 	
-		enemy.stats.hp = enemy.stats.hp - 5;
-		console.log(enemy.stats.hp);
-		turn = 'ai';
-	}
+	applyDamage(5,doKunai, amount);
 }
 
 function science_special()
@@ -59,6 +53,16 @@ function science_ultimate()
 	{
 		doAtomicRestructure(50);
 		turn = 'ai';
+	}
+}
+
+function applyDamage(damage, animation, amount) {
+	if (turn === 'player')
+	{
+		animation(amount);
+		enemy.stats.hp = enemy.stats.hp - damage;
+		console.log(enemy.stats.hp);
+		turn = ai;
 	}
 }
 
