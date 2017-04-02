@@ -299,7 +299,7 @@ function confirmClass(sprite, pointer) {
                 //kerr_hall();
 	clearMap();
 	switchMusic(mapTheme, nhanMusic);
-	nhanclass();
+	enemy('nhan','Science','nhan_bg');
         battle();
 
       }
