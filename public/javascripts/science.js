@@ -15,14 +15,13 @@ function science()
     
 	console.log("buttons are up");
 
-	if (player.avatar == "xavier.png")
-	{
+	if (player.avatar == "xavier.png") {
  		this.avatar = game.add.sprite(100,200,'player1');
-     		this.avatar.scale.setTo(0.2,0.2);
+		this.avatar.scale.setTo(0.2,0.2);
 	}
-	else{
+	else {
   		this.avatar = game.add.sprite(100,200,'player2');
-        	this.avatar.scale.setTo(0.2,0.2);
+		this.avatar.scale.setTo(0.2,0.2);
 	}
 }
 

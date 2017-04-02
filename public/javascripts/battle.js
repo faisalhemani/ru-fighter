@@ -74,11 +74,13 @@ function playerSpeed()
 	console.log("checking which player will go first");
 	//chance("checking which player will go first");
 	var choice = random.integerInRange(0, 1);
+	var turn = '';
 	//speed same
 	if(player.stats.speed == enemy.stats.speed)
 	{
 		if(choice == 1)
 		{
+			turn = 'player';
 			console.log("Speed tie: player will go first");
 			if(player.facility == "Science")
 				science();
@@ -87,6 +89,7 @@ function playerSpeed()
 	    }
 		else
 		{
+			turn = 'ai';
 			console.log("Speed tie: AI will go first");
 			if (enemy.facility == 'Science')
 				aisci_attacks();
@@ -96,6 +99,7 @@ function playerSpeed()
 	}
 	else if (player.stats.speed > enemy.stats.speed)
 	{
+		turn = 'player';
 		console.log("Player is faster: player will go first");
 		if(player.facility == "Science")
 			science();
@@ -104,6 +108,7 @@ function playerSpeed()
 	}
 	else
 	{
+		turn = 'ai';
 		console.log("AI is faster: AI will go first");
 
 		if (enemy.facility == 'Science')
