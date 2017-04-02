@@ -5,9 +5,10 @@ function battle()
 	random = game.rnd;
 	var choice = random.integerInRange(0, 1);
 	game.physics.startSystem(Phaser.Physics.ARCADE);
+	topText();
 }
 
-function topText(ai_hp, ai_mp, ai_speed)
+function topText(enemy)
 {
 	var graphics = game.add.graphics(10,10);
 
@@ -20,13 +21,14 @@ function topText(ai_hp, ai_mp, ai_speed)
 
 	window.graphics = graphics;
 
-	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+	uhp_txt = game.add.text(110,30,"Hp : " + player.stats.hp, {
 		font: "20px Arial",
 		fill: "#ff0000",
-		align: "center" });
+		align: "center" 
+	});
 
  	 umana = "25";
-         umana_txt = game.add.text(260,30,"Mp : " + umana,{
+         umana_txt = game.add.text(260,30,"Mp : " + player.stats.mana,{
                 font: "20px Arial",
                 fill: "#ff0000",
                 align: "center" });
@@ -36,30 +38,30 @@ function topText(ai_hp, ai_mp, ai_speed)
 	else
 		uspeed = "2";
 
-	uspeed_txt = game.add.text(410,30,"Speed : " + uspeed,{
+	uspeed_txt = game.add.text(410,30,"Speed : " + player.stats.speed,{
                 font: "20px Arial",
                 fill: "#ff0000",
                 align: "center" });
 
 
  	 chp = ai_hp;
-         chp_txt = game.add.text(560,30,"Hp : " + chp,{
+         chp_txt = game.add.text(560,30,"Hp : " + enemy.stats.hp,{
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
 
 
  	 cmana = ai_mp;
-        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+        cmana_txt = game.add.text(710,30,"Mp : " + enemy.stats.mana,{
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
 
          cspeed = ai_speed;
-         cspeed_txt = game.add.text(860,30,"Speed : " + cspeed,{
+         cspeed_txt = game.add.text(860,30,"Speed : " + enemy.stats.speed,{
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
 
-	playerSpeed(speed, cspeed);
+	//playerSpeed(speed, cspeed);
 }

@@ -7,6 +7,11 @@ function Player(x,y,key)
 	this.sprite = {};
 	this.model = {};
 	this.text = {};
+	this.stats = {
+		hp : 50,
+		speed : 2,
+		mana : 25
+	}
 }
 
 //creates the player sprite
