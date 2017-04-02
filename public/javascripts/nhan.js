@@ -5,5 +5,5 @@ function nhanclass()
     nhan_bg.scale.setTo(0.9,0.9);
 
 	displayPlayer(enemy);
-	characterBounce(nhan);
+	characterBounce(enemy.sprite);
 }
