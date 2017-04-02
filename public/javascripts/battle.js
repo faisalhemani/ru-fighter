@@ -1,76 +1,379 @@
-function battle(user_speed, ai_speed){
-        console.log("in the battle function");
+var random ;
+var reg, special, utility, ultimate, reg2, special2, utility2, ultimate2;
+var uhp_txt,uhp, ulevel_txt, ulevel, umana_txt, umana, uspeed_txt, uspeed;
+var chp_txt,chp, clevel_txt, clevel, cmana_txt, cmana, cspeed_txt, cspeed;
 
-        //first turn
-        if( counter == 0)
-        {
-                if (user_speed == ai_speed)
-                {
-                        console.log("speed is same");
-                        if (user_speed ==3)
-                        {
-                                console.log("the facility is science");
-                                if (random == 1)
-                                {
-                                        console.log("user is going first");
-                                        science("#0000ff"); user_counter++;
-                                        dmg_txt = game.add.text(350, 300, "You Go First", {font: "40px Arial", fill: txt_color});
+function battle_functions()
+{
+	console.log("In battle function");
+	ai();
+	playerSpeed();
+	game.physics.startSystem(Phaser.Physics.ARCADE);
+}
 
-                                }
-                                else
-                                {
-                                        ai_science();
-                                        ai_counter++;
-                                        dmg_txt = game.add.text(350, 300, "Ai Goes First", {font: "40px  Arial", fill: txt_color});
+function ai()
+{
+	console.log("random: " + random);
 
-                                }
-                        }
-                        else
-                        {
-                                console.log("the facility is engineering");
-                                if (random == 1)
-                                {       engineering("#0000ff"); user_counter++;}
-                                else
-                                {       ai_engineering(); ai_counter++;}
+	if(random == 1)
+	{
+		topText(ai_science_hp(), ai_science_mp(), ai_science_speed());
+	}
+	else
+		topText(ai_eng_hp(), ai_eng_mp(), ai_eng_speed());
+}
 
-                        }
-                }
-                counter++;
-        }
-        else
-        {
-                if (user_counter > ai_counter)
-                {
-                        console.log("user's turn");
-                        if (user_speed ==3)
-                        {
-                                console.log("the facility is science");
-                                science("#0000ff"); user_counter++;
-                        }
-                        else
-                        {
-                                console.log("the facility is engineering");
-                                engineering("#0000ff"); user_counter++;
 
-                        }
+function topText(ai_hp, ai_mp, ai_speed)
+{
+
+//rectangle box
+
+	var graphics = game.add.graphics(10,10);
+
+	//set a fill and line style
+	graphics.beginFill(0x000000, 0.8);
+	graphics.lineStyle(2, 0x0f0f12);
+
+	//draw a rectangle
+	graphics.drawRect(90,10,860,40);
+
+	window.graphics = graphics;
+
+//Text
+
+	uhp = "50";
+	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+		font: "20px Arial",
+		fill: "#ff0000",
+		align: "center" });
+
+ 	 umana = "25";
+         umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                font: "20px Arial",
+                fill: "#ff0000",
+                align: "center" });
+
+	if(player.facility == "Science")
+ 		var uspeed = "3";
+	else
+		uspeed = "2";
+
+	uspeed_txt = game.add.text(410,30,"Speed : " + uspeed,{
+                font: "20px Arial",
+                fill: "#ff0000",
+                align: "center" });
+
+
+ 	 chp = ai_hp;
+         chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+
+
+ 	 cmana = ai_mp;
+        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+
+         cspeed = ai_speed;
+         cspeed_txt = game.add.text(860,30,"Speed : " + cspeed,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+
+	playerSpeed(speed, cspeed);
+}
+
+var player_counter = 0, ai_counter = 0, counter = 0;
+
+
+function playerSpeed(user, computer)
+{
+if(counter == 0)
+{
+	console.log("checking which player will go first");
+	//chance("checking which player will go first");
+ 	random = game.rnd.integerInRange(0, 1);
+	//speed same
+	if(user == computer)
+	{
+		if(random == 1)
+		{
+			chance("You Will Go First, All The Best");
+			console.log("player will go first");
+			player_counter++;
+			 if(player.facility == "Science")
+		                science();
+        		else
+        		        engineering();
 		}
- 		else
-                {
-                        console.log("ai's turn");
-                        if (user_speed ==3)
-                        {
-                                console.log("the facility is science");
-                                ai_science(); ai_counter++;
-                        }
-                        else
-                        {
-                                console.log("the facility is engineering");
-                                ai_engineering(); ai_counter++;
-                        }
+		else
+		{
+			ai_counter++;
+ 			chance("AI Will Go First");
+			console.log("AI will go first");
+			if (computer == 3)
+        	                aisci_attacks();
+	                else
+                	        aieng_attacks();
 
-                }
+		}
+	}
+	else if (user > computer)
+	{
+		player_counter++;
+		 chance("You Will Go First, All The Best");
+		console.log("player will go first");
+		if(player.facility == "Science")
+                        science();
+                else
+	                engineering();
+	}
+	else
+	{
+		ai_counter++;
+	 	chance("AI Will Go First");
+		console.log("AI will go first");
 
-        }
+		if (computer == 3)
+			aisci_attacks();
+		else
+			aieng_attacks();
+	}
+
+	counter++;
+}
+else 
+	trueBattle();
+}
+
+
+function trueBattle()
+{
+	message_txt.destroy;
+
+	if(counter > 0 && uhp > 0 && chp > 0)
+	{
+//	while (uhp > 0 || chp > 0)
+//	{
+		if(player_counter > ai_counter)
+		{
+			 chance("Now The AI Will Attack");
+			if (cspeed == 3)
+                        	aisci_attacks();
+                	else
+                        	aieng_attacks();
+			ai_counter = ai_counter + 2; //uhp = uhp - 20;
+		}
+		else
+		{
+			 chance("Now The YOU Will Attack");
+
+			if(player.facility == "Science")
+                        	science();
+                	else
+                        	engineering();
+			player_counter = player_counter + 2;// chp = chp - 30;
+		}
+//	}
+		//endgame(uhp,chp);
+	}
 
 }
+
+var dmg_txt;
+
+function sr_action(){
+	chp = chp - 5;
+	chp_txt.destroy();
+ 	console.log("user : reg attack");
+	chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+	//chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
+	report= "DMG: 5";
+	ai_dmg(report);
+	trueBattle();
+//	if(cspeed == 3) ai_science();
+}
+
+function ss_action() {
+	if( umana >=3)
+	{
+		//txt_color = '#ff0000';
+	        chp = chp - 8;
+		umana = umana-3;
+        	chp_txt.destroy();
+        	umana_txt.destroy();
+		console.log("user : special");
+        	chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                	font: "20px Arial",
+                	fill: "#00ff00",
+            		align: "center" });
+		umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                	font: "20px Arial",
+               	 	fill: "#ff0000",
+                	align: "center" });
+		report = "DMG: 8 ";
+		ai_dmg(report);
+		player_report = "MP: -3";
+		player_dmg(player_report);
+		trueBattle();
+
+//		if(cspeed == 3) ai_science(); 
+	}
+}
+function utility_action() {
+	if(umana >= 6){
+//		txt_color = '#0000ff';
+        	uhp = uhp + 5;
+        	umana =umana-6;
+        	uhp_txt.destroy();
+        	umana_txt.destroy();
+        	console.log("user: utility");
+		uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+                	font: "20px Arial",
+                	fill: "#ff0000",
+                	align: "center" });
+                umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                        font: "20px Arial",
+                        fill: "#ff0000",
+                        align: "center" });
+                player_report = "HEAL: 5";
+                player_dmg(player_report);
+                trueBattle();
+//		if(cspeed == 3) ai_science(); 
+	}
+}
+function ultimate_action() {
+//	dmg_txt.destroy();
+
+	if(umana >= 14)
+	{
+		txt_color = '#ff0000';
+  	      	chp = chp - 18;
+        	umana =umana-14;
+        	chp_txt.destroy();
+        	umana_txt.destroy();
+        	console.log("user: ultimate");
+ 		chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                        font: "20px Arial",
+                        fill: "#00ff00",
+                        align: "center" });
+                umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                        font: "20px Arial",
+                        fill: "#ff0000",
+                        align: "center" });
+                report = "DMG: 18 ";
+                ai_dmg(report);
+                player_report = "MP: -14";
+                player_dmg(player_report);
+                trueBattle();
+	}
+}
+
+//engineering skill attacks for player --------------------------------------------------------
+
+function er_action(){
+	chp = chp - 5;
+	chp_txt.destroy();
+ 	console.log("user : reg attack");
+	chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+	//chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
+	report= "DMG: 5";
+	ai_dmg(report);
+	trueBattle();
+//	if(cspeed == 3) ai_science();
+}
+
+function es_action() {
+	if( umana >=3)
+	{
+		//txt_color = '#ff0000';
+	        chp = chp - 8;
+		umana = umana-3;
+        	chp_txt.destroy();
+        	umana_txt.destroy();
+		console.log("user : special");
+        	chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                	font: "20px Arial",
+                	fill: "#00ff00",
+            		align: "center" });
+		umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                	font: "20px Arial",
+               	 	fill: "#ff0000",
+                	align: "center" });
+		report = "DMG: 8 ";
+		ai_dmg(report);
+		player_report = "MP: -3";
+		player_dmg(player_report);
+		trueBattle();
+
+//		if(cspeed == 3) ai_science(); 
+	}
+}
+function eutility_action() {
+	if(umana >= 6){
+//		txt_color = '#0000ff';
+        	chp = chp - 10;
+        	umana =umana-6;
+        	uhp_txt.destroy();
+        	umana_txt.destroy();
+        	console.log("user: utility");
+		chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                        font: "20px Arial",
+                        fill: "#00ff00",
+                        align: "center" });
+                umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                        font: "20px Arial",
+                        fill: "#ff0000",
+                        align: "center" });
+		report = "DMG: 10 ";
+                ai_dmg(report);
+                player_report = "MP: -6";
+                player_dmg(player_report);
+                trueBattle();
+//		if(cspeed == 3) ai_science(); 
+	}
+}
+function eultimate_action() {
+//	dmg_txt.destroy();
+
+	if(umana >= 14)
+	{
+		txt_color = '#ff0000';
+  	      	chp = chp - 18;
+        	umana =umana-14;
+        	chp_txt.destroy();
+        	umana_txt.destroy();
+        	console.log("user: ultimate");
+ 		chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                        font: "20px Arial",
+                        fill: "#00ff00",
+                        align: "center" });
+                umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                        font: "20px Arial",
+                        fill: "#ff0000",
+                        align: "center" });
+                report = "DMG: 18 ";
+                ai_dmg(report);
+                player_report = "MP: -14";
+                player_dmg(player_report);
+                trueBattle();
+	}
+}
+
+
+
+
+
+
+
 

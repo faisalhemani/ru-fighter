@@ -124,6 +124,8 @@ function confirmPlayer1(sprite, pointer)
                         console.log("Player 2 is: " +player2Selected);
                         //alert("Xavier selected!");
                         characterText();
+			player.facility = 'Science';
+			requestCreated();
 			 this.state.start('map');
                 }
         }
@@ -143,6 +145,8 @@ function confirmPlayer1(sprite, pointer)
                         console.log("Player 2 is: " +player2Selected);
  			//alert("Faisal selected!");
                         characterText();
+			player.facility = 'Engineering';
+			requestCreated();
 			 this.state.start('map');
                 }
         }

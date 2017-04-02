@@ -17,14 +17,14 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 		else
 		{
 			var player = new Array().push(doc);
+			doc.stringify = JSON.stringify(doc.stats);
 			console.log("*"+doc+"*");	
 			res.render('index', {players: doc});	
 		}
-	});	
-	//res.render('index', { title: 'RU-Fighter' });
+	});;
 });
 
-router.post('/update', ensureAuthenticated, function (req, res, next) {
+router.post('/api/create/character', ensureAuthenticated, function (req, res, next) {
 	Player.getPlayerByUsername(req.user.username, function (err, doc){
 		if (err)
 		{
@@ -32,18 +32,20 @@ router.post('/update', ensureAuthenticated, function (req, res, next) {
 		}
 		else
 		{
-			console.log(req.method);
-			console.log(req.connection.remoteAddress);
-			console.log(doc);
-			//res.writeHead("Content-Type", "application/json");
-			//res.header("Access-Control-Allow-Origin", "*");
-			//res.header("Access-Control-Allow-Headers", "X-Requested-With");
-			//res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-			doc.created = true;
-			doc.save();
-			res.json({'doc':doc.created});
-			//res.json(doc);
-			//res.json(doc);
+			req.on('data', function (data) {
+				console.log('%'+data+'%');	
+				var player = JSON.parse(data);
+				doc.facility = player.facility;
+				doc.items = player.items;
+				doc.ramz = player.ramz;
+				doc.avatar = player.avatar;
+				doc.wins = player.wins;
+				doc.loss = player.loss;
+				doc.stats = player.stats;
+				doc.created = true;
+				doc.save();
+				res.json(doc);
+			});
 		}
 	});
 });

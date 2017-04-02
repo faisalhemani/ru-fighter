@@ -4,6 +4,7 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
 		<title>RU-Fighter!</title>
+		<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 		<script type="text/javascript" src="/javascripts/phaser.min.js"></script>
 
 		<script type="text/javascript" src="/javascripts/lose.js"></script>
@@ -17,13 +18,24 @@
                 <script type="text/javascript" src="/javascripts/retinder.js"></script>
                 <script type="text/javascript" src="/javascripts/tom.js"></script>
                 <script type="text/javascript" src="/javascripts/xavier.js"></script>
+		<script type="text/javascript" src="/javascripts/nhan.js"></script>
+		<script type="text/javascript" src="/javascripts/topTxt.js"></script>
+		<script type="text/javascript" src="/javascripts/science.js"></script>
+		<script type="text/javascript" src="/javascripts/engineering.js"></script>
+
+
+		<script type="text/javascript" src="/javascripts/ai.js"></script>
+                <script type="text/javascript" src="/javascripts/ai_science.js"></script>
+                <script type="text/javascript" src="/javascripts/ai_engineering.js"></script>
+
 
 
 
                 <script type="text/javascript" src="/javascripts/play.js"></script>
                 <script type="text/javascript" src="/javascripts/char.js"></script>
                 <script type="text/javascript" src="/javascripts/map.js"></script>
-
+		<script type="text/javascript" src="/javascripts/settings.js"></script>
+		<script type="text/javascript" src="/javascripts/instructions.js"></script>
                 <script type="text/javascript" src="/javascripts/title.js"></script>
 
                 <script type="text/javascript" src="/javascripts/logo.js"></script>
@@ -38,6 +50,7 @@
 
                 <script type="text/javascript" src="/javascripts/game.js"></script>
 
+                <script type="text/javascript" src="/javascripts/characterMovement.js"></script>
 
 
 
@@ -55,6 +68,7 @@
 			var player =  {
 				name: '{{players.name}}',
 				avatar : '{{players.avatar}}',
+				facility : '{{players.facility}}',
 				created : {{players.created}},
 				ramz : {{players.ramz}},
 				skills : [
@@ -66,7 +80,8 @@
 						stats : {{this.manacost}}
 					},
 				{{/each}}
-				]
+				],
+				stats : {{{players.stringify}}}	
 			};
 			console.log(player.name);
 		</script>

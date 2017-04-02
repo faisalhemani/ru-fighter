@@ -1,6 +1,7 @@
 var load = {
         preload: function () {
                 console.log("In the Load funtion:)");
+		//this.physics.startSystem(Phaser.Physics.ARCADE);
                 this.logo = this.add.sprite(this.game.world.centerX/5, this.game.centerY/2,'logo');
                 //this.logo.anchor.setTo(0.5);
 		this.logo.scale.setTo(0.5,0.5);
@@ -9,10 +10,20 @@ var load = {
                 //this.preloadBar.anchor.setTo(0.5);
 		//this.preloadBar.scale.setTo(0.8);
                 this.load.setPreloadSprite(this.preloadBar);
+		loading = game.add.text(500,500,"Loading....",{font: "22px Arial", fill: "#fff"});
+ 		this.map = this.load.image("map", "assets/map.png");
+                this.town = this.load.image("town", "assets/enemy_btn.png");
 
+		this.load.image('playbutton', '/assets/nTBME6Xzc.png');
+		this.load.image('settings','/assets/settings-256.png');
+		this.load.image('instructions','/assets/692673_info_512x512.png');
+		this.load.image('back','/assets/x-mark.png');
 		//change the faisal and xavier once  player 1 and player 2 are ready
 		this.load.image('player1', 'assets/HAMID.png');
         	this.load.image('player2', 'assets/picka.png');
+		this.load.image('menubg','/assets/title_screen/slc_tiles.jpg');
+		//FONTS
+		this.game.load.bitmapFont('font', 'assets/fonts/ProFontWindows.png', 'assets/fonts/ProFontWindows.xml');
 /*
 		this.load.image("player1", "http://35.162.14.150/game_engine/js/CharSelect/faisal.png");
                 this.load.image("player2", "http://35.162.14.150/game_engine/js/CharSelect/xavier.png");
@@ -40,23 +51,27 @@ var load = {
         //Faisal
         this.load.image('faisal_bg', 'assets/battle_screens/faisal/devo.jpg');
         this.load.image('faisal', 'assets/battle_screens/faisal/faisal.png');
-
+	this.load.spritesheet('kunai','/assets/kunai-bomba.png', 55,55,19);
         //Jess
         this.load.image('jess_bg', 'assets/battle_screens/jessica/outside_eng.jpg');
 	this.load.image('jess', 'assets/battle_screens/jessica/jessica.png');
-
+	this.load.spritesheet('explode','/assets/explode.png');
         //Tom
         this.load.image('tom_bg', 'assets/battle_screens/tom/bridge.jpg');
         this.load.image('tom', 'assets/battle_screens/tom/tom.png');
-
+	this.load.spritesheet('red','/assets/red.png');
 
         //Alex
         this.load.image('alex_bg', 'assets/battle_screens/alex/kerr_hall.jpg');
         this.load.image('alex', 'assets/battle_screens/alex/alex.png');
-
+	this.load.spritesheet('cats','/assets/runningcat.png');
         //Retinder
         this.load.image('retinder_bg', 'assets/battle_screens/retinder/outside_slc.jpg');
-	this.load.image('retinder_bg', 'assets/battle_screens/retinder/retinder.png');
+	this.load.image('retinder', 'assets/battle_screens/retinder/retinder.png');
+	//Nhan
+	this.load.image('nhan_bg', 'assets/battle_screens/nhan/classroom.jpg');
+	this.load.image('nhan', 'assets/battle_screens/nhan/nhan.png');
+
 	this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	this.scale.setScreenSize();
 	this.scale.pageAlignHorizontally = true;
@@ -72,6 +87,8 @@ var load = {
 	//this.battleMusic.setAttribute('src', 'assets/music/commence_battletheme.mp3');
 
 	introScreenMusic.play();
+	introScreenMusic.volume = 0;
+	fadeMusic(introScreenMusic);
 	//beep.play();
 	currentMusic = 0;
 

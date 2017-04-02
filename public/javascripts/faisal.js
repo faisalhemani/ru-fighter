@@ -1,13 +1,30 @@
 function devo()
 {
         //background
-        faisal_bg = game.add.sprite(30,0,'faisal_bg');
-        faisal_bg.scale.setTo(0.2,0.2);
+        faisal_bg = game.add.sprite(0,0,'faisal_bg');
+//        faisal_bg.scale.setTo(0.2,0.2);
 
         //character
-        faisal = game.add.sprite(700/*350*/,/*150*/150,'faisal');
-        faisal.scale.setTo(0.15,0.15);
-
+        faisal = game.add.sprite(750,250,'faisal');
+        faisal.scale.setTo(0.2,0.2);
+	var box = game.add.graphics(0,500);
+	box.beginFill(0x000000);
+	box.drawRect(0,0,1100,100);
+	box.alpha = 0.5;
+	/*var bdock = new Phaser.Rectangle(0, 550, 1500, 50);
+	game.debug.geom(bdock, '#000');
+	bdock.alpha = 0.2;*/
+	console.log("starttttttttttttt");
+	var attack = game.add.sprite(200,200,'kunai');
+	//attack.animations.add('kunai');
+	//attack.play('walk', 1, true);
+	console.log("added");
+	var walk = attack.animations.add('walk');
+	console.log("animated");
+	attack.animations.play('walk', 30, true);
+	console.log("play");
+	characterBounce(faisal);
+/*
         //text for hp and stuff 
         txt_color = '#0000ff';
         console.log("show the text");
@@ -25,5 +42,25 @@ function devo()
         cmana_txt = game.add.text(830,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
         cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
         console.log(uhp_txt);
+*/
 }
+/*
+this.healthbar = game.add.graphics(0,0);this.group.add(this.healthbar); 
+// this.group being a pre-initialised group for this entity...
+this.hp = 20;
+this.totalhp = 20;
+this._lasthp = 0;
+if (this._lasthp !== this.hp) {    
+	this.healthbar.clear();    
+	var x = (this.hp / this.totalhp) * 100;    
+	var colour = utils.rgbToHex((x > 50 ? 1-2*(x-50)/100.0 : 1.0) * 255, (x > 50 ? 1.0 : 2*x/100.0) * 255, 0);        
+	this.healthbar.beginFill(colour);    
+	this.healthbar.lineStyle(5, colour, 1);    
+	this.healthbar.moveTo(0,-5);    
+	this.healthbar.lineTo(config.tileSize * this.hp / this.totalhp, -5);    
+	this.healthbar.endFill();
+}
+this._lasthp = this.hp;
 
+rgbToHex: function (r, g,  {    return "0x" + ((1 << 24) + (r << 16) + (g << 8) + .toString(16).slice(1);}
+*/

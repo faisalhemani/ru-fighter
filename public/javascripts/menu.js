@@ -3,7 +3,7 @@ var url = 'http://35.162.14.150';
 var menu = {
         preload: function () {
                 console.log("MENUUUU");
-
+	var bg = this.game.add.sprite (0,0,'menubg');
         console.log("calling the server");
         var request = new XMLHttpRequest();
         var port = ':8081';
@@ -57,13 +57,41 @@ var menu = {
 
 
         },
-
+	//load settings image
+	//load instructions image
+	//load back button / X
+	// work with button placement for menu/instructions/settings
         create: function () {
-               // this.state.start('play');
+		this.game.stage.backgroundColor = '#fff000';
+		this.playbutton = game.add.button(400, 150, 'playbutton', this.actionOnClick, this, 2,1, 0);
+		this.instructions = game.add.button(300, 450, 'instructions', this.onClick, this, 2, 1, 0);
+		this.instructions.scale.setTo(0.5);
+		this.settings = game.add.button(600, 450, 'settings', this.clickMe, this, 2, 1, 0);
+		this.settings.scale.setTo(0.5);
+              	//this.playbutton = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'playbutton');
+
+ // this.state.start('play');
 //	if()
 
 //		console.log("in create");
 	},
+	actionOnClick: function () {
+		switchMusic(introScreenMusic, mapTheme);
+		if( player.created == true){
+                	this.state.start('map'); 
+        	} else  {
+                	this.state.start('char');
+		}
+
+	},
+	onClick: function () {
+                this.state.start('instructions');
+
+        },
+	clickMe: function () {
+                this.state.start('settings');
+
+        },
 
 	update: function (){
 		loopMusic();

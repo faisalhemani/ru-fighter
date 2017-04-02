@@ -1,12 +1,16 @@
 function outside_slc()
 {
         //background
-        faisal_bg = game.add.sprite(30,0,'faisal_bg');
-        faisal_bg.scale.setTo(0.2,0.2);
+        retinder_bg = game.add.sprite(0,0,'retinder_bg');
+        //retinder_bg.scale.setTo(0.2,0.2);
 
         //character
-        faisal = game.add.sprite(700/*350*/,/*150*/150,'faisal');
-        faisal.scale.setTo(0.15,0.15);
+        retinder = game.add.sprite(785,180,'retinder');
+        retinder.scale.setTo(0.2,0.2);
+	characterBounce(retinder);
+//	topText();
+//	science();
+/*
         //text for hp and stuff 
         txt_color = '#0000ff';
         console.log("show the text");
@@ -24,7 +28,7 @@ function outside_slc()
         cmana_txt = game.add.text(830,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
         cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
         console.log(uhp_txt);
-
+*/
 //      dmg_txt.destroy();
 }
 

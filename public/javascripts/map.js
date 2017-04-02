@@ -1,10 +1,15 @@
+var kerr;
+var lake;
+var vic;
+var eng;
+var slc;
+var bridge;
+var classroom;
+var currLocation;
+
 var map = {
         preload: function () {
                 console.log("MAP");
-
-		//move to load state!!!!!!!!!!!!!!!!!!!!!
-		this.map = this.load.image("map", "assets/map.png");
- 		this.town = this.load.image("town", "assets/enemy_btn.png");
 
         },
         create: function () {
@@ -29,54 +34,72 @@ var map = {
 		}
 */
 
- 			var kerr = this.add.image(550,260, "town");
+ 			kerr = this.add.image(730,210, "town");
                         kerr.anchor.setTo(0.5);
 			kerr.scale.setTo(0.5,0.5);
                         kerr.inputEnabled = true;
-                        kerr.events.onInputDown.add(selectTown,this);
-                        kerr.events.onInputUp.add(confirmTown, this);
+                        kerr.events.onInputDown.add(selectKerr,this);
+                        kerr.events.onInputUp.add(confirmKerr, this);
+			kerr.events.onInputOver.add(hover, this);
+			kerr.events.onInputOut.add(endHover, this);
 
- 			var lake = this.add.image(540, 330, "town");
+ 			lake = this.add.image(540, 330, "town");
                         lake.anchor.setTo(0.5);
 			lake.scale.setTo(0.5,0.5);
                         lake.inputEnabled = true;
                         lake.events.onInputDown.add(selectLake,this);
                         lake.events.onInputUp.add(confirmLake, this);
+			lake.events.onInputOver.add(hover, this);
+			lake.events.onInputOut.add(endHover, this);
 
- 			var vic = this.add.image(490, 305, "town");
+ 			vic = this.add.image(490, 295, "town");
                         vic.anchor.setTo(0.5);
 			vic.scale.setTo(0.5,0.5);
                         vic.inputEnabled = true;
                         vic.events.onInputDown.add(selectVic,this);
                         vic.events.onInputUp.add(confirmVic, this);
+			vic.events.onInputOver.add(hover, this);
+			vic.events.onInputOut.add(endHover, this);
 
-			var eng = this.add.image(820, 280, "town");
+			eng = this.add.image(820, 280, "town");
                         eng.anchor.setTo(0.5);
                         eng.scale.setTo(0.5,0.5);
                         eng.inputEnabled = true;
                         eng.events.onInputDown.add(selectEng,this);
                         eng.events.onInputUp.add(confirmEng, this);
+			eng.events.onInputOver.add(hover, this);
+			eng.events.onInputOut.add(endHover, this);
 
-                        var slc = this.add.image(360, 300, "town");
+                        slc = this.add.image(380, 330, "town");
                         slc.anchor.setTo(0.5);
                         slc.scale.setTo(0.5,0.5);
                         slc.inputEnabled = true;
                         slc.events.onInputDown.add(selectSLC,this);
                         slc.events.onInputUp.add(confirmSLC, this);
+			slc.events.onInputOver.add(hover, this);
+			slc.events.onInputOut.add(endHover, this);
 
- 			var bridge = this.add.image(790, 240, "town");
+ 			bridge = this.add.image(790, 240, "town");
                         bridge.anchor.setTo(0.5);
                         bridge.scale.setTo(0.5,0.5);
                         bridge.inputEnabled = true;
                         bridge.events.onInputDown.add(selectBridge,this);
                         bridge.events.onInputUp.add(confirmBridge, this);
+			bridge.events.onInputOver.add(hover, this);
+			bridge.events.onInputOut.add(endHover, this);
 
- 			var gould = this.add.image(380, 330, "town");
-                        gould.anchor.setTo(0.5);
-                        gould.scale.setTo(0.5,0.5);
-                        gould.inputEnabled = true;
-                        gould.events.onInputDown.add(selectSLC,this);
-                        gould.events.onInputUp.add(confirmSLC, this);
+ 			classroom = this.add.image(530, 265, "town");
+                        classroom.anchor.setTo(0.5);
+                        classroom.scale.setTo(0.5,0.5);
+                        classroom.inputEnabled = true;
+                        classroom.events.onInputDown.add(selectClass,this);
+                        classroom.events.onInputUp.add(confirmClass, this);
+			classroom.events.onInputOver.add(hover, this);
+			classroom.events.onInputOut.add(endHover, this);
+
+			var style = { font: "32px Arial"};
+
+			currLocation = game.add.text(75,10, "", style);
 
 		this.input.onUp.add(clickMap, this);
                 //if (faisal)
@@ -87,13 +110,55 @@ var map = {
         },
 	update: function() {
 		this.input.onUp.add(clickMap, this);
+		loopMusic();
 	}
 };
 
 var candidateVic;
 
+function hover(sprite, pointer) {
+	if(sprite == vic) {
+		currLocation.setText("Victoria Building");
+		updateTextLocation(pointer);
+	}
+	else if(sprite == lake) {
+		currLocation.setText("Lake Devo");
+		updateTextLocation(pointer);
+	}
+	else if(sprite == slc) {
+		currLocation.setText("Student Learning Centre");
+		updateTextLocation(pointer);
+	}
+	else if(sprite == eng) {
+		currLocation.setText("Eng Building");
+		updateTextLocation(pointer);
+	}
+	else if(sprite == bridge) {
+		currLocation.setText("Bridge");
+		updateTextLocation(pointer);
+	}
+	else if(sprite == kerr) {
+		currLocation.setText("Kerr Hall");
+		updateTextLocation(pointer);
+	}
+	else if(sprite == classroom) {
+		//Change this plz
+		currLocation.setText("Hell on Earth");
+		updateTextLocation(pointer);
+	}
+}
+
+function endHover(sprite, pointer) {
+	currLocation.setText("");
+}
+
+function updateTextLocation(pointer) {
+	currLocation.x = pointer.x;
+        currLocation.y = pointer.y + 20;
+}
+
 function clickMap() {
-	console.log("Clicked the map");
+	//console.log("Clicked the map");
 }
 
 function selectVic(sprite, pointer) {
@@ -102,7 +167,11 @@ function selectVic(sprite, pointer) {
 
 function confirmVic(sprite, pointer) {
 	if(candidateVic == sprite) {
-		alert("Vic selected");
+		//alert("Vic selected");
+		clearMap();
+		switchMusic(mapTheme, battleMusic);
+		victoria_lane();
+		battle_functions();
 	}
 }
 
@@ -114,7 +183,12 @@ function selectLake(sprite, pointer) {
 
 function confirmLake(sprite, pointer) {
         if(candidateLake == sprite) {
-                alert("Lake");
+                //alert("Lake");
+		clearMap();
+		switchMusic(mapTheme, battleMusic);
+		devo();
+                battle_functions();
+
         }
 }
 
@@ -126,7 +200,11 @@ function selectEng(sprite, pointer) {
 
 function confirmEng(sprite, pointer) {
         if(candidateEng == sprite) {
-                alert("Eng");
+                //alert("Eng");
+		clearMap();
+		switchMusic(mapTheme, battleMusic);
+		outside_eng();
+                battle_functions();
         }
 }
 var candidateSLC;
@@ -137,7 +215,11 @@ function selectSLC(sprite, pointer) {
 
 function confirmSLC(sprite, pointer) {
         if(candidateSLC == sprite) {
-                alert("SLC");
+                //alert("SLC");
+		clearMap();
+		switchMusic(mapTheme, battleMusic);
+		outside_slc();
+                battle_functions();
         }
 }
 
@@ -150,7 +232,7 @@ function selectTown(sprite, pointer) {
 
 function confirmTown(sprite, pointer) {
         if(candidateTown == sprite) {
-                alert("Town");
+                //alert("Town");
         }
 }
 
@@ -162,19 +244,57 @@ function selectBridge(sprite, pointer) {
 
 function confirmBridge(sprite, pointer) {
         if(candidateBridge == sprite) {
-                alert("Bridge");
+                //alert("Bridge");
+		clearMap();
+		switchMusic(mapTheme, battleMusic);
+		bridge_map();
+                battle_functions();
         }
 }
-var candidateGould;
+var candidateKerr;
 
-function selectGould(sprite, pointer) {
-        candidateGould = sprite;
+function selectKerr(sprite, pointer) {
+        candidateKerr = sprite;
 }
 
-function confirmGould(sprite, pointer) {
-        if(candidateGould == sprite) {
-                alert("Gould");
+function confirmKerr(sprite, pointer) {
+        if(candidateKerr == sprite) {
+                //alert("Kerr");
+		clearMap();
+		switchMusic(mapTheme, battleMusic);
+		kerr_hall();
+                battle_functions();
         }
 }
 
+var candidateClass;
 
+function selectClass(sprite, pointer) {
+        candidateClass = sprite;
+}
+
+function confirmClass(sprite, pointer) {
+        if(candidateClass == sprite) {
+//                alert("Class: Nhan's ckass not made yet");
+                //kerr_hall();
+	clearMap();
+	switchMusic(mapTheme, nhanMusic);
+	nhanclass();
+        battle_functions();
+
+      }
+}
+
+/*
+Destorys the map images so that they can no longer be clicked on
+from other states
+*/
+function clearMap() {
+	vic.destroy();
+	kerr.destroy();
+	lake.destroy();
+	eng.destroy();
+	slc.destroy();
+	bridge.destroy();
+	classroom.destroy();
+}

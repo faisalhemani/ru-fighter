@@ -9,17 +9,44 @@ var logo = {
         create: function () {
 
 //		this.state.start('menu');
-	console.log(player.created);
+	//console.log(player.created);
 	if( player.created == true)
-		this.state.start('map');
+		this.state.start('menu');
 	else 
 		this.state.start('char');
-        },
-        update: function () {
+		//requestCreated();
+      },
+
+
+      update: function () {
                 loopMusic();
         }
 
 };
+
+function requestCreated()
+{
+	console.log('requestCreated sent');
+	var request = new XMLHttpRequest();
+	request.open('POST', '/api/create/character', true);
+	request.onload = new function ()
+	{
+		if (request.status >= 200 && request.status < 400)
+		{
+			console.log(request.responseText);
+			return JSON.parse(request.responseText);
+		}
+		else 
+		{
+			//alert('Request to create character was denied!');
+		}
+	};
+	request.onerror = new function ()
+	{
+		//alert('Error sending request for character created!');
+	};
+	request.send(JSON.stringify(player));
+}
 
 
 

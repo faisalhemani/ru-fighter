@@ -1,16 +1,17 @@
 function kerr_hall()
 {
         //background
-        alex_bg = game.add.sprite(30,0,'alex_bg');
-        alex_bg.scale.setTo(0.2,0.2);
+        alex_bg = game.add.sprite(0,0,'alex_bg');
+//        alex_bg.scale.setTo(0.2,0.2);
 
         //character
-        alex = game.add.sprite(700,50,'alex');
-        alex.scale.setTo(0.2,0.2);
+        alex = game.add.sprite(780,50,'alex');
+        alex.scale.setTo(0.25,0.25);
         console.log("alex is up");
         console.log(alex);
+	characterBounce(alex);
         //add sprites
-
+/*
         //text 
         //text for hp and stuff 
         txt_color = '#0000ff';
@@ -29,6 +30,7 @@ function kerr_hall()
         cmana_txt = game.add.text(830,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
         cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
         console.log(uhp_txt);
+//*/
 //      dmg_txt.destroy();
 }
 

@@ -1,13 +1,14 @@
 function outside_eng()
 {
         //background
-        jess_bg = game.add.sprite(30,0,'jess_bg');
-        jess_bg.scale.setTo(0.2,0.2);
+        jess_bg = game.add.sprite(0,0,'jess_bg');
+       jess_bg.scale.setTo(0.9,0.9);
 
         //character
-        jess = game.add.sprite(700, 150,'jess');
-        jess.scale.setTo(0.15,0.15);
-        //add sprites
+        jess = game.add.sprite(710, 250,'jess');
+        jess.scale.setTo(0.2,0.2);
+	characterBounce(jess);
+/*        //add sprites
         //text 
         //text for hp and stuff 
         txt_color = '#0000ff';
@@ -26,6 +27,7 @@ function outside_eng()
         cmana_txt = game.add.text(830,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
         cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
         console.log(uhp_txt);
+*/
 //      dmg_txt.destroy();
 }
 

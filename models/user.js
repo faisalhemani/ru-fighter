@@ -14,6 +14,9 @@ var userSchema = mongoose.Schema({
 	},
 	name: {
 		type: String
+	},
+	admin : {
+		type: Boolean
 	}
 });
 

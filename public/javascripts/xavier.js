@@ -1,14 +1,15 @@
 function victoria_lane()
 {
         //background
-        xavier_bg = game.add.sprite(30,0,'xavier_bg');
-        xavier_bg.scale.setTo(0.2,0.2);
+        xavier_bg = game.add.sprite(0,0,'xavier_bg');
+//        xavier_bg.scale.setTo(0.2,0.2);
 
         //character
-        xavier = game.add.sprite(750, 100,'xavier');
-        xavier.scale.setTo(0.15,0.15);
+        xavier = game.add.sprite(750, 250,'xavier');
+        xavier.scale.setTo(0.2,0.2);
+	characterBounce(xavier);
 
-        //add sprites
+/*        //add sprites
 
         //text 
         //text for hp and stuff 
@@ -28,7 +29,7 @@ function victoria_lane()
         cmana_txt = game.add.text(830,15, "Mp: " +cmana,{font: "22px Arial", fill: txt_color});
         cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
         console.log(uhp_txt);
-
+*/
 //      dmg_txt.destroy();
 }
 

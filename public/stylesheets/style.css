@@ -27,6 +27,7 @@ input#message
 
 textarea
 {
+	width: 100%;
 	margin-bottom: 20px;
 	height: 150px;
 }
@@ -61,12 +62,19 @@ p.tag { font-size: 24px; color: red;}
 
 p.time { text-align: right; }
 
+p.summary {font-size: 28px;}
+
 div.container-large { max-width: 1300px; margin: auto; padding: 20px;}
 
 img.banner
 {
 	width: 100%;
 	padding-bottom: 20px;
+}
+
+h2.title
+{
+	font-size: 44px;
 }
 
 a, a:hover, a:focus { color: orange;}

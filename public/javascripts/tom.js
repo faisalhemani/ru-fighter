@@ -1,15 +1,15 @@
-function bridge()
+function bridge_map()
 {
         //background
-        tom_bg = game.add.sprite(30,0,'tom_bg');
-        tom_bg.scale.setTo(0.2,0.2);
+        tom_bg = game.add.sprite(0,0,'tom_bg');
+//        tom_bg.scale.setTo(0.2,0.2);
 
         //character
-        tom = game.add.sprite(700, 0,'tom');
-        tom.scale.setTo(0.7,0.7);
-
+        tom = game.add.sprite(780, 180,'tom');
+        tom.scale.setTo(0.2,0.2);
+	characterBounce(tom);
         //add sprites
-
+/*
         //text 
         //text for hp and stuff 
         txt_color = '#0000ff';
@@ -29,6 +29,7 @@ function bridge()
         cspeed_txt = game.add.text(930,15,"Speed: "+cspeed,{font: "22px Arial", fill: txt_color});
         console.log(uhp_txt);
 //      dmg_txt.destroy();
+*/
 }
 
 
