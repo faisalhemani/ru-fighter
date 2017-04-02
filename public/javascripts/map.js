@@ -66,7 +66,7 @@ var map = {
                         eng.anchor.setTo(0.5);
                         eng.scale.setTo(0.5,0.5);
                         eng.inputEnabled = true;
-                        eng.events.onInputDown.add(select,this, 'eng');
+                        eng.events.onInputDown.add(selectEng,this);
                         eng.events.onInputUp.add(confirmEng, this);
 			eng.events.onInputOver.add(hover, this);
 			eng.events.onInputOut.add(endHover, this);
