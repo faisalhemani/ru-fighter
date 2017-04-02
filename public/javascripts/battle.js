@@ -130,6 +130,10 @@ function sleep(ms) {
 }
 
 function clearBattle(){
+	clearStats();
+}
+
+function clearStats(){
 	stats_graphics.destroy();
 	player_speed_display.destroy();
 	player_mana_display.destroy();
@@ -137,6 +141,14 @@ function clearBattle(){
 	enemy_speed_display.destroy();
 	enemy_mana_display.destroy();
 	enemy_hp_display.destroy();
+}
+
+function clearSkills() 
+{
+	regTxt.destroy();
+	specialTxt.destroy();
+	utilityTxt.destroy();
+	ultimateTxt.destroy();
 }
 
 function gameOver(){

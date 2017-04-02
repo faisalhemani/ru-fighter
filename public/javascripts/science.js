@@ -7,6 +7,8 @@ var particles = {
 
 var lights;
 
+var regTxt, specialTxt, utilityTxt, ultimateTxt;
+
 function science()
 {
 	console.log("in science function");
@@ -87,15 +89,15 @@ function displayScience()
  	window.graphics = graphics;
 
 	//Text
-	var regTxt = game.add.text(120, 570, "DMG: 5	MP Cost: 0",
+	regTxt = game.add.text(120, 570, "DMG: 5	MP Cost: 0",
     	{font: "15px Arial", fill:" #ffffff"});
-	var  specialTxt = game.add.text(340, 570, "DMG: 8     MP Cost: 3", 
+	specialTxt = game.add.text(340, 570, "DMG: 8     MP Cost: 3", 
     	{font: "15px Arial", fill: "#ffffff"});
 
-	var UitlityTxt = game.add.text(560, 570, "Heal: 5     MP Cost: 6", 
+	utilityTxt = game.add.text(560, 570, "Heal: 5     MP Cost: 6", 
     	{font: "15px Arial", fill: "#ffffff"});
 
- 	var UltimateTxt = game.add.text(780, 570, "DMG: 18     MP Cost: 14", 
+ 	ultimateTxt = game.add.text(780, 570, "DMG: 18     MP Cost: 14", 
     	{font: "15px Arial", fill: "#ffffff"});
 	
 	var reg = game.add.sprite(100,470, 'sr');
