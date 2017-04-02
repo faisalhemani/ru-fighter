@@ -13,7 +13,7 @@ function Player(x,y,key)
 function createPlayer(x,y,key)
 {
 	var player = game.add.sprite(x,y,key);
-	player.anchor.setTo(0.5,0.5);
+	//player.anchor.setTo(0.5,0.5);
 	//game.physics.arcade.enable(player);
 	//game.physics.enable(player, Phaser.Physics.ARCADE);
 	//player.body.collideWorldBounds = true;
