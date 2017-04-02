@@ -31,6 +31,7 @@ function science_regular()
 	{
 		doKunai(3); 	
 		enemy.stats.hp = enemy.stats.hp - 5;
+		console.log(enemy.stats.hp);
 		turn = 'ai';
 	}
 }
