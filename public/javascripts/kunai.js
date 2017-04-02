@@ -1,7 +1,7 @@
 function createKunai()
 {
 	var kunai = particles.kunai.create(0, game.rnd.integerInRange(0,game.height-250), 'kunai');
-	console.log(particles.kunai);
+	console.log(particles.kunai.children.length);
 	kunai.animations.add('anim');
 	kunai.play('anim', 10, true);
 	kunai.scale.setTo(3,3);
