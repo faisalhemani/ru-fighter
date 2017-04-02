@@ -1,3 +1,5 @@
+var enemy;
+
 function nhanclass()
 {
 	enemy = new Player(780,180,'nhan');
