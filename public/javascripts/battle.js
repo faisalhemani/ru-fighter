@@ -146,10 +146,15 @@ function clearStats(){
 
 function clearSkills() 
 {
+	skill_graphics.destroy();
 	regTxt.destroy();
 	specialTxt.destroy();
 	utilityTxt.destroy();
 	ultimateTxt.destroy();
+	reg.destroy();
+	special.destroy();
+	utility.destroy();
+	ultimate.destroy();
 }
 
 function gameOver(){

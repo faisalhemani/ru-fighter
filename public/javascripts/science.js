@@ -8,6 +8,8 @@ var particles = {
 var lights;
 
 var regTxt, specialTxt, utilityTxt, ultimateTxt;
+var skill_graphics;
+var reg, special, utility, ultimate;
 
 function science()
 {
@@ -74,19 +76,19 @@ function heal(){
 
 function displayScience()
 {
-	var graphics = game.add.graphics(0,0);
+	skill_graphics = game.add.graphics(0,0);
 	particles.lights = game.add.group();
 	particles.explosions = game.add.group();
 	particles.kunai = game.add.group();
 	
 	//set a fill and line style
-	graphics.beginFill(0x000000, 0.8);
-	graphics.lineStyle(2, 0x000000);
+	skill_graphics.beginFill(0x000000, 0.8);
+	skill_graphics.lineStyle(2, 0x000000);
 
 	//draw a rectangle
-	graphics.drawRect(90,460,880,130);
+	skill_graphics.drawRect(90,460,880,130);
 
- 	window.graphics = graphics;
+ 	window.graphics = skill_graphics;
 
 	//Text
 	regTxt = game.add.text(120, 570, "DMG: 5	MP Cost: 0",
@@ -100,10 +102,10 @@ function displayScience()
  	ultimateTxt = game.add.text(780, 570, "DMG: 18     MP Cost: 14", 
     	{font: "15px Arial", fill: "#ffffff"});
 	
-	var reg = game.add.sprite(100,470, 'sr');
-	var special = game.add.sprite(320 ,470,'ss');//, science_special, this, 2,1,0);
-	var utility = game.add.sprite(540 ,470,'sut');//, science_utility, this,2,1,0);
-	var ultimate = game.add.sprite(760 ,470,'sul');//, science_ultimate, this, 2,1,0);
+	reg = game.add.sprite(100,470, 'sr');
+	special = game.add.sprite(320 ,470,'ss');//, science_special, this, 2,1,0);
+	utility = game.add.sprite(540 ,470,'sut');//, science_utility, this,2,1,0);
+	ultimate = game.add.sprite(760 ,470,'sul');//, science_ultimate, this, 2,1,0);
 	scienceButtons(reg, special, utility, ultimate);
 }
 
