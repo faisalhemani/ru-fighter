@@ -30,7 +30,7 @@ function science_regular()
 	if (turn === 'player')
 	{
 		doKunai(3); 	
-		ai_counter = ai_counter + 2;
+		enemy.stats.hp = enemy.stats.hp - 5;
 		turn = 'ai';
 	}
 }
