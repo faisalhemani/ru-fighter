@@ -27,7 +27,7 @@ function science()
 
 function science_regular()
 {
-	applyDamage(5,doKunai, amount);
+	applyDamage(5,doKunai, 3);
 }
 
 function science_special()
