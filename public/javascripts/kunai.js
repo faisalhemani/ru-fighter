@@ -1,13 +1,11 @@
 function createKunai()
 {
-	if (particles.kunai.children.length <= 3)
-	{
+	
 		console.log(particles.kunai.children.length);
 		var kunai = particles.kunai.create(0, game.rnd.integerInRange(0,game.height-250), 'kunai');
 		kunai.animations.add('anim');
 		kunai.play('anim', 10, true);
 		kunai.scale.setTo(3,3);
-	}
 }
 
 function animateKunai()
@@ -18,7 +16,10 @@ function animateKunai()
 
 function doKunai(repeat)
 {
-	game.time.events.repeat(10, repeat, createKunai, this);
+	if (particles.kunai.children.length <= 3)
+	{
+		game.time.events.repeat(10, repeat, createKunai, this);
+	}
 }
 
 function checkKunai(sprite)
