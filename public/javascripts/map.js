@@ -175,7 +175,7 @@ function confirmVic(sprite, pointer) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
 		victoria_lane();
-		battle_functions();
+		battle();
 	}
 }
 
@@ -191,7 +191,7 @@ function confirmLake(sprite, pointer) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
 		devo();
-                battle_functions();
+                battle();
 
         }
 }
@@ -208,7 +208,7 @@ function confirmEng(sprite, pointer) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
 		outside_eng();
-                battle_functions();
+                battle();
         }
 }
 var candidateSLC;
@@ -223,7 +223,7 @@ function confirmSLC(sprite, pointer) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
 		outside_slc();
-                battle_functions();
+                battle();
         }
 }
 
@@ -252,7 +252,7 @@ function confirmBridge(sprite, pointer) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
 		bridge_map();
-                battle_functions();
+                battle();
         }
 }
 var candidateKerr;
@@ -267,7 +267,7 @@ function confirmKerr(sprite, pointer) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
 		kerr_hall();
-                battle_functions();
+                battle();
         }
 }
 
@@ -284,7 +284,7 @@ function confirmClass(sprite, pointer) {
 	clearMap();
 	switchMusic(mapTheme, nhanMusic);
 	nhanclass();
-        battle_functions();
+        battle();
 
       }
 }
