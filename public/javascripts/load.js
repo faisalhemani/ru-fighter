@@ -1,3 +1,8 @@
+
+var particles = {
+	lights : {}
+};
+
 var load = {
         preload: function () {
                 console.log("In the Load funtion:)");
@@ -86,6 +91,12 @@ var load = {
         //this.battleMusic.setAttribute('id', 'battleMusic');
 	//this.battleMusic.setAttribute('src', 'assets/music/commence_battletheme.mp3');
 
+	this.load.image('bluePartical', 'assets/blue.png');
+	this.load.image('redPartical', 'assets/red.png');
+	this.load.spritesheet('explosion','assets/explode.png',128,128);
+	
+	particles.lights = this.game.add.group();
+	
 	introScreenMusic.play();
 	introScreenMusic.volume = 0;
 	fadeMusic(introScreenMusic);
@@ -94,10 +105,14 @@ var load = {
 
 	},
         create: function () {
+		//particles.lights = this.add.group();
+		doAtomicRestructure(50);	
 		this.state.start('logo');
         },
 	update: function () {
 		loopMusic();
+		//player1Skills();
+		//animateAtomicRestructure();
 	}
 };
 

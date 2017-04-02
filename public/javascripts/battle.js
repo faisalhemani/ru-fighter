@@ -150,7 +150,7 @@ else
 	trueBattle();
 }
 
-
+var mana_count =0;
 function trueBattle()
 {
 	message_txt.destroy;
@@ -178,8 +178,25 @@ function trueBattle()
                         	engineering();
 			player_counter = player_counter + 2;// chp = chp - 30;
 		}
+	mana_count++;
 //	}
 		//endgame(uhp,chp);
+	}
+	if(!(mana_count%2))
+	{
+	cmana.destroy();
+	umana.destroy();
+
+		cmana = cmana++;
+        	cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+	 	umana = umana++;
+         	umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                font: "20px Arial",
+                fill: "#ff0000",
+                align: "center" });
 	}
 
 }
@@ -335,7 +352,6 @@ function eutility_action() {
                         font: "20px Arial",
                         fill: "#ff0000",
                         align: "center" });
-		report = "DMG: 10 ";
                 ai_dmg(report);
                 player_report = "MP: -6";
                 player_dmg(player_report);
@@ -371,9 +387,184 @@ function eultimate_action() {
 }
 
 
+//---------------------------AI Attack Functions ---------------------------------------------
+function ai_ultimate_action()
+{
+
+	uhp = uhp - 18;
+	cmana = cmana - 14;
+	uhp_txt.destroy();
+       	cmana_txt.destroy();
+	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+		font: "20px Arial",
+		fill: "#ff0000",
+		align: "center" });
+	cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+	player_report = "DMG: 18 ";
+        player_dmg(player_report);
+        report = "MP: -14";
+        ai_dmg(report);
+        trueBattle();
+
+
+}
+function ai_utility_action()
+{
+
+	chp = chp + 10;
+        cmana = cmana - 6;
+        chp_txt.destroy();
+        cmana_txt.destroy();
+	chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+        report = "MP: -6 and HEAL: 10";
+        ai_dmg(report);
+        trueBattle();
+
+
+}
+function  ai_ss_action()
+{
+
+	uhp = uhp - 8;
+        cmana = cmana - 3;
+        uhp_txt.destroy();
+        cmana_txt.destroy();
+        uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+                font: "20px Arial",
+                fill: "#ff0000",
+                align: "center" });
+        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+        player_report = "DMG: 8 ";
+        player_dmg(player_report);
+        report = "MP: -3";
+        ai_dmg(report);
+        trueBattle();
+
+
+}
+function ai_sr_action()
+{
+
+	uhp = uhp - 5;
+       // cmana = cmp - 14;
+        uhp_txt.destroy();
+        cmana_txt.destroy();
+        uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+                font: "20px Arial",
+                fill: "#ff0000",
+                align: "center" });
+       // cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+         //       font: "20px Arial",
+           //     fill: "#00ff00",
+             //   align: "center" });
+        player_report = "DMG: 5 ";
+        player_dmg(player_report);
+       // report = "MP: -14";
+       // ai_dmg(report);
+        trueBattle();
+
+
+}
 
 
 
+// AI ATTACK FOR ENG  ---------------------------------------------------------------------------
+
+function ai_eultimate_action()
+{
+
+	uhp = uhp - 18;
+	cmana = cmana - 14;
+	uhp_txt.destroy();
+       	cmana_txt.destroy();
+	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+		font: "20px Arial",
+		fill: "#ff0000",
+		align: "center" });
+	cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+	player_report = "DMG: 18 ";
+        player_dmg(player_report);
+        report = "MP: -14";
+        ai_dmg(report);
+        trueBattle();
 
 
+}
+function ai_eutility_action()
+{
 
+	uhp = uhp - 10;
+        cmana = cmana - 6;
+        uhp_txt.destroy();
+        cmana_txt.destroy();
+	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+                font: "20px Arial",
+                fill: "#ff0000",
+                align: "center" });
+        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+        report = "MP: -6";
+        ai_dmg(report);
+	 player_report = "DMG: 10 ";
+        player_dmg(player_report);
+        trueBattle();
+
+
+}
+function  ai_es_action()
+{
+
+	uhp = uhp - 8;
+        cmana = cmana - 3;
+        uhp_txt.destroy();
+        cmana_txt.destroy();
+        uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+                font: "20px Arial",
+                fill: "#ff0000",
+                align: "center" });
+        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#00ff00",
+                align: "center" });
+        player_report = "DMG: 8 ";
+        player_dmg(player_report);
+        report = "MP: -3";
+        ai_dmg(report);
+        trueBattle();
+
+
+}
+function ai_er_action()
+{
+
+	uhp = uhp - 5;
+        uhp_txt.destroy();
+        cmana_txt.destroy();
+        uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+                font: "20px Arial",
+                fill: "#ff0000",
+                align: "center" });
+        player_report = "DMG: 5 ";
+        player_dmg(player_report);
+        trueBattle();
+
+
+}
