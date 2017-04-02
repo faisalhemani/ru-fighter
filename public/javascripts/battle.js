@@ -1,4 +1,5 @@
 var random;
+var turn = '';
 
 function battle()
 {
@@ -74,7 +75,6 @@ function playerSpeed()
 	console.log("checking which player will go first");
 	//chance("checking which player will go first");
 	var choice = random.integerInRange(0, 1);
-	var turn = '';
 	//speed same
 	if(player.stats.speed == enemy.stats.speed)
 	{
