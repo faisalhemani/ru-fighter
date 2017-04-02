@@ -282,7 +282,7 @@ function confirmKerr(sprite, pointer) {
                 //alert("Kerr");
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
-		kerr_hall();
+				enemy('alex','Science','nhan_bg');
                 battle();
         }
 }
@@ -294,15 +294,15 @@ function selectClass(sprite, pointer) {
 }
 
 function confirmClass(sprite, pointer) {
-        if(candidateClass == sprite) {
+ 	if(candidateClass == sprite) {
 //                alert("Class: Nhan's ckass not made yet");
                 //kerr_hall();
-	clearMap();
-	switchMusic(mapTheme, nhanMusic);
-	enemy('nhan','Science','nhan_bg');
+		clearMap();
+		switchMusic(mapTheme, nhanMusic);
+		enemy('nhan','Science','nhan_bg');
         battle();
 
-      }
+    }
 }
 
 /*
