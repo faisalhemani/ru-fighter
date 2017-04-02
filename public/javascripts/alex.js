@@ -1,3 +1,5 @@
+var enemy;
+
 function kerr_hall()
 {
         //background

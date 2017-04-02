@@ -7,144 +7,121 @@ var particles = {
 
 var lights;
 
+var regTxt, specialTxt, utilityTxt, ultimateTxt;
+var skill_graphics;
+var reg, special, utility, ultimate;
+
 function science()
 {
-console.log("in science function");
-//rectangle box
-
-        var graphics = game.add.graphics(0,0);
-	particles.lights = game.add.group();
-        particles.explosions = game.add.group();
-	particles.kunai = game.add.group();
-	//set a fill and line style
-        graphics.beginFill(0x000000, 0.8);
-        graphics.lineStyle(2, 0x000000);
-
-        //draw a rectangle
-        graphics.drawRect(90,460,880,130);
-
-        window.graphics = graphics;
-
-//Text
-	var regTxt = game.add.text(120, 570, "DMG: 5     MP Cost: 0",
-                                {font: "15px Arial", fill:" #ffffff"});
-       var  specialTxt = game.add.text(340, 570, "DMG: 8     MP Cost: 3", 
-                                {font: "15px Arial", fill: "#ffffff"});
-
-        var UitlityTxt = game.add.text(560, 570, "Heal: 5     MP Cost: 6", 
-                                {font: "15px Arial", fill: "#ffffff"});
-
-        var UltimateTxt = game.add.text(780, 570, "DMG: 18     MP Cost: 14", 
-                                {font: "15px Arial", fill: "#ffffff"});
-
-	var reg = game.add.sprite(100,470, 'sr');
-	var special = game.add.sprite(320 ,470,'ss');//, ss_action, this, 2,1,0);
-	var utility = game.add.sprite(540 ,470,'sut');//, utility_action, this,2,1,0);
-	var ultimate = game.add.sprite(760 ,470,'sul');//, ultimate_action, this, 2,1,0);
+	console.log("in science function");
+	//rectangle box
+	displayScience();
+    
 	console.log("buttons are up");
 
-	reg.inputEnabled = true;
-	reg.events.onInputDown.add(sr_action,this);
-	special.inputEnabled = true;
-        special.events.onInputDown.add(ss_action,this);
-	utility.inputEnabled = true;
-        utility.events.onInputDown.add(utility_action,this);
-	ultimate.inputEnabled = true;
-        ultimate.events.onInputDown.add(ultimate_action,this);
-	
-	
-
-	if (player.avatar == "xavier.png")
-	{
+	if (player.avatar == "xavier.png") {
  		this.avatar = game.add.sprite(100,200,'player1');
-     		this.avatar.scale.setTo(0.2,0.2);
+		this.avatar.scale.setTo(0.2,0.2);
 	}
-	else{
+	else {
   		this.avatar = game.add.sprite(100,200,'player2');
-        	this.avatar.scale.setTo(0.2,0.2);
+		this.avatar.scale.setTo(0.2,0.2);
 	}
 
 
 }
 
-function sr_action()
+function science_regular()
 {
-	doKunai(3); 	
-	ai_counter = ai_counter + 2;
+	if (particles.kunai.children.length <= 3)
+		damage(5,doKunai, 3);
 }
 
-function ss_action()
+function science_special()
 {
-	doExplosion(50);
+	damage(8, doExplosion, 50);
 }
 
-function ultimate_action()
+function science_utility()
 {
-	doAtomicRestructure(50);
+	//damage(0, )
 }
 
-/*
-function doAtomicRestructure(repeat)
+function science_ultimate()
 {
-	game.time.events.repeat(50, repeat, createAtomicRestructure, this);
+	damage(18, doAtomicRestructure, 50);
 }
 
-function createAtomicRestructure()
-{
-	var x = game.rnd.integerInRange(0, game.width);
-	var random = game.rnd.integerInRange(0, 1);
-	var sprite = 'redPartical';
-	if (random)
-		sprite = 'bluePartical';
-	console.log(x);
-	//game.add.sprite(x,0,sprite);
-	var light = particles.lights.create(x,0,sprite);
-	light.scale.setTo(2,2);
-}
-
-function animateAtomicRestructure()
-{
-	particles.lights.setAll('y', 10, true, true, 1);
-	particles.lights.forEach(checkLight, this, true);
-}
-
-function checkLight(light)
-{
-	try 
-	{	
-		if (light.y > game.height)
-		{
-			light.kill();
+function damage(damage, animation, amount) {
+	if (turn === 'player')
+	{
+		animation(amount);
+		if (enemy.stats.hp - damage >= 0) {
+			enemy.stats.hp = enemy.stats.hp - damage;
+			console.log(enemy.stats.hp);
+			turn = ai;
+			clearStats();
+			clearSkills();
+			topText();
+			AI();
 		}
-	}
-	catch (error)
-	{
-		log(['checkLight','catch'], light);
+		else{
+			enemy.stats.hp = 0;
+			gameOver();
+		}
+		
 	}
 }
 
-function player1Skills()
-{
-	var keyboard = game.input.keyboard;
-	//var q = game.keyboard.addKey(Phaser.Keyboard.ONE);
-	if (keyboard.isDown(Phaser.Keyboard.Q))
-	{
-		log(['player1Skills'],'keyboard Q down pressed');
-		doAtomicRestructure(50);
-	}
-	if (keyboard.isDown(Phaser.Keyboard.W))
-	{
-		log(['player1Skills'],'keyboard W down pressed');
-		doExplosion(50);
-	}
-	if (keyboard.isDown(Phaser.Keyboard.E))
-	{
-		log(['player1Skills'],'keyboard E down pressed');
-		doSpiritBomb();
-	}
-	if (keyboard.isDown(Phaser.Keyboard.R))
-	{
-		log(['player1Skills'],'keyboard R down pressed');
-	}
+function heal(){
+
 }
-*/
+
+function displayScience()
+{
+	skill_graphics = game.add.graphics(0,0);
+	particles.lights = game.add.group();
+	particles.explosions = game.add.group();
+	particles.kunai = game.add.group();
+	
+	//set a fill and line style
+	skill_graphics.beginFill(0x000000, 0.8);
+	skill_graphics.lineStyle(2, 0x000000);
+
+	//draw a rectangle
+	skill_graphics.drawRect(90,460,880,130);
+
+ 	window.graphics = skill_graphics;
+
+	//Text
+	regTxt = game.add.text(120, 570, "DMG: 5	MP Cost: 0",
+    	{font: "15px Arial", fill:" #ffffff"});
+	specialTxt = game.add.text(340, 570, "DMG: 8     MP Cost: 3", 
+    	{font: "15px Arial", fill: "#ffffff"});
+
+	utilityTxt = game.add.text(560, 570, "Heal: 5     MP Cost: 6", 
+    	{font: "15px Arial", fill: "#ffffff"});
+
+ 	ultimateTxt = game.add.text(780, 570, "DMG: 18     MP Cost: 14", 
+    	{font: "15px Arial", fill: "#ffffff"});
+	
+	reg = game.add.sprite(100,470, 'sr');
+	special = game.add.sprite(320 ,470,'ss');//, science_special, this, 2,1,0);
+	utility = game.add.sprite(540 ,470,'sut');//, science_utility, this,2,1,0);
+	ultimate = game.add.sprite(760 ,470,'sul');//, science_ultimate, this, 2,1,0);
+	scienceButtons(reg, special, utility, ultimate);
+}
+
+function scienceButtons(reg, special, utility, ultimate)
+{
+	if (turn == 'player') {
+		reg.inputEnabled = true;
+		reg.events.onInputDown.add(science_regular,this);
+		special.inputEnabled = true;
+		special.events.onInputDown.add(science_special,this);
+		utility.inputEnabled = true;
+		utility.events.onInputDown.add(science_utility,this);
+		ultimate.inputEnabled = true;
+   		ultimate.events.onInputDown.add(science_ultimate,this);
+   	}
+}
