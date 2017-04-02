@@ -3,6 +3,7 @@ var turn = '';
 
 var player_hp_display, player_mana_display, player_speed_display;
 var enemy_hp_display, enemy_mana_display, enemy_speed_display;
+var graphics;
 
 function battle()
 {
@@ -14,7 +15,7 @@ function battle()
 
 function topText()
 {
-	var graphics = game.add.graphics(10,10);
+	graphics = game.add.graphics(10,10);
 
 	//set a fill and line style
 	graphics.beginFill(0x000000, 0.8);
@@ -128,6 +129,7 @@ function sleep(ms) {
 }
 
 function clearBattle(){
+	graphics.destroy();
 	player_speed_display.destroy();
 	player_mana_display.destroy();
 	player_hp_display.destroy();
