@@ -126,7 +126,6 @@ function sleep(ms) {
 }
 
 function clearBattle(){
-	console.log('Game over!');
 	player_speed_display.destroy();
 	player_mana_display.destroy();
 	player_hp_display.destroy();
@@ -136,5 +135,6 @@ function clearBattle(){
 }
 
 function gameOver(){
+	console.log('Game over!');
 	clearBattle();
 }
