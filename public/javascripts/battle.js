@@ -132,6 +132,7 @@ function sleep(ms) {
 function clearBattle(){
 	clearStats();
 	clearSkills();
+	clearPlayers();
 }
 
 function clearStats(){
@@ -155,6 +156,12 @@ function clearSkills()
 	special.destroy();
 	utility.destroy();
 	ultimate.destroy();
+}
+
+function clearPlayers()
+{
+	enemy.sprite.destroy();
+	enemy.
 }
 
 function gameOver(){

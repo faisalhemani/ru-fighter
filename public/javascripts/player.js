@@ -12,6 +12,7 @@ function Player(x,y,key, facility)
 		speed : 2,
 		mana : 25
 	}
+	//this.background = background;
 	this.facility = facility;
 }
 
