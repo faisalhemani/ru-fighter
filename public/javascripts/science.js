@@ -15,14 +15,14 @@ function science()
     
 	console.log("buttons are up");
 
-	reg.inputEnabled = true;
+	//reg.inputEnabled = true;
 	reg.events.onInputDown.add(science_regular,this);
-	special.inputEnabled = true;
-        special.events.onInputDown.add(science_special,this);
-	utility.inputEnabled = true;
-        utility.events.onInputDown.add(science_utility,this);
-	ultimate.inputEnabled = true;
-        ultimate.events.onInputDown.add(science_ultimate,this);
+	//special.inputEnabled = true;
+	special.events.onInputDown.add(science_special,this);
+	//utility.inputEnabled = true;
+	utility.events.onInputDown.add(science_utility,this);
+	//ultimate.inputEnabled = true;
+    ultimate.events.onInputDown.add(science_ultimate,this);
 	
 	
 
@@ -75,16 +75,16 @@ function displayScience()
  	window.graphics = graphics;
 
 	//Text
-	var regTxt = game.add.text(120, 570, "DMG: 5     MP Cost: 0",
-                                {font: "15px Arial", fill:" #ffffff"});
+	var regTxt = game.add.text(120, 570, "DMG: 5	MP Cost: 0",
+    	{font: "15px Arial", fill:" #ffffff"});
 	var  specialTxt = game.add.text(340, 570, "DMG: 8     MP Cost: 3", 
-                                {font: "15px Arial", fill: "#ffffff"});
+    	{font: "15px Arial", fill: "#ffffff"});
 
 	var UitlityTxt = game.add.text(560, 570, "Heal: 5     MP Cost: 6", 
-                                {font: "15px Arial", fill: "#ffffff"});
+    	{font: "15px Arial", fill: "#ffffff"});
 
  	var UltimateTxt = game.add.text(780, 570, "DMG: 18     MP Cost: 14", 
-                                {font: "15px Arial", fill: "#ffffff"});
+    	{font: "15px Arial", fill: "#ffffff"});
 	
 	var reg = game.add.sprite(100,470, 'sr');
 	var special = game.add.sprite(320 ,470,'ss');//, science_special, this, 2,1,0);
