@@ -15,17 +15,6 @@ function science()
     
 	console.log("buttons are up");
 
-	//reg.inputEnabled = true;
-	reg.events.onInputDown.add(science_regular,this);
-	//special.inputEnabled = true;
-	special.events.onInputDown.add(science_special,this);
-	//utility.inputEnabled = true;
-	utility.events.onInputDown.add(science_utility,this);
-	//ultimate.inputEnabled = true;
-    ultimate.events.onInputDown.add(science_ultimate,this);
-	
-	
-
 	if (player.avatar == "xavier.png")
 	{
  		this.avatar = game.add.sprite(100,200,'player1');
@@ -90,4 +79,17 @@ function displayScience()
 	var special = game.add.sprite(320 ,470,'ss');//, science_special, this, 2,1,0);
 	var utility = game.add.sprite(540 ,470,'sut');//, science_utility, this,2,1,0);
 	var ultimate = game.add.sprite(760 ,470,'sul');//, science_ultimate, this, 2,1,0);
+	scienceButtons();
+}
+
+function scienceButtons()
+{
+	//reg.inputEnabled = true;
+	reg.events.onInputDown.add(science_regular,this);
+	//special.inputEnabled = true;
+	special.events.onInputDown.add(science_special,this);
+	//utility.inputEnabled = true;
+	utility.events.onInputDown.add(science_utility,this);
+	//ultimate.inputEnabled = true;
+    ultimate.events.onInputDown.add(science_ultimate,this);
 }
