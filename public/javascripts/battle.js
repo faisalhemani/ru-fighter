@@ -21,6 +21,8 @@ function topText(enemy)
 
 	window.graphics = graphics;
 
+	console.log(enemy);
+
 	uhp_txt = game.add.text(110,30,"Hp : " + player.stats.hp, {
 		font: "20px Arial",
 		fill: "#ff0000",
