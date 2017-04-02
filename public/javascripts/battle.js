@@ -3,7 +3,7 @@ var turn = '';
 
 var player_hp_display, player_mana_display, player_speed_display;
 var enemy_hp_display, enemy_mana_display, enemy_speed_display;
-var graphics;
+var stats_graphics;
 
 function battle()
 {
@@ -15,19 +15,19 @@ function battle()
 
 function topText()
 {
-	graphics = game.add.graphics(10,10);
+	stats_graphics = game.add.graphics(10,10);
 
 	//set a fill and line style
-	graphics.beginFill(0x000000, 0.8);
-	graphics.lineStyle(2, 0x0f0f12);
+	stats_graphics.beginFill(0x000000, 0.8);
+	stats_graphics.lineStyle(2, 0x0f0f12);
 
 	//draw a rectangle
-	graphics.drawRect(90,10,860,40);
+	stats_graphics.drawRect(90,10,860,40);
 
-	if (gameOver)
-		graphics.destroy();
+	//if (gameOver)
+	//	stats_graphics.destroy();
 
-	window.graphics = graphics;
+	window.graphics = stats_graphics;
 
 	console.log(enemy);
 
@@ -130,7 +130,7 @@ function sleep(ms) {
 }
 
 function clearBattle(){
-	graphics.destroy();
+	stats_graphics.destroy();
 	player_speed_display.destroy();
 	player_mana_display.destroy();
 	player_hp_display.destroy();
