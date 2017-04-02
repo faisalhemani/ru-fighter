@@ -7,7 +7,6 @@ function Player(x,y,key)
 	this.sprite = {};
 	this.model = {};
 	this.text = {};
-	this = createPlayer(x,y,key);
 }
 
 //creates the player sprite
