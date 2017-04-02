@@ -2,6 +2,7 @@ function createKunai()
 {
 	if (particles.kunai.children.length <= 3)
 	{
+		console.log(particles.kunai.children.length);
 		var kunai = particles.kunai.create(0, game.rnd.integerInRange(0,game.height-250), 'kunai');
 		kunai.animations.add('anim');
 		kunai.play('anim', 10, true);
