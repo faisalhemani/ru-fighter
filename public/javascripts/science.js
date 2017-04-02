@@ -49,7 +49,7 @@ function damage(damage, animation, amount) {
 	if (turn === 'player')
 	{
 		animation(amount);
-		if (enemy.stats.hp - damage > 0)
+		if (enemy.stats.hp - damage >= 0)
 			enemy.stats.hp = enemy.stats.hp - damage;
 		//else game over player wins
 		console.log(enemy.stats.hp);
