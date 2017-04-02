@@ -27,32 +27,37 @@ function science()
 
 function science_regular()
 {
-	applyDamage(5,doKunai, 3);
+	damage(5,doKunai, 3);
 }
 
 function science_special()
 {
-	applyDamage(8, doExplosion, 50);
+	damage(8, doExplosion, 50);
 }
 
 function science_utility()
 {
-	//applyDamage(0, )
+	//damage(0, )
 }
 
 function science_ultimate()
 {
-	applyDamage(18, doAtomicRestructure, 50);
+	damage(18, doAtomicRestructure, 50);
 }
 
-function applyDamage(damage, animation, amount) {
+function damage(damage, animation, amount) {
 	if (turn === 'player')
 	{
 		animation(amount);
 		enemy.stats.hp = enemy.stats.hp - damage;
 		console.log(enemy.stats.hp);
 		turn = ai;
+		nextTurn();
 	}
+}
+
+function heal(){
+
 }
 
 function displayScience()

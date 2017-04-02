@@ -117,3 +117,20 @@ function playerSpeed()
 			aieng_attacks();
 	}
 }
+
+function AI(){
+	var choice = random.integerInRange(0,3);
+	switch (choice)
+	{
+		case 0:
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+	}
+	turn = 'player';
+	console.log('AI moved: '+choice);
+}
