@@ -9,7 +9,7 @@ function nhanclass()
 	console.log(enemy);
 	console.log(enemy.sprite);
 	console.log(enemy.sprite.scale);
-	displayPlayer(nhan);
+	displayPlayer(enemy);
 //	console.log("Nhan: " + nhan);
     //nhan.scale.setTo(0.25,0.25);
 	characterBounce(nhan);
