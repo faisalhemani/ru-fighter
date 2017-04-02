@@ -176,7 +176,7 @@ function confirmVic(sprite, pointer) {
 		//alert("Vic selected");
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
-		victoria_lane();
+		enemy('xavier','Engineering','xavier_bg');
 		battle();
 	}
 }
@@ -192,7 +192,7 @@ function confirmLake(sprite, pointer) {
                 //alert("Lake");
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
-		devo();
+		enemy('faisal','Engineering','faisal_bg');
                 battle();
 
         }
@@ -218,13 +218,12 @@ function confirm(sprite, candidate, music, pointer) {
 }
 
 function confirmEng(sprite, pointer) {
-        if(candidateEng == sprite) {
-                //alert("Eng");
+	if(candidateEng == sprite) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
-		outside_eng();
+		enemy('jess','Science','jess_bg');
         battle();
-        }
+	}
 }
 var candidateSLC;
 
@@ -237,7 +236,7 @@ function confirmSLC(sprite, pointer) {
                 //alert("SLC");
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
-		outside_slc();
+		enemy('retinder','Science','retinder_bg');
         battle();
         }
 }
@@ -251,9 +250,9 @@ function selectTown(sprite, pointer) {
 }
 
 function confirmTown(sprite, pointer) {
-        if(candidateTown == sprite) {
+	if(candidateTown == sprite) {
                 //alert("Town");
-        }
+	}
 }
 
 var candidateBridge;
@@ -263,13 +262,12 @@ function selectBridge(sprite, pointer) {
 }
 
 function confirmBridge(sprite, pointer) {
-        if(candidateBridge == sprite) {
-                //alert("Bridge");
+	if(candidateBridge == sprite) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
-		bridge_map();
-                battle();
-        }
+		enemy('tom', 'Engineering', 'tom_bg');
+		battle();
+	}
 }
 var candidateKerr;
 
@@ -278,13 +276,12 @@ function selectKerr(sprite, pointer) {
 }
 
 function confirmKerr(sprite, pointer) {
-        if(candidateKerr == sprite) {
-                //alert("Kerr");
+    if(candidateKerr == sprite) {
 		clearMap();
 		switchMusic(mapTheme, battleMusic);
-				enemy('alex','Science','nhan_bg');
-                battle();
-        }
+		enemy('alex','Science','alex_bg');
+		battle();
+    }
 }
 
 var candidateClass;
@@ -295,8 +292,6 @@ function selectClass(sprite, pointer) {
 
 function confirmClass(sprite, pointer) {
  	if(candidateClass == sprite) {
-//                alert("Class: Nhan's ckass not made yet");
-                //kerr_hall();
 		clearMap();
 		switchMusic(mapTheme, nhanMusic);
 		enemy('nhan','Science','nhan_bg');
