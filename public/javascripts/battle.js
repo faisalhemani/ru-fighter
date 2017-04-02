@@ -127,12 +127,12 @@ function sleep(ms) {
 
 function clearBattle(){
 	console.log('Game over!');
-	player_speed_display.kill();
-	player_mana_display.kill();
-	player_hp_display.kill();
-	enemy_speed_display.kill();
-	enemy_mana_display.kill();
-	enemy_hp_display.kill();
+	player_speed_display.destroy();
+	player_mana_display.destroy();
+	player_hp_display.destroy();
+	enemy_speed_display.destroy();
+	enemy_mana_display.destroy();
+	enemy_hp_display.destroy();
 }
 
 function gameOver(){
