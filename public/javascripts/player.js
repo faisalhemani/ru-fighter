@@ -82,7 +82,7 @@ function storePlayers(JSONText)
 function displayPlayer(player)
 {
 	player.sprite = createPlayer(player.x, player.y, player.key);
-	player.sprite.scale.setTo(0.1,0.1);
+	player.sprite.scale.setTo(0.25,0.25);
 }
 
 function animatePlayer(player)
