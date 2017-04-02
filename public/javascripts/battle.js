@@ -8,7 +8,7 @@ function battle()
 	topText();
 }
 
-function topText(enemy)
+function topText()
 {
 	var graphics = game.add.graphics(10,10);
 
