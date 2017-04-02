@@ -65,66 +65,50 @@ function topText()
                 align: "center" 
 	});
 
-	//playerSpeed(speed, cspeed);
+	playerSpeed();
 }
 
 
-function playerSpeed(user, computer)
+function playerSpeed()
 {
-	if(counter == 0)
+	console.log("checking which player will go first");
+	//chance("checking which player will go first");
+	var choice = random.integerInRange(0, 1);
+	//speed same
+	if(player.stats.speed == enemy.stats.speed)
 	{
-		console.log("checking which player will go first");
-		//chance("checking which player will go first");
-	 	random = game.rnd.integerInRange(0, 1);
-		//speed same
-		if(user == computer)
+		if(choice == 1)
 		{
-			if(random == 1)
-			{
-				chance("You Will Go First, All The Best");
-				console.log("player will go first");
-				player_counter++;
-				 if(player.facility == "Science")
-			                science();
-	        		else
-	        		        engineering();
-			}
-			else
-			{
-				ai_counter++;
-	 			chance("AI Will Go First");
-				console.log("AI will go first");
-				if (computer == 3)
-	        	                aisci_attacks();
-		                else
-	                	        aieng_attacks();
-
-			}
-		}
-		else if (user > computer)
-		{
-			player_counter++;
-			 chance("You Will Go First, All The Best");
-			console.log("player will go first");
+			console.log("Speed tie: player will go first");
 			if(player.facility == "Science")
-	                        science();
-	                else
-		                engineering();
-		}
+				science();
+	        else
+	        	engineering();
+	    }
 		else
 		{
-			ai_counter++;
-		 	chance("AI Will Go First");
-			console.log("AI will go first");
-
-			if (computer == 3)
+			console.log("Speed tie: AI will go first");
+			if (enemy.facility == 'Science')
 				aisci_attacks();
-			else
-				aieng_attacks();
+		    else
+		    	aieng_attacks();
 		}
-
-		counter++;
 	}
-	else 
-		trueBattle();
+	else if (player.stats.speed > enemy.stats.speed)
+	{
+		console.log("Player is faster: player will go first");
+		if(player.facility == "Science")
+			science();
+		else
+			engineering();
+	}
+	else
+	{
+		console.log("AI is faster: AI will go first");
+
+		if (enemy.facility == 'Science')
+			aisci_attacks();
+		else
+			aieng_attacks();
+	}
 }

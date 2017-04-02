@@ -1,5 +1,5 @@
 //player constructor
-function Player(x,y,key)
+function Player(x,y,key, facility)
 {
 	this.x = x;
 	this.y = y;
@@ -12,6 +12,7 @@ function Player(x,y,key)
 		speed : 2,
 		mana : 25
 	}
+	this.facility = facility;
 }
 
 //creates the player sprite
