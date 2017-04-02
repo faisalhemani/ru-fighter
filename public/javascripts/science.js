@@ -1,7 +1,11 @@
-/*
+
 var particles = {
-	lights : game.add.group()
-};*/
+	lights : {},
+	explosions : {},
+	kunai : {}
+};
+
+var lights;
 
 function science()
 {
@@ -9,8 +13,10 @@ console.log("in science function");
 //rectangle box
 
         var graphics = game.add.graphics(0,0);
-
-        //set a fill and line style
+	particles.lights = game.add.group();
+        particles.explosions = game.add.group();
+	particles.kunai = game.add.group();
+	//set a fill and line style
         graphics.beginFill(0x000000, 0.8);
         graphics.lineStyle(2, 0x000000);
 
@@ -45,6 +51,8 @@ console.log("in science function");
         utility.events.onInputDown.add(utility_action,this);
 	ultimate.inputEnabled = true;
         ultimate.events.onInputDown.add(ultimate_action,this);
+	
+	
 
 	if (player.avatar == "xavier.png")
 	{
@@ -59,9 +67,21 @@ console.log("in science function");
 
 function sr_action()
 {
-	doAtomicRestructure(50);	
+	doKunai(3); 	
+	ai_counter = ai_counter + 2;
 }
 
+function ss_action()
+{
+	doExplosion(50);
+}
+
+function ultimate_action()
+{
+	doAtomicRestructure(50);
+}
+
+/*
 function doAtomicRestructure(repeat)
 {
 	game.time.events.repeat(50, repeat, createAtomicRestructure, this);
@@ -76,14 +96,29 @@ function createAtomicRestructure()
 		sprite = 'bluePartical';
 	console.log(x);
 	//game.add.sprite(x,0,sprite);
-	var light = particles.lights.create(0,0,'player1');
-	//light.scale.setTo(2,2);
+	var light = particles.lights.create(x,0,sprite);
+	light.scale.setTo(2,2);
 }
 
 function animateAtomicRestructure()
 {
 	particles.lights.setAll('y', 10, true, true, 1);
 	particles.lights.forEach(checkLight, this, true);
+}
+
+function checkLight(light)
+{
+	try 
+	{	
+		if (light.y > game.height)
+		{
+			light.kill();
+		}
+	}
+	catch (error)
+	{
+		log(['checkLight','catch'], light);
+	}
 }
 
 function player1Skills()
@@ -110,3 +145,4 @@ function player1Skills()
 		log(['player1Skills'],'keyboard R down pressed');
 	}
 }
+*/

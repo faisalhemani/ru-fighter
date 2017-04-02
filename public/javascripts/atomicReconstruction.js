@@ -12,6 +12,7 @@ function createAtomicRestructure()
 function animateAtomicRestructure()
 {
 	particles.lights.setAll('y', 10, true, true, 1);
+	//particles.lights.setAll('scale', 10, true, true, 1);
 	particles.lights.forEach(checkLight, this, true);
 }
 

@@ -1,7 +1,8 @@
-
+/*
 var particles = {
 	lights : {}
 };
+*/
 
 var load = {
         preload: function () {
@@ -56,7 +57,7 @@ var load = {
         //Faisal
         this.load.image('faisal_bg', 'assets/battle_screens/faisal/devo.jpg');
         this.load.image('faisal', 'assets/battle_screens/faisal/faisal.png');
-	this.load.spritesheet('kunai','/assets/kunai-bomba.png', 55,55,19);
+	//this.load.spritesheet('kunai','/assets/kunai-bomba.png', 55,55,19);
         //Jess
         this.load.image('jess_bg', 'assets/battle_screens/jessica/outside_eng.jpg');
 	this.load.image('jess', 'assets/battle_screens/jessica/jessica.png');
@@ -91,9 +92,10 @@ var load = {
         //this.battleMusic.setAttribute('id', 'battleMusic');
 	//this.battleMusic.setAttribute('src', 'assets/music/commence_battletheme.mp3');
 
-	this.load.image('bluePartical', 'assets/blue.png');
-	this.load.image('redPartical', 'assets/red.png');
-	this.load.spritesheet('explosion','assets/explode.png',128,128);
+	loadParticles();
+	//this.load.image('bluePartical', 'assets/blue.png');
+	//this.load.image('redPartical', 'assets/red.png');
+	//this.load.spritesheet('explosion','assets/explode.png',128,128);
 	
 	particles.lights = this.game.add.group();
 	
@@ -105,14 +107,26 @@ var load = {
 
 	},
         create: function () {
-		//particles.lights = this.add.group();
-		doAtomicRestructure(50);	
+		//particles.lights = this.add.group();	
 		this.state.start('logo');
         },
 	update: function () {
+		console.log('here');
 		loopMusic();
 		//player1Skills();
-		//animateAtomicRestructure();
+		animateAtomicRestructure();
 	}
 };
 
+
+function loadParticles()
+{
+	//load ligbts
+	game.load.image('bluePartical', 'assets/blue.png');
+	game.load.image('redPartical', 'assets/red.png');
+	//load explosion sprite sheet
+	game.load.spritesheet('explosion','assets/explode.png',128,128);
+	//load zombie sprite sheet
+	game.load.spritesheet('zombie', 'assets/metalslug.png',37, 45, 18);
+	game.load.spritesheet('kunai','/assets/kunai-bomba.png', 55,55,19);
+}

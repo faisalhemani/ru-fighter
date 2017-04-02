@@ -166,7 +166,8 @@ function trueBattle()
                         	aisci_attacks();
                 	else
                         	aieng_attacks();
-			ai_counter = ai_counter + 2; //uhp = uhp - 20;
+			//ai_counter = ai_counter + 2; //uhp = uhp - 20;
+			console.log(ai_counter);
 		}
 		else
 		{
@@ -177,6 +178,7 @@ function trueBattle()
                 	else
                         	engineering();
 			player_counter = player_counter + 2;// chp = chp - 30;
+			console.log(player_counter);
 		}
 	mana_count++;
 //	}
@@ -184,8 +186,8 @@ function trueBattle()
 	}
 	if(!(mana_count%2))
 	{
-	cmana.destroy();
-	umana.destroy();
+	//cmana.destroy();
+	//umana.destroy();
 
 		cmana = cmana++;
         	cmana_txt = game.add.text(710,30,"Mp : " + cmana,{

@@ -10,7 +10,6 @@ var currLocation;
 var map = {
         preload: function () {
                 console.log("MAP");
-
         },
         create: function () {
                 // this is just to test stuff
@@ -111,6 +110,11 @@ var map = {
 	update: function() {
 		this.input.onUp.add(clickMap, this);
 		loopMusic();
+		animateAtomicRestructure();
+		if (typeof particles.explosions.setAll != 'undefined')
+			animateExplosion();
+		if (typeof particles.kunai.setAll != 'undefined')
+			animateKunai();
 	}
 };
 

@@ -8,7 +8,10 @@ var play = {
                 character.inputEnabled = true;
                 character.scale.setTo(0.65);
 */
-        }
+        },
+	update : function () {
+		console.log('here');
+	}
 };
 
 

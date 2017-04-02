@@ -2,7 +2,7 @@ function createExplosion()
 {
 	var explosion = particles.explosions.create(0, game.world.randomY, 'explosion');
 	explosion.animations.add('walk');
-	explosion.play('walk', 10, true);
+	explosion.play('walk', 30, true);
 }
 
 function animateExplosion()
