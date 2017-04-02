@@ -1,5 +1,4 @@
 var random;
-var enemy = new Player();
 
 
 function battle()
