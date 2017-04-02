@@ -1,6 +1,9 @@
 var random;
 var turn = '';
 
+var player_hp_display, player_mana_display, player_speed_display;
+var enemy_hp_display, enemy_mana_display, enemy_speed_display;
+
 function battle()
 {
 	random = game.rnd;
@@ -119,7 +122,7 @@ function playerSpeed()
 }
 
 function AI(){
-	sleep(2000);
+	//sleep(2000);
 	var choice = random.integerInRange(0,3);
 	switch (choice)
 	{
@@ -138,4 +141,17 @@ function AI(){
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function clearBattle(){
+	player_speed_display.kill();
+	player_mana_display.kill();
+	player_hp_display.kill();
+	enemy_speed_display.kill();
+	enemy_mana_display.kill();
+	enemy_hp_display.kill();
+}
+
+function gameOver(){
+	clearBattle();
 }
