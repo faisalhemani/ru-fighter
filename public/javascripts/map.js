@@ -6,6 +6,8 @@ var slc;
 var bridge;
 var classroom;
 var currLocation;
+var enemy;
+
 
 var map = {
         preload: function () {
