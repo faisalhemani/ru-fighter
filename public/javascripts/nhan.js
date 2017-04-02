@@ -2,7 +2,7 @@ var enemy;
 
 function nhanclass()
 {
-	nhan = new Player(780,180,'nhan');
+	enemy = new Player(780,180,'nhan');
 	nhan_bg = game.add.sprite(0,0,'nhan_bg');
         nhan_bg.scale.setTo(0.9,0.9);
 //	console.log("Background: " + nhan_bg);
