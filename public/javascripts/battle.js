@@ -161,7 +161,7 @@ function clearSkills()
 function clearPlayers()
 {
 	enemy.sprite.destroy();
-	enemy.
+	enemy.background.destroy();
 }
 
 function gameOver(){
