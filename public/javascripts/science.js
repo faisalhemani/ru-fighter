@@ -79,10 +79,10 @@ function displayScience()
 	var special = game.add.sprite(320 ,470,'ss');//, science_special, this, 2,1,0);
 	var utility = game.add.sprite(540 ,470,'sut');//, science_utility, this,2,1,0);
 	var ultimate = game.add.sprite(760 ,470,'sul');//, science_ultimate, this, 2,1,0);
-	scienceButtons();
+	scienceButtons(reg, special, utility, ultimate);
 }
 
-function scienceButtons()
+function scienceButtons(reg, special, utility, ultimate)
 {
 	//reg.inputEnabled = true;
 	reg.events.onInputDown.add(science_regular,this);
