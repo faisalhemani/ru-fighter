@@ -167,4 +167,5 @@ function clearPlayers()
 function gameOver(){
 	console.log('Game over!');
 	clearBattle();
+	game.state.add('battle');
 }
