@@ -25,7 +25,7 @@ function topText()
 	graphics.drawRect(90,10,860,40);
 
 	if (gameOver)
-		graphics.destroy;
+		graphics.destroy();
 
 	window.graphics = graphics;
 
