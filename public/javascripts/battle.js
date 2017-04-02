@@ -144,6 +144,7 @@ function sleep(ms) {
 }
 
 function clearBattle(){
+	console.log('Game over!');
 	player_speed_display.kill();
 	player_mana_display.kill();
 	player_hp_display.kill();
