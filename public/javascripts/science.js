@@ -84,12 +84,12 @@ function displayScience()
 
 function scienceButtons(reg, special, utility, ultimate)
 {
-	//reg.inputEnabled = true;
+	reg.inputEnabled = true;
 	reg.events.onInputDown.add(science_regular,this);
-	//special.inputEnabled = true;
+	special.inputEnabled = true;
 	special.events.onInputDown.add(science_special,this);
-	//utility.inputEnabled = true;
+	utility.inputEnabled = true;
 	utility.events.onInputDown.add(science_utility,this);
-	//ultimate.inputEnabled = true;
+	ultimate.inputEnabled = true;
     ultimate.events.onInputDown.add(science_ultimate,this);
 }
