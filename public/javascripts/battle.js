@@ -131,6 +131,7 @@ function sleep(ms) {
 
 function clearBattle(){
 	clearStats();
+	clearSkills();
 }
 
 function clearStats(){
