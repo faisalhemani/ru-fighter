@@ -1,6 +1,5 @@
 var random;
 
-
 function battle()
 {
 	random = game.rnd;
