@@ -1,9 +1,10 @@
-var random = game.rnd;
+var random;
 var enemy = new Player();
 
 
 function battle()
 {
+	random = game.rnd;
 	var choice = random.integerInRange(0, 1);
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 }
