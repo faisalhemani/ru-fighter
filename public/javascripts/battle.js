@@ -121,24 +121,6 @@ function playerSpeed()
 	}
 }
 
-function AI(){
-	//sleep(2000);
-	var choice = random.integerInRange(0,3);
-	switch (choice)
-	{
-		case 0:
-			break;
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-	}
-	turn = 'player';
-	console.log('AI moved: '+choice);
-}
-
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
