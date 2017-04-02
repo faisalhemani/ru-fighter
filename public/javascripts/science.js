@@ -58,7 +58,7 @@ function damage(damage, animation, amount) {
 		}
 		console.log(enemy.stats.hp);
 		turn = ai;
-		clearBattle();
+		//clearBattle();
 		topText();
 		AI();
 	}
