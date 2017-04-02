@@ -27,8 +27,7 @@ function topText(enemy)
 		align: "center" 
 	});
 
- 	 umana = "25";
-         umana_txt = game.add.text(260,30,"Mp : " + player.stats.mana,{
+    umana_txt = game.add.text(260,30,"Mp : " + player.stats.mana,{
                 font: "20px Arial",
                 fill: "#ff0000",
                 align: "center" });
@@ -43,22 +42,18 @@ function topText(enemy)
                 fill: "#ff0000",
                 align: "center" });
 
-
- 	 chp = ai_hp;
-         chp_txt = game.add.text(560,30,"Hp : " + enemy.stats.hp,{
+    chp_txt = game.add.text(560,30,"Hp : " + enemy.stats.hp,{
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
 
 
- 	 cmana = ai_mp;
-        cmana_txt = game.add.text(710,30,"Mp : " + enemy.stats.mana,{
+    cmana_txt = game.add.text(710,30,"Mp : " + enemy.stats.mana,{
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
 
-         cspeed = ai_speed;
-         cspeed_txt = game.add.text(860,30,"Speed : " + enemy.stats.speed,{
+	cspeed_txt = game.add.text(860,30,"Speed : " + enemy.stats.speed,{
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
