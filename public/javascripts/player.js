@@ -1,18 +1,26 @@
 //player constructor
-function Player(x,y,key)
+function Player(x,y,key, facility)
 {
 	this.x = x;
 	this.y = y;
 	this.key = key;
 	this.sprite = {};
 	this.model = {};
+	this.text = {};
+	this.stats = {
+		hp : 50,
+		speed : 2,
+		mana : 25
+	}
+	//this.background = background;
+	this.facility = facility;
 }
 
 //creates the player sprite
 function createPlayer(x,y,key)
 {
 	var player = game.add.sprite(x,y,key);
-	player.anchor.setTo(0.5,0.5);
+	//player.anchor.setTo(0.5,0.5);
 	//game.physics.arcade.enable(player);
 	//game.physics.enable(player, Phaser.Physics.ARCADE);
 	//player.body.collideWorldBounds = true;
@@ -81,7 +89,7 @@ function storePlayers(JSONText)
 function displayPlayer(player)
 {
 	player.sprite = createPlayer(player.x, player.y, player.key);
-	player.sprite.scale.setTo(0.1,0.1);
+	player.sprite.scale.setTo(0.25,0.25);
 }
 
 function animatePlayer(player)

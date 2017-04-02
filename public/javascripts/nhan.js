@@ -1,12 +1,29 @@
-function nhanclass()
-{
-	nhan_bg = game.add.sprite(0,0,'nhan_bg');
-        nhan_bg.scale.setTo(0.9,0.9);
-//	console.log("Background: " + nhan_bg);
+var enemy;
 
-        //character
-        nhan = game.add.sprite(780,180,'nhan');
-//	console.log("Nhan: " + nhan);
-        nhan.scale.setTo(0.25,0.25);
-	characterBounce(nhan);
+function enemy(name, facility, background)
+{
+	enemy = new Player(780,180,name,facility);
+	enemy.background = game.add.sprite(0,0,background);
+    enemy.background.scale.setTo(0.9,0.9);
+
+	displayPlayer(enemy);
+	characterBounce(enemy.sprite);
+}
+
+function AI(){
+	//sleep(2000);
+	var choice = random.integerInRange(0,3);
+	switch (choice)
+	{
+		case 0:
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+	}
+	turn = 'player';
+	console.log('AI moved: '+choice);
 }
