@@ -19,14 +19,16 @@ var load = {
 		loading = game.add.text(500,500,"Loading....",{font: "22px Arial", fill: "#fff"});
  		this.map = this.load.image("map", "assets/map.png");
                 this.town = this.load.image("town", "assets/enemy_btn.png");
-
+		
+		this.load.image('lose','/assets/defeat.png%3fdl=0');
+		this.load.image('win','/assets/victory.png%3fdl=0');
 		this.load.image('playbutton', '/assets/nTBME6Xzc.png');
 		this.load.image('settings','/assets/settings-256.png');
 		this.load.image('instructions','/assets/692673_info_512x512.png');
 		this.load.image('back','/assets/x-mark.png');
 		//change the faisal and xavier once  player 1 and player 2 are ready
-		this.load.image('player1', 'assets/HAMID.png');
-        	this.load.image('player2', 'assets/picka.png');
+		this.load.image('player1', 'assets/Engineer.png');
+        	this.load.image('player2', 'assets/science.png');
 		this.load.image('menubg','/assets/title_screen/slc_tiles.jpg');
 		//FONTS
 		this.game.load.bitmapFont('font', 'assets/fonts/ProFontWindows.png', 'assets/fonts/ProFontWindows.xml');

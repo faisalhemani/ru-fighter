@@ -5,32 +5,38 @@ var reg, special, utility, ultimate, reg2, special2, utility2, ultimate2;
 var uhp_txt,uhp, ulevel_txt, ulevel, umana_txt, umana, uspeed_txt, uspeed;
 var chp_txt,chp, clevel_txt, clevel, cmana_txt, cmana, cspeed_txt, cspeed;
 
+//The variable is set to true after the player's attack animation is finished
+//Therefore, canGo is only set to true in each individual move's functions
+var canGo = false;
+
 function battle_functions()
 {
 	console.log("In battle function");
-	ai();
-	//playerSpeed();
+	aii();
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 }
-
-function ai()
+function aii()
 {
+	random = game.rnd.integerInRange(0, 1);
+	console.log("Faculty" + player.facility);
 	console.log("random: " + random);
-
 	if(random == 1)
 	{
 		topText(ai_science_hp(), ai_science_mp(), ai_science_speed());
 	}
 	else
+	{
 		topText(ai_eng_hp(), ai_eng_mp(), ai_eng_speed());
+	}
 }
 
 
 function topText(ai_hp, ai_mp, ai_speed)
 {
 c();
+
 //rectangle box
-console.log("IN TOP TEXT FUNCTION");
+//console.log("IN TOP TEXT FUNCTION");
 	var graphics = game.add.graphics(10,10);
 
 	//set a fill and line style
@@ -41,25 +47,44 @@ console.log("IN TOP TEXT FUNCTION");
 	graphics.drawRect(90,10,860,40);
 
 	window.graphics = graphics;
+	var bmd = game.add.bitmapData(200,40);
+	bmd.ctx.beginPath();
+        bmd.ctx.rect(0,0,180,30);
+        bmd.ctx.fillStyle = '#00ff00';
+        bmd.ctx.fill();
+        //user healt/mana hbar
+        healthBar = game.add.sprite(110,35,bmd);
+	healthBar.height = 20;
+        healthBar.anchor.y = 0.5;
+        manaBar = game.add.sprite(110,50,bmd);
+        manaBar.height = 10;
+        manaBar.anchor.y = 0.5;
+        //ai health/mana bar
+        aihealthBar = game.add.sprite(590,45,bmd);
+	aihealthBar.height = 20;
+        aihealthBar.anchor.y = 1;
+        aimanaBar = game.add.sprite(725,55,bmd);
+        aimanaBar.height = 10;
+        aimanaBar.anchor.y = 1;
 
 //Text
 
-	uhp = "50";
+	uhp = 50;
 	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
 		font: "20px Arial",
 		fill: "#ff0000",
 		align: "center" });
-
- 	 umana = "25";
+    	healthBar.width = uhp*8;
+ 	 umana = 25;
          umana_txt = game.add.text(260,30,"Mp : " + umana,{
                 font: "20px Arial",
                 fill: "#ff0000",
                 align: "center" });
-
+	manaBar.width = umana*10;
 	if(player.facility == "Science")
- 		var uspeed = "3";
+ 		var uspeed = 3;
 	else
-		uspeed = "2";
+		uspeed = 2;
 
 	uspeed_txt = game.add.text(410,30,"Speed : " + uspeed,{
                 font: "20px Arial",
@@ -72,14 +97,14 @@ console.log("IN TOP TEXT FUNCTION");
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
-
+	aihealthBar.width = chp*8;
 
  	 cmana = ai_mp;
         cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
                 font: "20px Arial",
                 fill: "#00ff00",
                 align: "center" });
-
+	aimanaBar.width = cmana*10;
          cspeed = ai_speed;
          cspeed_txt = game.add.text(860,30,"Speed : " + cspeed,{
                 font: "20px Arial",
@@ -94,256 +119,264 @@ var player_counter = 0, ai_counter = 0, counter = 0;
 
 function playerSpeed(user, computer)
 {
-console.log("IM PS, counter: " + counter);
-if(counter == 0)
-{
-	console.log("checking which player will go first");
- 	random = game.rnd.integerInRange(0, 1);
-	if(user == computer)
+	console.log("User's speed:" +user +", Computer's speed: " +computer);
+	if(counter == 0)
 	{
-		if(random == 1)
+	 	random = game.rnd.integerInRange(0, 1);
+		if(user == computer)
 		{
-			chance("You Will Go First, All The Best");
-			console.log("player will go first");
+			if(random == 1)
+			{
+				chancePlayer("Player's turn");
+				console.log("player will go first");
+
+				//Let the player click a button
+				canGo = true;
+
+				player_counter++;
+				 if(player.facility == "Science")
+			                science();
+	        		else
+	        		        engineering();
+					if(player.facility == "Science")
+        				{       
+						createbtn(); 
+						console.log("creating science btn"); 
+					}
+        				else
+        				{ 
+						console.log("creating eng btn");              
+						createEngBtn();
+					}
+
+
+			}
+			else
+			{
+				ai_counter++;
+	 			chanceAI("AI's turn");
+				console.log("AI will go first");
+
+				//Make the player wait for the computer to play
+				canGo = true;
+
+				if (computer == 3)
+	        	        {
+				       aisci_attacks();
+				}
+		                else{
+	                	        aieng_attacks();
+	                        }
+
+				if(player.facility == "Science")
+        			{       
+					createbtn(); 
+					console.log("creating science btn"); 
+				}
+        			else
+        			{ 
+					console.log("creating eng btn");
+			                createEngBtn();
+				}
+
+			}
+		}
+		else if (user > computer)
+		{
 			player_counter++;
-			 if(player.facility == "Science")
-		                science();
-        		else
-        		        engineering();
-	/*		 if (computer == 3)
-                        	aisci_attacks();
-               	 	else
-                        	aieng_attacks();
-*/
+			chancePlayer("Player's Turn");
+
+			//User can click on a button
+			canGo = true;
+
+			console.log("player will go first");
+			if(player.facility == "Science")
+	                        science();
+       	         	else
+		                engineering();
 
 		}
 		else
 		{
 			ai_counter++;
- 			chance("AI Will Go First");
+		 	chanceAI("AI's turn");
 			console.log("AI will go first");
+
+			//Make the user wait for the ai
+			canGo = true;
+
 			if (computer == 3)
-        	        {
-			       aisci_attacks();
-			//	if(player.facility == "Science")
-                        //        	science();
-                        //	else
-                        //        	engineering();
-			}
-	                else{
-                	        aieng_attacks();
-			//	if(player.facility == "Science")
-                          //              science();
-                        //        else
-                        //                engineering();
-                        }
-
+				aisci_attacks();
+			else
+				aieng_attacks();
 		}
-	}
-	else if (user > computer)
-	{
-		player_counter++;
-		 chance("You Will Go First, All The Best");
-		console.log("player will go first");
-		if(player.facility == "Science")
-                        science();
-                else
-	                engineering();
-//		 if (computer == 3)
-  //                              aisci_attacks();
-    //                    else
-      //                          aieng_attacks();
 
-
-
-	}
-	else
-	{
-		ai_counter++;
-	 	chance("AI Will Go First");
-		console.log("AI will go first");
-
-		if (computer == 3)
-			aisci_attacks();
-		else
-			aieng_attacks();
-	//	 if(player.facility == "Science")
-          //              science();
-            //    else
-              //          engineering();
+		counter++;
+		//truBattle();
 	}
 
-	counter++;
-	//truBattle();
-}
 
 }
-
-//var mana_count = 0;
-
+function incrementMana(player)
+{
+	if(player == 1) {
+		umana = umana + 1;
+		umana_txt.setText("Mp : " + umana);
+	}
+	else {
+		cmana += 1;
+		cmana_txt.setText("Mp : " + cmana);
+	}
+}
 function trueBattle()
 {
+	mana_count = mana_count + 1;
 	console.log("IN TRUE BATTLE, MANACOUNTER: " + mana_count);
 	message_txt.destroy;
 	report_txt.destroy;
-	player_report_txt.destroy;
+	//player_report_txt.destroy;
+	console.log("MANA: "  + mana_count);
+	//console.log(!(mana_count%2));
+	
+	console.log("canGo: " + canGo);
 
-	cgraphics.visible = false;
-	console.log("counter: " + counter);
-	console.log("user HP: " + uhp);
-	console.log("AI HP: " + chp);
-	if(counter > 0 && uhp > 0 && chp > 0)
+	
+	//cgraphics.visible = false;
+	//pgraphics.visible = false;
+	if( uhp > 0 && chp > 0)
 	{
-		cgraphics.visible = true;
+		//cgraphics.visible = true;
+		//pgraphics.visible = true;
 		if(player_counter < ai_counter)
 		{
-			  chance("Now The YOU Will Attack");
+			 player_counter = player_counter + 2;
+			 //chancePlayer("Player's turn");
 
                         if(player.facility == "Science")
                                 science();
                         else
                                 engineering();
-                        ai_counter = ai_counter + 2; //uhp = uhp - 20;
-                        console.log("AI cOUNTER: " + ai_counter);
-
-//			 player_counter++;// chp = chp - 30;
-  //                      console.log("Player counter: " + player_counter);
-
 		}
 		else
 		{
-//			console.log("player count is heigher so its AI's turen");
-                         chance("Now The AI Will Attack");
+			 ai_counter = ai_counter + 2;
+                         //chanceAI("AI's turn");
                         if (cspeed == 3)
                                 aisci_attacks();
                         else
                                 aieng_attacks();
-  //                      ai_counter = ai_counter + 2; //uhp = uhp - 20;
-    //                    console.log("AI cOUNTER: " + ai_counter);
-
-//
-//			 chance("Now The YOU Will Attack");
-//
-//			if(player.facility == "Science")
-  //                      	science();
-    //            	else
-      //                  	engineering();
-			player_counter = player_counter + 2;// chp = chp - 30;
-			console.log("Player counter: " + player_counter);
 		}
-	mana_count++;
-	console.log("MANA COUNTER : " + mana_count);
 	}
-	if((mana_count%2))
-	{
-		cmana_txt.destroy;
-		umana_txt.destroy;
-		cmana = cmana+1;
-        	cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-	 	umana = umana+1;
-         	umana_txt = game.add.text(260,30,"Mp : " + umana,{
-                font: "20px Arial",
-                fill: "#ff0000",
-                align: "center" });
-		console.log("AI MP: " + cmana + "  USER MP: " + umana);
- 	}
-
+        if(player.facility == "Science")
+        {       
+		createbtn(); 
+		console.log("creating science btn"); 
+	}
+        else
+        { 
+		console.log("creating eng btn");              
+		createEngBtn();
+	}
 }
 
-//var dmg_txt;
+function resetVariables() {
+	player_counter = 0;
+	ai_counter = 0;
+	counter = 0;
+	mana_count = 0;
+}
 
 function sr_action(){
-	chp = chp - 5;
-	chp_txt.destroy();
- 	console.log("user : reg attack");
-	chp_txt = game.add.text(560,30,"Hp : " + chp,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-	//chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
-	report= "DMG: 5";
-	ai_dmg(report);
-	trueBattle();
-//	if(cspeed == 3) ai_science();
+	if(canGo == true) {
+		console.log("Used regular science attack");
+		canGo = false;
+		chp = chp - 5;
+
+		if (chp<=0)
+		{
+			resetVariables();
+			game.state.start("win");
+		} else
+		{
+
+		chp_txt.setText("Hp : " + chp);
+		report= "Took 5 damage!";
+		ai_dmg(report);
+		doKunai(1);
+		trueBattle();
+		}
+	}
 }
 
 function ss_action() {
-	if( umana >=3)
-	{
-		//txt_color = '#ff0000';
-	        chp = chp - 8;
-		umana = umana-3;
-        	chp_txt.destroy();
-        	umana_txt.destroy();
-		console.log("user : special");
-        	chp_txt = game.add.text(560,30,"Hp : " + chp,{
-                	font: "20px Arial",
-                	fill: "#00ff00",
-            		align: "center" });
-		umana_txt = game.add.text(260,30,"Mp : " + umana,{
-                	font: "20px Arial",
-               	 	fill: "#ff0000",
-                	align: "center" });
-		report = "DMG: 8 ";
-		ai_dmg(report);
-		player_report = "MP: -3";
-		player_dmg(player_report);
-		trueBattle();
+	if(canGo == true) {
+		if( umana >=3)
+		{
+			canGo = false;
+		        chp = chp - 8;
+			umana = umana-3;
+    			if (chp<=0){
+				resetVariables();
+				game.state.start("win");
+			} else {
+			//console.log("user : special");
+        		chp_txt.setText("Hp : " + chp);
+			umana_txt.setText("Mp : " + umana);
+			report = "Took 8 damage!";
+			ai_dmg(report);
+			player_report = "Used 3 MP";
+			player_dmg(player_report);
+			doExplosion(20);
+			trueBattle();
 
-//		if(cspeed == 3) ai_science(); 
+//			if(cspeed == 3) ai_science(); 
+			}
+		}
 	}
 }
 function utility_action() {
-	if(umana >= 6){
-//		txt_color = '#0000ff';
-        	uhp = uhp + 5;
-        	umana =umana-6;
-        	uhp_txt.destroy();
-        	umana_txt.destroy();
-        	console.log("user: utility");
-		uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
-                	font: "20px Arial",
-                	fill: "#ff0000",
-                	align: "center" });
-                umana_txt = game.add.text(260,30,"Mp : " + umana,{
-                        font: "20px Arial",
-                        fill: "#ff0000",
-                        align: "center" });
-                player_report = "HEAL: 5";
-                player_dmg(player_report);
-            trueBattle();
-//		if(cspeed == 3) ai_science(); 
+	if(canGo == true) {
+		if(umana >= 6 && uhp>0){
+			//canGo = false;
+//			txt_color = '#0000ff';
+        		uhp = uhp + 10;
+        		umana =umana-6;
+        		//console.log("user: utility");
+			uhp_txt.setText("Hp : " + uhp);
+        	        umana_txt.setText("Mp : " + umana);
+        	        player_report = "Recovered 10 HP";
+        	        player_dmg(player_report);
+	       	    	trueBattle();
+//			if(cspeed == 3) ai_science(); 
+		}
 	}
 }
 function ultimate_action() {
 //	dmg_txt.destroy();
+	if(canGo == true) {
+		if(umana >= 14)
+		{
+			canGo = false;
+			txt_color = '#ff0000';
+  		      	chp = chp - 18;
+        		umana =umana-14;
+        		//console.log("user: ultimate");
 
-	if(umana >= 14)
-	{
-		txt_color = '#ff0000';
-  	      	chp = chp - 18;
-        	umana =umana-14;
-        	chp_txt.destroy();
-        	umana_txt.destroy();
-        	console.log("user: ultimate");
- 		chp_txt = game.add.text(560,30,"Hp : " + chp,{
-                        font: "20px Arial",
-                        fill: "#00ff00",
-                        align: "center" });
-                umana_txt = game.add.text(260,30,"Mp : " + umana,{
-                        font: "20px Arial",
-                        fill: "#ff0000",
-                        align: "center" });
-                report = "DMG: 18 ";
-                ai_dmg(report);
-                player_report = "MP: -14";
-                player_dmg(player_report);
+			if (chp<=0){
+				resetVariables();
+				game.state.start("win");
+			} else {
+				 chp_txt.setText("Hp : " + chp);
+	                        umana_txt.setText("Mp : " + umana);
+         	       report = "Took 18 dmg! ";
+         	       ai_dmg(report);
+         	       player_report = "Used 14 MP";
+         	       player_dmg(player_report);
 
-
-              trueBattle();
+			doAtomicRestructure(20);
+        	      trueBattle();
+			}
+		}
 	}
 }
 
@@ -351,23 +384,17 @@ function ultimate_action() {
 
 function er_action(){
 	chp = chp - 5;
-	chp_txt.destroy();
  	console.log("user : reg attack");
-	chp_txt = game.add.text(560,30,"Hp : " + chp,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-	//chp_txt = game.add.text(630,15,"Hp: " + chp,{font: "22px Arial", fill: txt_color});
-	report= "DMG: 5";
+	if (chp<=0){
+		resetVariables();
+		game.state.start("win");
+	} else {
+	aihealthBar.width = chp*8;
+ 	chp_txt.setText("Hp : " + chp);
+	report= "Took 5 damage!";
 	ai_dmg(report);
-//	trueBattle();
- if (computer == 3)
-                        aisci_attacks();
-                else
-                        aieng_attacks();
-
-
-//	if(cspeed == 3) ai_science();
+	trueBattle();
+	}
 }
 
 function es_action() {
@@ -376,28 +403,21 @@ function es_action() {
 		//txt_color = '#ff0000';
 	        chp = chp - 8;
 		umana = umana-3;
-        	chp_txt.destroy();
-        	umana_txt.destroy();
 		console.log("user : special");
-        	chp_txt = game.add.text(560,30,"Hp : " + chp,{
-                	font: "20px Arial",
-                	fill: "#00ff00",
-            		align: "center" });
-		umana_txt = game.add.text(260,30,"Mp : " + umana,{
-                	font: "20px Arial",
-               	 	fill: "#ff0000",
-                	align: "center" });
-		report = "DMG: 8 ";
+        	if (chp<=0){
+			resetVariables();
+			game.state.start("win");
+		} else {
+ 			aihealthBar.width = chp*8;
+			chp_txt.setText("Hp : " + chp);
+			manaBar.width=umana*10;
+                        umana_txt.setText("Mp : " + umana);
+		report = "Took 8 damage!";
 		ai_dmg(report);
-		player_report = "MP: -3";
+		player_report = "Used 3 MP";
 		player_dmg(player_report);
-//trueBattle();
- if (computer == 3)
-                        aisci_attacks();
-                else
-                        aieng_attacks();
-
-//		if(cspeed == 3) ai_science(); 
+trueBattle();
+		}
 	}
 }
 function eutility_action() {
@@ -405,28 +425,21 @@ function eutility_action() {
 //		txt_color = '#0000ff';
         	chp = chp - 10;
         	umana =umana-6;
-        	chp_txt.destroy();
-        	umana_txt.destroy();
         	console.log("user: utility");
-		chp_txt = game.add.text(560,30,"Hp : " + chp,{
-                        font: "20px Arial",
-                        fill: "#00ff00",
-                        align: "center" });
-                umana_txt = game.add.text(260,30,"Mp : " + umana,{
-                        font: "20px Arial",
-                        fill: "#ff0000",
-                        align: "center" });
-                report = "DMG: 10"
+		if (chp<=0){
+			resetVariables();
+			game.state.start("win");
+		} else {
+ 			aihealthBar.width = chp*8;
+			chp_txt.setText("Hp : " + chp);
+			manaBar.width=umana*10;
+                        umana_txt.setText("Mp : " + umana);
+                report = "Took 10 damage!"
 		ai_dmg(report);
-                player_report = "MP: -6";
+                player_report = "Used 6 MP";
                 player_dmg(player_report);
-//          trueBattle();
- if (computer == 3)
-                        aisci_attacks();
-                else
-                        aieng_attacks();
-
-//		if(cspeed == 3) ai_science(); 
+          trueBattle();
+		}
 	}
 }
 function eultimate_action() {
@@ -437,28 +450,21 @@ function eultimate_action() {
 		//txt_color = '#ff0000';
   	      	chp = chp - 18;
         	umana = umana - 14;
-        	chp_txt.destroy();
-        	umana_txt.destroy();
         	console.log("user: ultimate");
- 		chp_txt = game.add.text(560,30,"Hp : " + chp,{
-                        font: "20px Arial",
-                        fill: "#00ff00",
-                        align: "center" });
-                umana_txt = game.add.text(260,30,"Mp : " + umana,{
-                        font: "20px Arial",
-                        fill: "#ff0000",
-                        align: "center" });
-                report = "DMG: 18 ";
+ 		if (chp<=0){
+			resetVariables();
+			game.state.start("win");
+		} else {
+		 	aihealthBar.width = chp*8;
+			chp_txt.setText("Hp : " + chp);
+			manaBar.width = umana*10;
+                        umana_txt.setText("Mp : " + umana);
+                report = "Took 18 damage!";
                 ai_dmg(report);
-                player_report = "MP: -14";
+                player_report = "Used 14 MP";
                 player_dmg(player_report);
- if (computer == 3)
-                        aisci_attacks();
-                else
-                        aieng_attacks();
-
-
-//            trueBattle();
+            	trueBattle();
+		}
 	}
 }
 
@@ -466,93 +472,87 @@ function eultimate_action() {
 //---------------------------AI Attack Functions ---------------------------------------------
 function ai_ultimate_action()
 {
-
+	//canGo = true;
 	uhp = uhp - 18;
 	cmana = cmana - 14;
-	uhp_txt.destroy();
-       	cmana_txt.destroy();
-	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
-		font: "20px Arial",
-		fill: "#ff0000",
-		align: "center" });
-	cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-	player_report = "DMG: 18 ";
+	if (uhp<=0){
+		resetVariables();
+		game.state.start("lose");
+	} else {
+	healthBar.width = uhp*8;
+	uhp_txt.setText("Hp : " + uhp);
+	aimanaBar.width=cmana*10;
+	cmana_txt.setText("Mp : " + cmana);
+	player_report = "Took 18 damage!";
         player_dmg(player_report);
-        report = "MP: -14";
+        report = "Used 14 MP";
         ai_dmg(report);
-  //      trueBattle();
+      	trueBattle();
+	}
 
 
 }
 function ai_utility_action()
 {
-
+	//canGo = true;
 	chp = chp + 10;
         cmana = cmana - 6;
-        chp_txt.destroy();
-        cmana_txt.destroy();
-	chp_txt = game.add.text(560,30,"Hp : " + chp,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-        report = "MP: -6 and HEAL: 10";
+	if (uhp<=0){
+		resetVariables();
+		game.state.start("lose");
+	} else {
+	healthBar.width = uhp*8;
+	uhp_txt.setText("Hp : " + uhp);
+	aimanaBar.width=cmana*10;
+        cmana_txt.setText("Mp : " + cmana);
+        report = "Used 6 MP and recovered 10 HP";
         ai_dmg(report);
-//        trueBattle();
-
+        trueBattle();
+	}
 
 }
 function  ai_ss_action()
 {
-
+	//canGo = true;
 	uhp = uhp - 8;
         cmana = cmana - 3;
-        uhp_txt.destroy();
-        cmana_txt.destroy();
-        uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
-                font: "20px Arial",
-                fill: "#ff0000",
-                align: "center" });
-        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-        player_report = "DMG: 8 ";
+        if (uhp<=0){
+		resetVariables();
+		game.state.start("lose");
+	} else {
+	healthBar.width = uhp*8;
+	uhp_txt.setText("Hp : " + uhp);
+	aimanaBar.width=cmana*10;
+        cmana_txt.setText("Mp : " + cmana);
+        player_report = "Took 8 damage!";
         player_dmg(player_report);
-        report = "MP: -3";
+        report = "Used 3 MP";
         ai_dmg(report);
-//        trueBattle();
+        trueBattle();
+	}
 
 
 }
 function ai_sr_action()
 {
-
+	//canGo = true;
 	uhp = uhp - 5;
-       	//cmana = cmp - 14;
-        uhp_txt.destroy();
-        //cmana_txt.destroy();
-        uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
-                font: "20px Arial",
-                fill: "#ff0000",
-                align: "center" });
-       // cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
-         //       font: "20px Arial",
-           //     fill: "#00ff00",
-             //   align: "center" });
-        player_report = "DMG: 5 ";
+
+        if (uhp<=0){
+		resetVariables();
+		game.state.start("lose");
+	} else {
+	healthBar.width = uhp*8;
+	uhp_txt.setText("Hp : " + uhp);
+	aimanaBar.width=cmana*10;
+        cmana_txt.setText("Mp : " + cmana);
+        player_report = "Took 5 damage!";
         player_dmg(player_report);
-       // report = "MP: -14";
-       // ai_dmg(report);
-        //trueBattle();
+       	//report = "";
+       	//ai_dmg(report);
+	trueBattle();
 
-
+	}
 }
 
 
@@ -561,86 +561,80 @@ function ai_sr_action()
 
 function ai_eultimate_action()
 {
-
+	console.log("Eng AI used ult");
+	//canGo = true;
 	uhp = uhp - 18;
 	cmana = cmana - 14;
-	uhp_txt.destroy();
-       	cmana_txt.destroy();
-	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
-		font: "20px Arial",
-		fill: "#ff0000",
-		align: "center" });
-	cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-	player_report = "DMG: 18 ";
+
+	if (uhp<=0){
+		resetVariables();
+		game.state.start("lose");
+	} else {
+	uhp_txt.setText("Hp : " + uhp);
+        cmana_txt.setText("Mp : " + cmana);
+	player_report = "Took 18 damage!";
         player_dmg(player_report);
-        report = "MP: -14";
+        report = "Used 14 MP";
         ai_dmg(report);
-      //  trueBattle();
+  	trueBattle();
+	}
 
 
 }
 function ai_eutility_action()
 {
-
+	console.log("Eng AI used utility");
+	//canGo = true;
 	uhp = uhp - 10;
         cmana = cmana - 6;
-        uhp_txt.destroy();
-        cmana_txt.destroy();
-	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
-                font: "20px Arial",
-                fill: "#ff0000",
-                align: "center" });
-        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-        report = "MP: -6";
+	if(uhp<=0) {
+		resetVariables();
+		game.state.start("lose");
+	} else {
+	uhp_txt.setText("Hp : " + uhp);
+        cmana_txt.setText("Mp : " + cmana);
+        report = "Used 6 MP";
         ai_dmg(report);
-	 player_report = "DMG: 10 ";
+	 player_report = "Took 10 damage!";
         player_dmg(player_report);
-    //    trueBattle();
-
+    	trueBattle();
+	}
 
 }
 function  ai_es_action()
 {
-
+	console.log("Eng AI used special");
+	//canGo = true;
 	uhp = uhp - 8;
         cmana = cmana - 3;
-        uhp_txt.destroy();
-        cmana_txt.destroy();
-        uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
-                font: "20px Arial",
-                fill: "#ff0000",
-                align: "center" });
-        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
-                font: "20px Arial",
-                fill: "#00ff00",
-                align: "center" });
-        player_report = "DMG: 8 ";
+        if (uhp<=0){
+		resetVariables();
+		game.state.start("lose");
+	} else {
+        uhp_txt.setText("Hp : " + uhp);
+        cmana_txt.setText("Mp : " + cmana);
+	player_report = "Took 8 damage!";
         player_dmg(player_report);
-        report = "MP: -3";
+        report = "Used 3 MP";
         ai_dmg(report);
-  //      trueBattle();
-
+      trueBattle();
+	}
 
 }
 function ai_er_action()
 {
-
+	console.log("Eng AI used regular");
+	//canGo = true;
 	uhp = uhp - 5;
-        uhp_txt.destroy();
-        //cmana_txt.destroy();
-        uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
-                font: "20px Arial",
-                fill: "#ff0000",
-                align: "center" });
-        player_report = "DMG: 5 ";
+        if (uhp<=0){
+		resetVariables();
+		game.state.start("lose");
+	} else {
+        uhp_txt.setText("Hp : " + uhp);
+        cmana_txt.setText("Mp : " + cmana);
+	player_report = "Took 5 damage!";
         player_dmg(player_report);
-//        trueBattle();
+       trueBattle();
 
-
+	}
 }

@@ -9,11 +9,17 @@ function createAtomicRestructure()
 	light.scale.setTo(2,2);
 }
 
+var numAtomicCompleted = 0;
+
 function animateAtomicRestructure()
 {
 	particles.lights.setAll('y', 10, true, true, 1);
 	//particles.lights.setAll('scale', 10, true, true, 1);
 	particles.lights.forEach(checkLight, this, true);
+	if(numAtomicCompleted == 20) {
+		canGo = true;
+		numAtomicCompleted = 0;
+	}
 }
 
 function doAtomicRestructure(repeat)
@@ -28,6 +34,9 @@ function checkLight(light)
 		if (light.y > game.height)
 		{
 			light.kill();
+			numAtomicCompleted++;
+			//console.log("Animation finished, user can go");
+			//canGo = true;
 		}
 	}
 	catch (error)

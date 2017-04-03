@@ -15,15 +15,15 @@ function devo()
 	game.debug.geom(bdock, '#000');
 	bdock.alpha = 0.2;*/
 	console.log("starttttttttttttt");
-	var attack = game.add.sprite(100,300,'kunai');
-	attack.scale.setTo(2,2);
+	//var attack = game.add.sprite(100,300,'kunai');
+	//attack.scale.setTo(2,2);
 	//attack.animations.add('kunai');
 	//attack.play('walk', 1, true);
-	console.log("added");
-	var walk = attack.animations.add('walk');
-	console.log("animated");
-	attack.animations.play('walk', 10, true);
-	console.log("play");
+	//console.log("added");
+	//var walk = attack.animations.add('walk');
+	//console.log("animated");
+	//attack.animations.play('walk', 10, true);
+	//console.log("play");
 	characterBounce(faisal);
 /*
         //text for hp and stuff 

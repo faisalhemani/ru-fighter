@@ -43,8 +43,9 @@ var char = {
 		charGroup.add(background);
 
 		//Creates xavier and adds an event listener
-		player1 = game.add.image(game.width/4, game.height - game.height/3,"player1");
+		player1 = game.add.image(game.width/4, game.height - game.height/2,"player1");
 		player1.selected = false;
+		player1.scale.setTo(0.15);
 		player1.anchor.setTo(0.5);
 		player1.inputEnabled = true;
 		player1.events.onInputDown.add(selectPlayer1, this);
@@ -52,8 +53,9 @@ var char = {
 		charGroup.add(player1);
 
 		//Creates Faisal and adds an event listener
-		player2 = game.add.image((3 * game.width)/4, game.height - game.height/3, "player2");
+		player2 = game.add.image((3 * game.width)/4, game.height - game.height/2, "player2");
 		player2.selected = false;
+		player2.scale.setTo(0.15);
 		player2.anchor.setTo(0.5);
 		player2.inputEnabled = true;
 		player2.events.onInputDown.add(selectPlayer2, this);
@@ -66,49 +68,52 @@ var char = {
 		game.input.onDown.add(fingerOnScreen, this);
 
 		style = { font: "32px Arial", fill: "#000000", wordWrap: false, wordWrapWidth: "100px", align: "center"};
-		text = game.add.text(game.width/2, 0, "Selected Character is not chosen yet", style);
+		text = game.add.text(game.width/3, 0, "Selected Faculty: not chosen yet", style);
 		//next state
 //                this.state.start('map');
         },
 
-	Update: function()
+	update: function()
 	{
+		console.log("Here");
 		if (player1.input.pointerOver()) 
 		{
 			console.log("Here player1");
 			player1.alpha = 1;
-			player1.scale.setTo(1.2);
-			//if (faisalSelected)
+			player1.scale.setTo(0.50);
+			//if (player1.selected)
 			//{
         	        	player2.alpha = 0.7;
-	                	player2.scale.setTo(1);
+	                	player2.scale.setTo(0.20);
 			//}
+			text.setText("Selected Faculty: Engineer");
 		}
 		else if (player2.input.pointerOver()) 
 		{
 			console.log("Here player2");
 			player2.alpha = 1;
-			player2.scale.setTo(1.2);
-			//if (xavierSelected)
+			player2.scale.setTo(0.23);
+			console.log("Science hoevered over");
+			//if (player2.selected)
 			//{
                         	player1.alpha = 0.7;
-                        	player1.scale.setTo(1);
+                        	player1.scale.setTo(0.45);
 			//}
+			text.setText("Selected Faculty: Science");
 		}
 		else 
 		{
 			console.log("Here else");
 			player1.alpha = 0.7;
-			player1.scale.setTo(1);
-			playe2.alpha = 0.7;
-			player2.scale.setTo(1);
+			player1.scale.setTo(0.45);
+			player2.alpha = 0.7;
+			player2.scale.setTo(0.20);
+			text.setText("Selected Faculty: is not chosen yet");
 		}
 		//text = game.add.text(0, 0, characterText(), style);
 	}
 
 };
-
-
 
 function selectPlayer1(sprite, pointer) {
  	characterChoice = sprite;
@@ -126,6 +131,7 @@ function confirmPlayer1(sprite, pointer)
                         characterText();
 			player.facility = 'Science';
 			requestCreated();
+			switchMusic(introScreenMusic, mapTheme);
 			 this.state.start('map');
                 }
         }
@@ -147,6 +153,7 @@ function confirmPlayer1(sprite, pointer)
                         characterText();
 			player.facility = 'Engineering';
 			requestCreated();
+			switchMusic(introScreenMusic, mapTheme);
 			 this.state.start('map');
                 }
         }
@@ -195,15 +202,15 @@ function confirmPlayer1(sprite, pointer)
         {
                 //text = game.add.text(0, 0, "", style);
                 if (player1Selected) {
-                        text.setText("Selected Character: player 1");
+                        text.setText("Selected Faculty: Engineer");
                         console.log("1");
                 }
                 else if (player2Selected) {
-                        text.setText("Selected Character: player 2");
+                        text.setText("Selected Faculty: Science");
                         console.log("2");
                 }
                 else {
-                        text.setText("Selected Character is not chosen yet");
+                        text.setText("Selected Faculty: is not chosen yet");
                         console.log("3");
                 }
         }

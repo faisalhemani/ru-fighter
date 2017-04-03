@@ -10,6 +10,8 @@ function animateSpiritBomb()
 {
 	particles.spiritBomb.setAll('x', 10, true, true, 1);
 	particles.spiritBomb.forEach(checkSpiritBomb, this, true);
+	console.log("Animation finished, user can go");
+	//canGO = true;
 }
 
 function doSpiritBomb()
@@ -28,6 +30,8 @@ function checkSpiritBomb(sprite)
 		if (sprite.x > game.width)
 		{
 			sprite.kill();
+			//console.log("Animation finished, user can go");
+			//canGo = true;
 			//particles.zombies.remove(sprite,true);
 		}
 	}

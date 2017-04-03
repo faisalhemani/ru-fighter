@@ -27,7 +27,18 @@ console.log("in engineering function");
         var UltimateTxt = game.add.text(780, 570, "DMG: 18     MP Cost: 14", 
                                 {font: "15px Arial", fill: "#ffffff"});
 
-        var reg = game.add.sprite(100,470, 'er');
+	incrementMana(1);
+
+}
+function engPlayer()
+{
+	this.avatar = game.add.sprite(100,100,'player1');
+        this.avatar.scale.setTo(0.5,0.5);
+
+}
+function createEngBtn()
+{
+  var reg = game.add.sprite(100,470, 'er');
         var special = game.add.sprite(320 ,470,'es');//, ss_action, this, 2,1,0);
         var utility = game.add.sprite(540 ,470,'eut');//, utility_action, this,2,1,0);
         var ultimate = game.add.sprite(760 ,470,'eul');//, ultimate_action, this, 2,1,0);
@@ -41,7 +52,6 @@ console.log("in engineering function");
         utility.events.onInputDown.add(eutility_action,this);
         ultimate.inputEnabled = true;
         ultimate.events.onInputDown.add(eultimate_action,this);
-
 
 
 }

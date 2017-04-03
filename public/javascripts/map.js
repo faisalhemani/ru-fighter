@@ -110,11 +110,16 @@ var map = {
 	update: function() {
 		this.input.onUp.add(clickMap, this);
 		loopMusic();
+		//console.log("canGo: " + canGo);
 		animateAtomicRestructure();
-		if (typeof particles.explosions.setAll != 'undefined')
+		if (typeof particles.explosions.setAll != 'undefined') {
+			//console.log(particles.emitters);
 			animateExplosion();
-		if (typeof particles.kunai.setAll != 'undefined')
+		}
+		if (typeof particles.kunai.setAll != 'undefined') {
+			//console.log("Here 2");
 			animateKunai();
+		}
 	}
 };
 

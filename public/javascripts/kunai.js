@@ -15,6 +15,7 @@ function animateKunai()
 function doKunai(repeat)
 {
 	game.time.events.repeat(10, repeat, createKunai, this);
+	//chp =  chp - 5;
 }
 
 function checkKunai(sprite)
@@ -27,6 +28,8 @@ function checkKunai(sprite)
 		if (sprite.x > game.width)
 		{
 			sprite.kill();
+			console.log("Animation finished, user can go");
+			canGo = true;
 			//particles.zombies.remove(sprite,true);
 		}
 	}

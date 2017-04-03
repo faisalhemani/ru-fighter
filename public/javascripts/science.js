@@ -9,7 +9,7 @@ var lights;
 
 function science()
 {
-console.log("in science function");
+//console.log("in science function");
 //rectangle box
 
         var graphics = game.add.graphics(0,0);
@@ -36,49 +36,65 @@ console.log("in science function");
 
         var UltimateTxt = game.add.text(780, 570, "DMG: 18     MP Cost: 14", 
                                 {font: "15px Arial", fill: "#ffffff"});
+	createbtn();
 
-	var reg = game.add.sprite(100,470, 'sr');
-	var special = game.add.sprite(320 ,470,'ss');//, ss_action, this, 2,1,0);
-	var utility = game.add.sprite(540 ,470,'sut');//, utility_action, this,2,1,0);
-	var ultimate = game.add.sprite(760 ,470,'sul');//, ultimate_action, this, 2,1,0);
-	console.log("buttons are up");
-
-	reg.inputEnabled = true;
-	reg.events.onInputDown.add(sr_action,this);
-	special.inputEnabled = true;
-        special.events.onInputDown.add(ss_action,this);
-	utility.inputEnabled = true;
-        utility.events.onInputDown.add(utility_action,this);
-	ultimate.inputEnabled = true;
-        ultimate.events.onInputDown.add(ultimate_action,this);
-	
-	
-
-	if (player.avatar == "xavier.png")
-	{
- 		this.avatar = game.add.sprite(100,200,'player1');
-     		this.avatar.scale.setTo(0.2,0.2);
-	}
-	else{
-  		this.avatar = game.add.sprite(100,200,'player2');
-        	this.avatar.scale.setTo(0.2,0.2);
-	}
-
+//	if (player.avatar == "xavier.png")
+//	{
+ //		this.avatar = game.add.sprite(100,200,'player1');
+   //  		this.avatar.scale.setTo(0.2,0.2);
+//	}
+//	else{
+ // 		this.avatar = game.add.sprite(100,200,'player2');
+   //     	this.avatar.scale.setTo(0.2,0.2);
+//	}
+	incrementMana(1);
 
 }
 
-function sr_action()
+function sciPlayer()
 {
-	doKunai(3); 	
+	this.avatar = game.add.sprite(100,200,'player2');
+        this.avatar.scale.setTo(0.2,0.2);
+}
+
+function createbtn()
+{
+
+	var reg = game.add.sprite(100,470, 'sr');
+        var special = game.add.sprite(320 ,470,'ss');//, ss_action, this, 2,1,0);
+        var utility = game.add.sprite(540 ,470,'sut');//, utility_action, this,2,1,0);
+        var ultimate = game.add.sprite(760 ,470,'sul');//, ultimate_action, this, 2,1,0);
+        //console.log("buttons are up");
+
+        reg.inputEnabled = true;
+        reg.events.onInputDown.add(sr_action,this);
+        special.inputEnabled = true;
+        special.events.onInputDown.add(ss_action,this);
+        utility.inputEnabled = true;
+        utility.events.onInputDown.add(utility_action,this);
+        ultimate.inputEnabled = true;
+        ultimate.events.onInputDown.add(ultimate_action,this);
+
+
+
+}
+//Renaming these functions so that the functions with
+//the same name in battle.js are called.
+//Just adding the animation calls to the functions in battle.js
+
+function sr_aaction()
+{
+	doKunai(3);
+	console.log("science.js - sr_action");
 	ai_counter = ai_counter + 2;
 }
 
-function ss_action()
+function sss_action()
 {
 	doExplosion(50);
 }
 
-function ultimate_action()
+function uultimate_action()
 {
 	doAtomicRestructure(50);
 }

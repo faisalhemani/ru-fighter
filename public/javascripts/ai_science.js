@@ -40,13 +40,7 @@ function aisci_attacks(){
                 console.log("reg");
               ai_sr_action();
         }
-
- if(player.facility == "Science")
-                                science();
-                        else
-                                engineering();
-
-
+	incrementMana(0);
 }
 
 

@@ -10,11 +10,12 @@ var logo = {
 
 //		this.state.start('menu');
 	//console.log(player.created);
-	if( player.created == true)
+	/*if( player.created == true)
 		this.state.start('menu');
 	else 
 		this.state.start('char');
-		//requestCreated();
+	*/	//requestCreated();
+	game.state.start("menu");
       },
 
 
