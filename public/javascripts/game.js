@@ -21,6 +21,8 @@ var mapTheme;
 var nhanMusic;
 var peacefulMusic;
 var currentMusic;
+var victory;
+var defeat;
 var beep;
 
 introScreenMusic = document.createElement('audio');
@@ -39,6 +41,14 @@ mapTheme.setAttribute('src', 'assets/music/alternativePeaceful.mp3');
 nhanMusic = document.createElement('audio');
 nhanMusic.setAttribute('id', 'nhanMusic');
 nhanMusic.setAttribute('src', 'assets/music/nhan.mp3');
+
+victoryMusic = document.createElement('audio');
+victoryMusic.setAttribute('id', 'victoryMusic');
+victoryMusic.setAttribute('src', 'assets/music/victory.mp3');
+
+defeatMusic = document.createElement('audio');
+defeatMusic.setAttribute('id', 'defeatMusic');
+defeatMusic.setAttribute('src', 'assets/music/defeat.mp3');
 
 beep = document.createElement('audio');
 beep.setAttribute('id', 'beep');

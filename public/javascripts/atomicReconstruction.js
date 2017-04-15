@@ -17,7 +17,7 @@ function animateAtomicRestructure()
 	//particles.lights.setAll('scale', 10, true, true, 1);
 	particles.lights.forEach(checkLight, this, true);
 	if(numAtomicCompleted == 20) {
-		canGo = true;
+		//canGo = true;
 		numAtomicCompleted = 0;
 	}
 }

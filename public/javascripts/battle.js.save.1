@@ -33,18 +33,10 @@ function aii()
 
 function topText(ai_hp, ai_mp, ai_speed)
 {
-//c();
+c();
 
 //rectangle box
 //console.log("IN TOP TEXT FUNCTION");
-
-	if(player.facility === 'Science') {
-		sciPlayer();
-	}
-	else {
-		engPlayer();
-	}
-	c();
 	var graphics = game.add.graphics(10,10);
 
 	//set a fill and line style
@@ -61,70 +53,70 @@ function topText(ai_hp, ai_mp, ai_speed)
         bmd.ctx.fillStyle = '#00ff00';
         bmd.ctx.fill();
         //user healt/mana hbar
-        healthBar = game.add.sprite(160,35,bmd);
+        healthBar = game.add.sprite(110,35,bmd);
 	healthBar.height = 20;
         healthBar.anchor.y = 0.5;
-        manaBar = game.add.sprite(160,50,bmd);
+        manaBar = game.add.sprite(110,50,bmd);
         manaBar.height = 10;
         manaBar.anchor.y = 0.5;
         //ai health/mana bar
-        aihealthBar = game.add.sprite(575,45,bmd);
+        aihealthBar = game.add.sprite(590,45,bmd);
 	aihealthBar.height = 20;
         aihealthBar.anchor.y = 1;
-        aimanaBar = game.add.sprite(575,55,bmd);
+        aimanaBar = game.add.sprite(725,55,bmd);
         aimanaBar.height = 10;
         aimanaBar.anchor.y = 1;
 
 //Text
-	
+
 	uhp = 50;
 	maxhp=50;
-	uhp_txt = game.add.text(170,25,"Hp : " + uhp,{
-		font: "16px Arial",
-		fill: "#0000ff",
+	uhp_txt = game.add.text(110,30,"Hp : " + uhp,{
+		font: "20px Arial",
+		fill: "#ff0000",
 		align: "center" });
     	healthBar.width = uhp*8;
  	 umana = 25;
-         umana_txt = game.add.text(235,25,"Mp : " + umana,{
-                font: "16px Arial",
-                fill: "#0000ff",
+         umana_txt = game.add.text(260,30,"Mp : " + umana,{
+                font: "20px Arial",
+                fill: "#ff0000",
                 align: "center" });
 	manaBar.width = umana*10;
 	if(player.facility == "Science")
  		var uspeed = 3;
 	else
 		uspeed = 2;
-	//doesnt actually have to do with speed just text
-	uspeed_txt = game.add.text(100,30,"User: ",{
-                font: "23px Arial",
-                fill: "#0000ff",
+
+	uspeed_txt = game.add.text(410,30,"Speed : " + uspeed,{
+                font: "20px Arial",
+                fill: "#ff0000",
                 align: "center" });
-	
+
 
  	 chp = ai_hp;
-         chp_txt = game.add.text(585,25,"Hp : " + chp,{
-                font: "16px Arial",
-                fill: "#ff0000",
+         chp_txt = game.add.text(560,30,"Hp : " + chp,{
+                font: "20px Arial",
+                fill: "#0000ff",
                 align: "center" });
 	aihealthBar.width = chp*8;
 
  	 cmana = ai_mp;
-        cmana_txt = game.add.text(660,25,"Mp : " + cmana,{
-                font: "16px Arial",
-                fill: "#ff0000",
+        cmana_txt = game.add.text(710,30,"Mp : " + cmana,{
+                font: "20px Arial",
+                fill: "#0000ff",
                 align: "center" });
 	aimanaBar.width = cmana*10;
          cspeed = ai_speed;
-	//doesnt actually have to do with speed just text
-         cspeed_txt = game.add.text(535,30,"AI: ",{
-                font: "23px Arial",
-                fill: "#ff0000",
+         cspeed_txt = game.add.text(860,30,"Speed : " + cspeed,{
+                font: "20px Arial",
+                fill: "#0000ff",
                 align: "center" });
+
 	playerSpeed(speed, cspeed);
 }
 
 var player_counter = 0, ai_counter = 0, counter = 0;
-var numClicks = 0;
+
 
 function playerSpeed(user, computer)
 {
@@ -136,7 +128,7 @@ function playerSpeed(user, computer)
 		{
 			if(random == 1)
 			{
-				chancePlayer("Player goes first!");
+				chancePlayer("Player's turn");
 				console.log("player will go first");
 
 				//Let the player click a button
@@ -163,7 +155,7 @@ function playerSpeed(user, computer)
 			else
 			{
 				ai_counter++;
-	 			chanceAI("AI goes first!");
+	 			chanceAI("AI's turn");
 				console.log("AI will go first");
 
 				//Make the player wait for the computer to play
@@ -275,21 +267,13 @@ function trueBattle()
 			 ai_counter = ai_counter + 2;
                          //chanceAI("AI's turn");
 			 if (cspeed == 3){
-				console.log("Starting sleep");
 				sleep(1000).then (function (){
-					console.log("stopped sleeping");
                                 	aisci_attacks();
-					//canGo=true;
-				});
-			}
+					canGo=true; });}
                         else{
-				console.log("starting sleep");
 				sleep(1000).then (function (){
-					console.log("stopped sleeping");
                                 	aieng_attacks();
-					//canGo=true;
-				});
-			}
+					canGo=true;});}
 		}
 	}
 	
@@ -318,15 +302,13 @@ function resetVariables() {
 	ai_counter = 0;
 	counter = 0;
 	mana_count = 0;
-	numClicks = 0;
 }
 
 function sr_action(){
-	if(canGo == true && numClicks == 0) {
+	if(canGo == true) {
 		//removeBtn();
-		numClicks++;
 		console.log("Used regular science attack");
-		//canGo = false;
+		canGo = false;
 		chp = chp - 5;
 
 		if (chp<=0)
@@ -335,13 +317,16 @@ function sr_action(){
 			game.state.start("win");
 		} else
 		{
+		aihealthBar.destroy();
+		aihealthBar = game.add.sprite(590 + 30,45,bmd);
+		aihealthBar.height = 20;
+        	aihealthBar.anchor.y = 1;
 		aihealthBar.width = chp*8;
 		chp_txt.setText("Hp : " + chp);
-		var aiStat= "Player did 5 damage!";
+		var aiStat= "Took 5 damage!";
 		//ai_dmg(report);
 		doKunai(1);
-		canGo = false;
-		sleep(2000).then(function()
+		sleep(1500).then(function()
 		{
 			ai_dmg(aiStat);
 			trueBattle();
@@ -352,10 +337,9 @@ function sr_action(){
 }
 
 function ss_action() {
-	if(canGo == true && numClicks == 0) {
+	if(canGo == true) {
 		if( umana >=3)
 		{
-			numClicks++;
 			canGo = false;
 		        chp = chp - 8;
 			umana = umana-3;
@@ -368,9 +352,9 @@ function ss_action() {
         		chp_txt.setText("Hp : " + chp);
 			manaBar.width=umana*10;
 			umana_txt.setText("Mp : " + umana);
-			player_report = "Player used 3 MP";
+			player_report = "Used 3 MP";
 			player_dmg(player_report);
-                        var aiStat = "Player did 8 damage!";
+                        var aiStat = "Took 8 damage!";
                         sleep(2000).then(function() 
                         {
                         	ai_dmg(aiStat);
@@ -386,9 +370,8 @@ function ss_action() {
 	}
 }
 function utility_action() {
-	if(canGo == true && numClicks == 0) {
+	if(canGo == true) {
 		if(umana >= 6 && uhp>0){
-			numClicks++;
 			canGo = false;
 //			txt_color = '#0000ff';
         		uhp = uhp + 10;
@@ -399,22 +382,19 @@ function utility_action() {
 			uhp_txt.setText("Hp : " + uhp);
 			manaBar.width = umana*10;
         	        umana_txt.setText("Mp : " + umana);
-        	        player_report = "Player healed 10 HP";
+        	        player_report = "Recovered 10 HP";
         	        player_dmg(player_report);	
 			doHeal(1);
-			sleep(2000).then(function() {
-				trueBattle();
-			});
+			trueBattle();
 //			if(cspeed == 3) ai_science(); 
 		}
 	}
 }
 function ultimate_action() {
 //	dmg_txt.destroy();
-	if(canGo == true && numClicks == 0) {
+	if(canGo == true) {
 		if(umana >= 14)
 		{
-			numClicks++;
 			canGo = false;
 			txt_color = '#ff0000';
   		      	chp = chp - 18;
@@ -429,13 +409,13 @@ function ultimate_action() {
 			chp_txt.setText("Hp : " + chp);
 			manaBar.width = umana*10;
 	                umana_txt.setText("Mp : " + umana);
-         	       var aiStat = "Player did 18 dmg! ";
+         	       var aiStat = "Took 18 dmg! ";
          	       //ai_dmg(report);
-         	       player_report = "Player used 14 MP";
+         	       player_report = "Used 14 MP";
          	       player_dmg(player_report);
 
 			doAtomicRestructure(20);
-	                sleep(1500).then(function()
+	                sleep(1000).then(function()
 	                {
                 	        ai_dmg(aiStat);
 				trueBattle();
@@ -449,35 +429,29 @@ function ultimate_action() {
 //engineering skill attacks for player --------------------------------------------------------
 
 function er_action(){
-	if (canGo == true && numClicks == 0){
-	//canGo = false;
-	numClicks++;
+	if (canGo == true){
+	canGo=false;
 	chp = chp - 5;
  	console.log("user : reg attack");
-	if (chp<=0)
-	{
+	if (chp<=0){
 		resetVariables();
 		game.state.start("win");
-	} 
-	else 
-	{
-		canGo = false;
-		aihealthBar.width = chp*8;
- 		chp_txt.setText("Hp : " + chp);
-		var aiStat= "Player did 5 damage!";
-		doSlash(1);
-		sleep(1000).then(function() {
-		ai_dmg(aiStat);
-		trueBattle(); });
+	} else {
+	aihealthBar.width = chp*8;
+ 	chp_txt.setText("Hp : " + chp);
+	report= "Took 5 damage!";
+	doSlash(1);
+	sleep(2000).then(function(){
+		ai_dmg(report);
+		trueBattle();
+	});
 	}
 	}
 }
 
 function es_action() {
-	if( umana >=3 && canGo == true && numClicks == 0)
+	if( umana >=3)
 	{
-		numClicks++;
-		canGo = false;
 		//txt_color = '#ff0000';
 	        chp = chp - 8;
 		umana = umana-3;
@@ -486,19 +460,15 @@ function es_action() {
 			resetVariables();
 			game.state.start("win");
 		} else {
- 			//aihealthBar.width = chp*8;
-			//chp_txt.setText("Hp : " + chp);
-			//manaBar.width=umana*10;
-                        //umana_txt.setText("Mp : " + umana);
-		report = "Player did 8 damage!";
-		doWater();
-		sleep(2000).then(function() {
-			ai_dmg(report);
-                        aihealthBar.width = chp*8;
-                        chp_txt.setText("Hp : " + chp);
-                        manaBar.width=umana*10;
+ 			aihealthBar.width = chp*8;
+			chp_txt.setText("Hp : " + chp);
+			manaBar.width=umana*10;
                         umana_txt.setText("Mp : " + umana);
-			player_report = "Player used 3 MP";
+		report = "Took 8 damage!";
+		doWater();
+		sleep(1000).then(function(){
+			ai_dmg(report);
+			player_report = "Used 3 MP";
 			player_dmg(player_report);
 			trueBattle();
 		});
@@ -506,8 +476,7 @@ function es_action() {
 	}
 }
 function eutility_action() {
-	if(umana >= 6 && numClicks == 0){
-		numClicks++;
+	if(umana >= 6){
 //		txt_color = '#0000ff';
         	chp = chp - 10;
         	umana =umana-6;
@@ -520,11 +489,11 @@ function eutility_action() {
 			chp_txt.setText("Hp : " + chp);
 			manaBar.width=umana*10;
                         umana_txt.setText("Mp : " + umana);
-                report = "Player did 10 damage!"
+                report = "Took 10 damage!"
 		doAtomicRestructure(20);
-		sleep(2000).then(function() {
+		sleep(1000).then(function (){
 			ai_dmg(report);
-                	player_report = "Player used 6 MP";
+                	player_report = "Used 6 MP";
                 	player_dmg(player_report);
           		trueBattle();
 		});
@@ -534,9 +503,8 @@ function eutility_action() {
 function eultimate_action() {
 //	dmg_txt.destroy();
 
-	if(umana >= 14 && numClicks == 0)
+	if(umana >= 14)
 	{
-		numClicks++;
 		//txt_color = '#ff0000';
   	      	chp = chp - 18;
         	umana = umana - 14;
@@ -549,11 +517,11 @@ function eultimate_action() {
 			chp_txt.setText("Hp : " + chp);
 			manaBar.width = umana*10;
                         umana_txt.setText("Mp : " + umana);
-                report = "Player did 18 damage!";
-                doExplosion(20);
-		sleep(2000).then(function() {
+                report = "Took 18 damage!";
+                doLaserBeam();
+		sleep(1000).then(function(){
 			ai_dmg(report);
-                	player_report = "Player used 14 MP";
+                	player_report = "Used 14 MP";
                 	player_dmg(player_report);
             		trueBattle();
 		});
@@ -566,7 +534,6 @@ function eultimate_action() {
 function ai_ultimate_action()
 {
 	//canGo = true;
-	numClicks = 0;
 	uhp = uhp - 18;
 	cmana = cmana - 14;
 	if (uhp<=0){
@@ -577,22 +544,17 @@ function ai_ultimate_action()
 	uhp_txt.setText("Hp : " + uhp);
 	aimanaBar.width=cmana*10;
 	cmana_txt.setText("Mp : " + cmana);
-	player_report = "Computer did 18 damage!";
+	player_report = "Took 18 damage!";
         player_dmg(player_report);
-        report = "Computer used 14 MP";
+        report = "Used 14 MP";
         ai_dmg(report);
-	canGo = true;
-	//sleep(2000).then(function(){
-	doAtomicRestructure(20);
       	trueBattle();
-	//});
 	}
 
 
 }
 function ai_utility_action()
 {
-	numClicks = 0;
 	//canGo = true;
 	chp = chp + 10;
 	if (chp>maxhp){chp = maxhp;}
@@ -605,18 +567,14 @@ function ai_utility_action()
 	uhp_txt.setText("Hp : " + uhp);
 	aimanaBar.width=cmana*10;
         cmana_txt.setText("Mp : " + cmana);
-        report = "Computer used 6 MP and recovered 10 HP";
+        report = "Used 6 MP and recovered 10 HP";
         ai_dmg(report);
-	//sleep(2000).then(function(){
-	doAiHeal(1);
         trueBattle();
-	//});
 	}
 
 }
 function  ai_ss_action()
 {
-        numClicks = 0;
 	//canGo = true;
 	uhp = uhp - 8;
         cmana = cmana - 3;
@@ -628,24 +586,17 @@ function  ai_ss_action()
 	uhp_txt.setText("Hp : " + uhp);
 	aimanaBar.width=cmana*10;
         cmana_txt.setText("Mp : " + cmana);
-        player_report = "Computer did 8 damage!";
-	sleep(1000).then(function(){
+        player_report = "Took 8 damage!";
         player_dmg(player_report);
-	});
-        report = "Computer used 3 MP";
+        report = "Used 3 MP";
         ai_dmg(report);
-	canGo = true;
-	//sleep(2000).then(function() {
-	doAiExplosion(20);
         trueBattle();
-	//});
 	}
 
 
 }
 function ai_sr_action()
 {
-        numClicks = 0;
 	//canGo = true;
 	uhp = uhp - 5;
 
@@ -657,17 +608,12 @@ function ai_sr_action()
 	uhp_txt.setText("Hp : " + uhp);
 	aimanaBar.width=cmana*10;
         cmana_txt.setText("Mp : " + cmana);
-	player_report = "Computer did 5 damage!";
-        sleep(1000).then(function(){
+        player_report = "Took 5 damage!";
         player_dmg(player_report);
-	});
        	//report = "";
        	//ai_dmg(report);
-	canGo = true;
-	//sleep(2000).then(function(){
-	doAiKunai(1);
 	trueBattle();
-	//});
+
 	}
 }
 
@@ -677,7 +623,6 @@ function ai_sr_action()
 
 function ai_eultimate_action()
 {
-        numClicks = 0;
 	console.log("Eng AI used ult");
 	//canGo = true;
 	uhp = uhp - 18;
@@ -691,14 +636,10 @@ function ai_eultimate_action()
 	uhp_txt.setText("Hp : " + uhp);
 	aimanaBar.width=cmana*10;
         cmana_txt.setText("Mp : " + cmana);
-	player_report = "Computer did 18 damage!";
-	sleep(1000).then(function(){
+	player_report = "Took 18 damage!";
         player_dmg(player_report);
-	});
-        report = "Computer used 14 MP";
+        report = "Used 14 MP";
         ai_dmg(report);
-	canGo = true;
-	doAiExplosion(20);
   	trueBattle();
 	}
 
@@ -706,7 +647,6 @@ function ai_eultimate_action()
 }
 function ai_eutility_action()
 {
-        numClicks = 0;
 	console.log("Eng AI used utility");
 	//canGo = true;
 	uhp = uhp - 10;
@@ -719,19 +659,16 @@ function ai_eutility_action()
 	uhp_txt.setText("Hp : " + uhp);
 	aimanaBar.width=cmana*10;
         cmana_txt.setText("Mp : " + cmana);
-        report = "Computer used 6 MP";
+        report = "Used 6 MP";
         ai_dmg(report);
-	 player_report = "Computer did 10 damage!";
+	 player_report = "Took 10 damage!";
         player_dmg(player_report);
-	canGo = true;
-	doAtomicRestructure(20);
     	trueBattle();
 	}
 
 }
 function  ai_es_action()
 {
-        numClicks = 0;
 	console.log("Eng AI used special");
 	//canGo = true;
 	uhp = uhp - 8;
@@ -744,21 +681,16 @@ function  ai_es_action()
         uhp_txt.setText("Hp : " + uhp);
 	aimanaBar.width=cmana*10;
         cmana_txt.setText("Mp : " + cmana);
-	player_report = "Computer did 8 damage!";
-	sleep(1000).then(function(){
+	player_report = "Took 8 damage!";
         player_dmg(player_report);
-	});
-        report = "Computer used 3 MP";
+        report = "Used 3 MP";
         ai_dmg(report);
-	canGo = true;
-	doAiWater();
-        trueBattle();
+      trueBattle();
 	}
 
 }
 function ai_er_action()
 {
-        numClicks = 0;
 	console.log("Eng AI used regular");
 	//canGo = true;
 	uhp = uhp - 5;
@@ -770,13 +702,9 @@ function ai_er_action()
         uhp_txt.setText("Hp : " + uhp);
 	aimanaBar.width=cmana*10;
         cmana_txt.setText("Mp : " + cmana);
-	player_report = "Computer did 5 damage!";
-	sleep(1000).then(function(){
+	player_report = "Took 5 damage!";
         player_dmg(player_report);
-	});
-	canGo = true;
-	doAiSlash();
-        trueBattle();
+       trueBattle();
 
 	}
 }

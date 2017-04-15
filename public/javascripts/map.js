@@ -7,6 +7,8 @@ var bridge;
 var classroom;
 var currLocation;
 
+var nhanMap = false;
+
 var map = {
         preload: function () {
                 console.log("MAP");
@@ -18,6 +20,8 @@ var map = {
                 character.anchor.set(0.5);
                 character.inputEnabled = true;
                 character.scale.setTo(0.65);*/
+
+		//createSlash();
 
 		this.map = this.add.image(0, 0, "map");
 		//this.map.scale.setTo(1);
@@ -120,6 +124,36 @@ var map = {
 			//console.log("Here 2");
 			animateKunai();
 		}
+		if(typeof particles.slash.setAll != 'undefined') {
+			animateSlash();
+		}
+		if(typeof particles.water.setAll != 'undefined') {
+			animateWater();
+		}
+		if(typeof particles.laserBeam.setAll != 'undefined') {
+			animateLaserBeam();
+		}
+		if(typeof particles.aiExplosions.setAll != 'undefined') {
+			animateAiExplosion();
+		}
+                if(typeof particles.aiKunai.setAll != 'undefined') {
+                        animateAiKunai();
+                }
+                if(typeof particles.aiSlash.setAll != 'undefined') {
+                        animateAiSlash();
+                }
+                if(typeof particles.aiWater.setAll != 'undefined') {
+                        animateAiWater();
+                }
+                //if(typeof particles.aiLaserBeam.setAll != 'undefined') {
+                        //animateAiLaserBeam();
+                //}
+                if(typeof particles.aiHeal.setAll != 'undefined') {
+                        animateAiHeal();
+                }
+		//if(typeof particles.heal.setAll != 'underfined') {
+		//	animateHeal();
+		//}
 	}
 };
 
@@ -288,6 +322,7 @@ function confirmClass(sprite, pointer) {
                 //kerr_hall();
 	clearMap();
 	switchMusic(mapTheme, nhanMusic);
+	nhanMap = true;
 	nhanclass();
         battle_functions();
 

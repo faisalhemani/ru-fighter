@@ -1,8 +1,21 @@
-/*
+
 var particles = {
-	lights : {}
+	lights : {},
+	explosions : {},
+	kunai : {},
+	slash : {},
+	water : {},
+	laserBeam : {},
+	heal : {},
+	aiLights : {},
+	aiExplosions : {},
+	aiKunai : {},
+	aiSlash : {},
+	aiWater : {},
+	aiLaserBeam: {},
+	aiHeal : {}
 };
-*/
+
 
 var load = {
         preload: function () {
@@ -95,6 +108,12 @@ var load = {
 	//this.battleMusic.setAttribute('src', 'assets/music/commence_battletheme.mp3');
 
 	loadParticles();
+	this.load.spritesheet('slash', 'assets/slash.png', 200, 200);
+	this.load.spritesheet('water', 'assets/water.png', 200, 200);
+	this.load.spritesheet('laserBeam', 'assets/sheet2.png', 0, 1250);
+	this.load.spritesheet('heal', 'assets/sheet2.png', 370, 180);
+
+
 	//this.load.image('bluePartical', 'assets/blue.png');
 	//this.load.image('redPartical', 'assets/red.png');
 	//this.load.spritesheet('explosion','assets/explode.png',128,128);

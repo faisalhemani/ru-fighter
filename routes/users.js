@@ -33,6 +33,15 @@ router.post('/register', function(req, res) {
 	req.checkBody('username', 'Username is Required').notEmpty();
 	req.checkBody('password', 'Password is Required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+	var results;
+	User.getUserByUsername(username, function (err, doc) {
+		if (err){
+			console.log('New Account username!');
+		}
+		else {}
+	});	
+	
+	//console.log(results);
 
 	//Determine if there are errors with request as specified above
 	var errors = req.validationErrors();
@@ -107,8 +116,11 @@ router.post('/register', function(req, res) {
 	User.createUser(newUser, function(err, user){
 		if(err){
 			throw err;
+			//console.log('new');
 			console.log(user);
+			//console.log('new');
 		}
+		console.log(user);
 	});
 	
 	Player.createPlayer(newPlayer, function (err, player){
@@ -117,10 +129,15 @@ router.post('/register', function(req, res) {
 			console.log(player);
 		}
 	});
-	
+	//console.log(username === results.username);	
 	req.flash('success_msg', 'You Have Successfully Registered');
 	res.redirect('/users/login');
   	}
+	/*
+	else {
+		
+	}
+	*/
 });
 
 /*

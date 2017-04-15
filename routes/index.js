@@ -16,10 +16,15 @@ router.get('/', ensureAuthenticated, function(req, res, next) {
 		}
 		else
 		{
-			var player = new Array().push(doc);
-			doc.stringify = JSON.stringify(doc.stats);
-			console.log("*"+doc+"*");	
-			res.render('index', {players: doc});	
+			if (typeof doc != 'undefined') {
+				var player = new Array().push(doc);
+				doc.stringify = JSON.stringify(doc.stats);
+				console.log("*"+doc+"*");	
+				res.render('index', {players: doc});	
+			}
+			else {
+				res.redirect('/users/login');
+			}
 		}
 	});;
 });

@@ -4,16 +4,33 @@ function engineering()
 console.log("in engineering function");
 //rectangle box
 
+	//engPlayer();
+
         var graphics = game.add.graphics(0,0);
 
         //set a fill and line style
         graphics.beginFill(0x000000, 0.8);
         graphics.lineStyle(2, 0x000000);
+	particles.lights = game.add.group();
+        particles.explosions = game.add.group();
+        particles.kunai = game.add.group();
+	particles.slash = game.add.group();
+        particles.water = game.add.group();
+        particles.laserBeam = game.add.group();
+	particles.heal = game.add.group();
+	particles.aiExplosions = game.add.group();
+	particles.aiKunai = game.add.group();
+        particles.aiSlash = game.add.group();
+        particles.aiWater = game.add.group();
+        particles.aiLaserBeam = game.add.group();
+        particles.aiHeal = game.add.group();
 
         //draw a rectangle
         graphics.drawRect(90,460,880,130);
 
         window.graphics = graphics;
+
+	//engPlayer();
 
 //Text
         var regTxt = game.add.text(120, 570, "DMG: 5     MP Cost: 0",
@@ -34,6 +51,7 @@ function engPlayer()
 {
 	this.avatar = game.add.sprite(100,100,'player1');
         this.avatar.scale.setTo(0.5,0.5);
+	characterBounce(this.avatar);
 
 }
 function createEngBtn()

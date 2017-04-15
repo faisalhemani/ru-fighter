@@ -72,6 +72,13 @@ img.banner
 	padding-bottom: 20px;
 }
 
+img.ru-fighter
+{
+ 	width: 20%;
+	height: 20%;
+
+}
+
 h2.title
 {
 	font-size: 44px;

@@ -19,8 +19,31 @@ function ai_science_speed()
 
 
 function aisci_attacks(){
+	if (uhp <= 18 && cmana >= 14) ai_ultimate_action();
+	else if (chp < 25 && cmana >= 6) ai_utility_action();
+	else if (uhp <= 8 && cmana >= 3) ai_ss_action();
+	else if (uhp <= 5) ai_sr_action();
+	else {
+	var num = game.rnd.integerInRange(0, 3);
+	if (num == 0) ai_sr_action();
+	else if (num == 1){
+		if (cmana >= 3) ai_ss_action();
+		else ai_sr_action();
+	} 	
+	else if (num == 2){
+		if (cmana >= 6) ai_utility_action();
+                else if (cmana >= 3) ai_ss_action();
+                else ai_sr_action();
+	}
+	else {
+		if (cmana >= 14) ai_ultimate_action();
+		else if (cmana >= 6) ai_utility_action();
+                else if (cmana >= 3) ai_ss_action();
+                else ai_sr_action();
 
-        if(cmana >= 14)
+	}
+	}
+        /*if(cmana >= 14)
         {
                 console.log("ultimate");
               ai_ultimate_action();
@@ -39,7 +62,7 @@ function aisci_attacks(){
         {
                 console.log("reg");
               ai_sr_action();
-        }
+        }*/
 	incrementMana(0);
 }
 

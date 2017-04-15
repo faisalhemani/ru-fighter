@@ -129,7 +129,8 @@ function confirmPlayer1(sprite, pointer)
                         console.log("Player 2 is: " +player2Selected);
                         //alert("Xavier selected!");
                         characterText();
-			player.facility = 'Science';
+			player.facility = 'Engineering';
+		//	alert("Player 1 Facility is: " + player.facility);
 			requestCreated();
 			switchMusic(introScreenMusic, mapTheme);
 			 this.state.start('map');
@@ -151,7 +152,8 @@ function confirmPlayer1(sprite, pointer)
                         console.log("Player 2 is: " +player2Selected);
  			//alert("Faisal selected!");
                         characterText();
-			player.facility = 'Engineering';
+			player.facility = 'Science';
+		//	alert("Player 2 Facility is: " + player.facility);
 			requestCreated();
 			switchMusic(introScreenMusic, mapTheme);
 			 this.state.start('map');

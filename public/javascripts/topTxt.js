@@ -45,7 +45,7 @@ function chanceAI(message)
 {
 	console.log("Graphics: ", cgraphics);
         cgraphics.beginFill(0xAA2A06, 0.8);
-        box = cgraphics.drawRect(200,200,650,150);
+        var box = cgraphics.drawRect(200,200,650,150);
         console.log("Graphics: ", cgraphics);
         message_txt = game.add.text(220,255,message,{
                 font: "40px Arial",
@@ -82,7 +82,7 @@ function chancePlayer(message){
 */
 	//cgraphics.visible = true;
 	cgraphics.beginFill(0x1B58C1, 0.8);
-        box = cgraphics.drawRect(200,200,650,150);
+        var box = cgraphics.drawRect(200,200,650,150);
 	message_txt = game.add.text(220,255,message,{
 		font: "40px Arial",
 		fill: "#FFFFFF",
