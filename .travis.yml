@@ -14,10 +14,10 @@ deploy:
 - provider: s3
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
-  local_dir: views
+  local_dir: dpl_cd_upload
   skip_cleanup: true
   on: &2
-    repo: Cynicalbird/cps630-project
+    repo: cps630-project
   bucket: operation-ignition
   region: us-west-1
 - provider: codedeploy
