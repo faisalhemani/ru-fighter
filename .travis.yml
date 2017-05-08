@@ -16,11 +16,6 @@ deploy:
   secret_access_key: $AWS_SECRET_KEY
   local_dir: dpl_cd_upload
   skip_cleanup: true
-  on:
-    repo: Cynicalbird/cps630-project
-    branches:
-      only:
-        - release
   bucket: operation-ignition
   region: us-west-1
 - provider: codedeploy
