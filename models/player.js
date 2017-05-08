@@ -2,79 +2,75 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
 var playerSchema = mongoose.Schema({
-        name: {
-                type: String
+		name: {
+			type: String
         },
        	avatar: {
-            	type: String
+			type: String
         },
         stats: {
-                level: Number,
-		hp: Number,
-		maxhp: Number,
-		mana: Number,
-		maxmana: Number,
-		speed: Number,
-		exp: Number
+			level: Number,
+			hp: Number,
+			maxhp: Number,
+			mana: Number,
+			maxmana: Number,
+			speed: Number,
+			exp: Number
         },
-	skills: [
-		{
-			name: String,
-      			tier: String,
-      			dmg: Number,
-      			manacost: Number
+		skills: [
+			{
+				name: String,
+				tier: String,
+				dmg: Number,
+				manacost: Number
+			},
+
+			{
+				name: String,
+				tier: String,
+				dmg: Number,
+				manacost: Number
+			},
+			{
+				name: String,
+				tier: String,
+				dmg: Number,
+				manacost: Number
+			},
+
+			{
+				name: String,
+				tier: String,
+				dmg: Number,
+				manacost: Number
+			}
+		],
+		created: {
+			type: Boolean
 		},
-		
-		{
-			name: String,
-                        tier: String,
-                        dmg: Number,
-                        manacost: Number
+		ramz: {
+			type: Number
 		},
-		{
-			name: String,
-                        tier: String,
-                        dmg: Number,
-                        manacost: Number
+		hair: {
+			style:String,
+			color:String
 		},
-		
-		{
-			name: String,
-                        tier: String,
-                        dmg: Number,
-                        manacost: Number
-		}
-	],
-	created: {
-		type: Boolean
-	},
-	ramz: {
-		type: Number
-	},
-	hair: {
-		style:String,
-		color:String
-	},
-	eyes: {
-		type: String
-	},
-	skin: {
-		type: String
-	},
-	facility: {
-		type: String
-	},
-	wins: {
-		type: Number
-	},
-	loss: {
-		type: Number
-	},
-	items: [
-		{
-			potions: Number
-		}	
-	]
+		eyes: {
+			type: String
+		},
+		skin: {
+			type: String
+		},
+		facility: {
+			type: String
+		},
+		wins: {
+			type: Number
+		},
+		loss: {
+			type: Number
+		},
+		items: []
 });
 
 var Player = module.exports = mongoose.model('Player', playerSchema);
