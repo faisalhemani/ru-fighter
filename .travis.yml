@@ -28,6 +28,6 @@ deploy:
   key: latest.zip
   bundle_type: zip
   application: operation-ignition
-  deployment_group: operation-ignition
+  deployment_group: ignition-servers
   region: us-west-2
   on: *2
