@@ -6,6 +6,10 @@ services:
 cache:
   directories:
     - node_modules
+script:
+  - zip -r latest *
+  - mkdir -p dpl_cd_upload
+  - mv latest.zip dpl_cd_upload/latest.zip
 deploy:
 - provider: s3
   access_key_id: $AWS_ACCESS_KEY
@@ -26,7 +30,3 @@ deploy:
   deployment_group: operation-ignition
   region: us-west-1
   on: *2
-script:
-  - zip -r latest *
-  - mkdir -p dpl_cd_upload
-  - mv latest.zip dpl_cd_upload/latest.zip
