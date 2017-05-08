@@ -18,7 +18,8 @@ deploy:
   skip_cleanup: true
   on: &2
     branch: release
-  bucket: operation-ignition
+  bucket:
+  operation-ignition
   region: us-west-1
 - provider: codedeploy
   access_key_id: $AWS_ACCESS_KEY
@@ -28,5 +29,5 @@ deploy:
   bundle_type: zip
   application: operation-ignition
   deployment_group: operation-ignition
-  region: us-west-1
+  region: us-west-2
   on: *2
